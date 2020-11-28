@@ -1,6 +1,6 @@
 <?php
 
-use App\Phim;
+use App\Models\Phim;
 use Illuminate\Database\Seeder;
 
 class PhimSeeder extends Seeder

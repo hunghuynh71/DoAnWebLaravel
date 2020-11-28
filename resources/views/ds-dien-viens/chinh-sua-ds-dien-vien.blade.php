@@ -20,12 +20,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Chỉnh sửa phim</h1>
+          <h1>Chỉnh sửa danh sách diễn viên</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Chỉnh sửa phim</li>
+            <li class="breadcrumb-item active">Chỉnh sửa danh sách diễn viên</li>
           </ol>
         </div>
       </div>
@@ -49,83 +49,38 @@
               </div>
             </div>
             <div class="card-body">
+            <div class="alert alert-{{Session::get('flag')}}">{{Session::get('message')}}</div>
               <div class="form-group">
-                <label for="tenPhim">Tên phim</label>
-                <input type="text" name="tenPhim" class="form-control" value="{{$phim->ten_phim}}">
-              </div>
-              <div class="form-group">
-                <label for="daoDien">Đạo diễn</label>
-                <select name="daoDien" class="form-control custom-select">
-                  <option selected disabled>Chọn đạo diễn</option>
-                  @foreach($dao_diens as $dd)
-                  @if($dd->id==$phim->dao_dien)
-                  <option value="{{$dd->id}}" selected="selected">{{$dd->ten_dd}}</option>
+                <label for="phim">Phim</label>
+                <select name="phim" class="form-control custom-select">
+                  <option selected disabled>Chọn phim</option>
+                  @foreach($phims as $p)
+                  @if($p->id==$dsdv->phim)
+                  <option value="{{$p->id}}" selected="selected">{{$p->ten_phim}}</option>
                   @else
-                  <option value="{{$dd->id}}">{{$dd->ten_dd}}</option>
+                  <option value="{{$p->id}}">{{$p->ten_phim}}</option>
                   @endif
+                  
                   @endforeach
                 </select>
               </div>
               <div class="form-group">
-                <label for="dienVien">Danh sách diễn viên</label>
-                <!--<select name="dienVien" class="form-control custom-select">
+                <label for="dienVien">Diễn viên</label>
+                <select name="dienVien" class="form-control custom-select">
                   <option selected disabled>Chọn diễn viên</option>
                   @foreach($dien_viens as $dv)
-                  @if($dv->id==$phim->dien_vien)
+                  @if($dv->id==$dsdv->dien_vien)
                   <option value="{{$dv->id}}" selected="selected">{{$dv->ten_dv}}</option>
                   @else
                   <option value="{{$dv->id}}">{{$dv->ten_dv}}</option>
                   @endif
                   @endforeach
-                </select>-->
-                <input type="text" name="dienViens" class="form-control" value="{{$ds_dien_viens}}">
-                <a href="{{route('')}}" class="btn btn-secondary">Chỉnh sửa</a>
-              </div>
-              <div class="form-group">
-                <label for="theLoai">Thể loại</label>
-                <select name="theLoai" class="form-control custom-select">
-                  <option selected disabled>Chọn thể loại</option>
-                  @foreach($the_loais as $tl)
-                  @if($tl->id==$phim->the_loai)
-                  <option value="{{$tl->id}}" selected="selected">{{$tl->ten_tl}}</option>
-                  @else
-                  <option value="{{$tl->id}}">{{$tl->ten_tl}}</option>
-                  @endif
-                  @endforeach
                 </select>
-              </div>
-              <div class="form-group">
-                <label for="quocGia">Quốc gia</label>
-                <input type="text" name="quocGia" class="form-control" value="{{$phim->quoc_gia}}">
-              </div>
-              <div class="form-group">
-                <label for="hinhAnh">Hình ảnh</label>
-                <input type="file" name="hinhAnh" class="form-control" value="{{$phim->hinh_anh}}">
-              </div>
-              <div class="form-group">
-                <label for="nhaSanXuat">Nhà sản xuất</label>
-                <input type="text" name="nhaSanXuat" class="form-control" value="{{$phim->nha_san_xuat}}">
-              </div>
-              <div class="form-group">
-                <label for="ngayXuatBan">Ngày xuất bản</label>
-                <input type="date" name="ngayXuatBan" class="form-control" value="{{$phim->ngay_san_xuat}}">
-              </div>
-              <div class="form-group">
-                <label for="thoiLuong">Thời lượng</label>
-                <input type="text" name="thoiLuong" class="form-control" value="{{$phim->thoi_luong}}">
-              </div>
-              <div class="form-group">
-                <label for="trailer">Trailer</label>
-                <input type="text" name="trailer" class="form-control" value="{{$phim->trailer}}">
-              </div>
-              <div class="form-group">
-                <label for="diem">Điểm</label>
-                <input type="text" name="diem" class="form-control" value="{{$phim->diem}}">
               </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <a href="{{route('phim.getPhims')}}" class="btn btn-secondary">Thoát</a>
+              <a href="{{route('ds-dien-vien.getDsDienViens')}}" class="btn btn-secondary">Thoát</a>
               <input type="submit" value="Chỉnh sửa phim" class="btn btn-success float-right">
             </div>
             <!-- /.card-footer -->

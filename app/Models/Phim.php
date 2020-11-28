@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,19 +27,19 @@ class Phim extends Model
     ];
 
     public function binh_luans(){
-        return $this->hasMany('Models\BinhLuan','phim','id');
+        return $this->hasMany('App\Models\BinhLuan','phim','id');
     }
 
     public function lich_chieus(){
-        return $this->hasMany('Models\LichChieu','phim','id');
+        return $this->hasMany('App\Models\LichChieu','phim','id');
     }
 
     public function the_loai(){
-        return $this->belongsTo('Models\TheLoai','the_loai');
+        return $this->belongsTo('App\Models\TheLoai','the_loai');
     }
 
     public function ds_dien_viens(){
-        return $this->hasMany('Models\DsDienVien','phim','id');
+        return $this->hasMany('App\Models\DsDienVien','phim','id');
     }
 
     public function dao_dien(){

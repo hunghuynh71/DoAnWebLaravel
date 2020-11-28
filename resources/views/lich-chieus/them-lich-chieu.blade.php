@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title','Thêm phim')
+@section('title','Thêm lịch chiếu')
 
 @section('css')
 <!-- Font Awesome -->
@@ -49,6 +49,7 @@
               </div>
             </div>
             <div class="card-body">
+              <div class="alert alert-{{Session::get('flag')}}">{{Session::get('message')}}</div>
               <div class="form-group">
                 <label for="phim">Phim</label>
                 <select name="phim" class="form-control custom-select">

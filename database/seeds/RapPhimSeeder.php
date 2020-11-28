@@ -1,6 +1,6 @@
 <?php
 
-use App\RapPhim;
+use App\Models\RapPhim;
 use Illuminate\Database\Seeder;
 
 class RapPhimSeeder extends Seeder

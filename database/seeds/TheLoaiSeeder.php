@@ -1,6 +1,6 @@
 <?php
 
-use App\TheLoai;
+use App\Models\TheLoai;
 use Illuminate\Database\Seeder;
 
 class TheLoaiSeeder extends Seeder

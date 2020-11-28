@@ -99,7 +99,11 @@
                 {{$phims[$p]->dao_dien}}
               </td>
               <td>
-                {{$phims[$p]->dien_vien}}
+                @foreach($ds_dien_viens as $ds)
+                @if($ds->phim==$phims[$p]->id)
+                {{$ds->dien_vien}}&nbsp;
+                @endif
+                @endforeach
               </td>
               <td>
                 {{$phims[$p]->the_loai}}

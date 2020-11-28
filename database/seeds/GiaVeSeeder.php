@@ -1,6 +1,6 @@
 <?php
 
-use App\GiaVe;
+use App\Models\GiaVe;
 use Illuminate\Database\Seeder;
 
 class GiaVeSeeder extends Seeder

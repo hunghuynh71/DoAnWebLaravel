@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +15,6 @@ class Quyen extends Model
         'ten_quyen',
     ];
     public function nhan_viens(){
-        return $this->hasMany('Models\NhanVien','quyen','id');
+        return $this->hasMany('App\Models\NhanVien','quyen','id');
     }
 }

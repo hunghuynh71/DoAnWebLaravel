@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,14 +16,14 @@ class RapPhim extends Model
     ];
     
     public function chi_nhanh(){
-        return $this->belongsTo('Models\ChiNhanh','chi_nhanh');
+        return $this->belongsTo('App\Models\ChiNhanh','chi_nhanh');
     }
 
     public function lich_chieus(){
-        return $this->hasMany('Models\LichChieu','rap','id');
+        return $this->hasMany('App\Models\LichChieu','rap','id');
     }
 
     public function ghes(){
-        return $this->hasMany('Models\Ghe','rap','id');
+        return $this->hasMany('App\Models\Ghe','rap','id');
     }
 }

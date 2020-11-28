@@ -1,6 +1,6 @@
 <?php
 
-use App\Quyen;
+use App\Models\Quyen;
 use Illuminate\Database\Seeder;
 
 class QuyenSeeder extends Seeder

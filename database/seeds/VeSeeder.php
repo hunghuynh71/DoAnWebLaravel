@@ -1,6 +1,6 @@
 <?php
 
-use App\Ve;
+use App\Models\Ve;
 use Illuminate\Database\Seeder;
 
 class VeSeeder extends Seeder

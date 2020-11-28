@@ -44,7 +44,7 @@
         <a class="btn btn-success btn-sm" href="{{route('ds-dien-vien.addDsDienVien')}}">
           <i class="fas fa-folder">
           </i>
-          Thêm phim
+          Thêm danh sách diễn viên
         </a>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">

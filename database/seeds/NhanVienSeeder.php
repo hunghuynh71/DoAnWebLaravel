@@ -1,6 +1,6 @@
 <?php
 
-use App\NhanVien;
+use App\Models\NhanVien;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 

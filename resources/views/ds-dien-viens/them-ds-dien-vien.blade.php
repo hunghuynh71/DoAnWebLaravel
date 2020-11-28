@@ -20,12 +20,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Thêm phim</h1>
+          <h1>Thêm danh sách diễn viên</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Thêm phim</li>
+            <li class="breadcrumb-item active">Thêm danh sách diễn viên</li>
           </ol>
         </div>
       </div>
@@ -49,16 +49,13 @@
               </div>
             </div>
             <div class="card-body">
+            <div class="alert alert-{{Session::get('flag')}}">{{Session::get('message')}}</div>
               <div class="form-group">
-                <label for="tenPhim">Tên phim</label>
-                <input type="text" name="tenPhim" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="daoDien">Đạo diễn</label>
-                <select name="daoDien" class="form-control custom-select">
-                  <option selected disabled>Chọn đạo diễn</option>
-                  @foreach($dao_diens as $dd)
-                  <option value="{{$dd->id}}">{{$dd->ten_dd}}</option>
+                <label for="phim">Phim</label>
+                <select name="phim" class="form-control custom-select">
+                  <option selected disabled>Chọn phim</option>
+                  @foreach($phims as $p)
+                  <option value="{{$p->id}}">{{$p->ten_phim}}</option>
                   @endforeach
                 </select>
               </div>
@@ -71,53 +68,11 @@
                   @endforeach
                 </select>
               </div>
-              <div class="form-group">
-                <label for="theLoai">Thể loại</label>
-                <select name="theLoai" class="form-control custom-select">
-                  <option selected disabled>Chọn thể loại</option>
-                  @foreach($the_loais as $tl)
-                  <option value="{{$tl->id}}">{{$tl->ten_tl}}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="quocGia">Quốc gia</label>
-                <select name="quocGia" class="form-control custom-select">
-                  <option selected disabled>Chọn quốc gia</option>
-                  @foreach($quoc_gias as $qg)
-                  <option value="{{$qg->id}}">{{$qg->ten_qg}}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="hinhAnh">Hình ảnh</label>
-                <input type="file" name="hinhAnh" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="nhaSanXuat">Nhà sản xuất</label>
-                <input type="text" name="nhaSanXuat" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="ngayXuatBan">Ngày xuất bản</label>
-                <input type="date" name="ngayXuatBan" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="thoiLuong">Thời lượng</label>
-                <input type="text" name="thoiLuong" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="trailer">Trailer</label>
-                <input type="text" name="trailer" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="diem">Điểm</label>
-                <input type="text" name="diem" class="form-control">
-              </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <a href="{{route('phim.getPhims')}}" class="btn btn-secondary">Thoát</a>
-              <input type="submit" value="Thêm phim" class="btn btn-success float-right">
+              <a href="{{route('ds-dien-vien.getDsDienViens')}}" class="btn btn-secondary">Thoát</a>
+              <input type="submit" value="Thêm danh sách diễn viên" class="btn btn-success float-right">
             </div>
             <!-- /.card-footer -->
 

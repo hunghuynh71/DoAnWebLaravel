@@ -1,6 +1,6 @@
 <?php
 
-use App\LichChieu;
+use App\Models\LichChieu;
 use Illuminate\Database\Seeder;
 
 class LichChieuSeeder extends Seeder

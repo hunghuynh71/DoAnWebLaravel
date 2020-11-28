@@ -14,11 +14,14 @@ class CreateDsDienViensTable extends Migration
     public function up()
     {
         Schema::create('ds_dien_viens', function (Blueprint $table) {
+            //$table->increments('id');
+            //$table->dropPrimary('id');
             $table->integer('id')->default(1);
             $table->integer('phim')->unsigned();
             $table->integer('dien_vien')->unsigned();
             $table->primary(array('id','phim','dien_vien'));
-            $table->increments('id')->change();
+            $table->boolean('da_xoa')->default(0);
+            //$table->increments('id')->change();
             $table->timestamps();
 
             $table->foreign('phim')->references('id')->on('phims');

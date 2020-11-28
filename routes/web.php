@@ -37,7 +37,7 @@ Route::prefix('phim')->group(function(){
 });
 
 Route::prefix('ds-dien-vien')->group(function(){
-    Route::get('ds-dien-vien/{id}', 'AdminController@getDsDienViens')->name('ds-dien-vien.getDsDienViens');
+    Route::get('ds-dien-vien', 'AdminController@getDsDienViens')->name('ds-dien-vien.getDsDienViens');
     Route::get('chi-tiet-ds-dien-vien/{id}', 'AdminController@dsDienVienDetail')->name('ds-dien-vien.dsDienVienDetail');
     Route::match(['get','post'],'them-ds-dien-vien','AdminController@addDsDienVien')->name('ds-dien-vien.addDsDienVien');
     Route::match(['get','post'],'chinh-sua-ds-dien-vien/{id}','AdminController@editDsDienVien')->name('ds-dien-vien.editDsDienVien');

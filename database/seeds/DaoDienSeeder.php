@@ -1,6 +1,6 @@
 <?php
 
-use App\DaoDien;
+use App\Models\DaoDien;
 use Illuminate\Database\Seeder;
 
 class DaoDienSeeder extends Seeder

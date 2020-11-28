@@ -1,6 +1,6 @@
 <?php
 
-use App\LoaiGhe;
+use App\Models\LoaiGhe;
 use Illuminate\Database\Seeder;
 
 class LoaiGheSeeder extends Seeder

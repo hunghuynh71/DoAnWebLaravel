@@ -1,6 +1,6 @@
 <?php
 
-use App\KhungTGChieu;
+use App\Models\KhungTGChieu;
 use Illuminate\Database\Seeder;
 
 class KhungTGChieuSeeder extends Seeder

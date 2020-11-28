@@ -1,6 +1,6 @@
 <?php
 
-use App\DsVe;
+use App\Models\DsVe;
 use Illuminate\Database\Seeder;
 
 class DsVeSeeder extends Seeder

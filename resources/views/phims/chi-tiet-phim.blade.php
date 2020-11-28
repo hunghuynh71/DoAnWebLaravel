@@ -53,6 +53,9 @@
             <h1 class="text-primary text-center">{{$phim->ten_phim}}</h1>
             <p>Đạo diễn: {{$phim->dao_dien}}</p>
             <p>Diễn viên: </p>
+            @foreach($ds_dien_viens as $ds)
+              {{$ds->dien_vien}}&nbsp;
+            @endforeach
             <p>Thể loại: {{$phim->the_loai}}</p>
             <p>Quốc gia: {{$phim->quoc_gia}}</p>
             <p>Hình ảnh: {{$phim->hinh_anh}}</p>

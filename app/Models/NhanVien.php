@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,14 +25,14 @@ class NhanVien extends Model
     ];
     
     public function quyen(){
-        return $this->belongsTo('Models\Quyen','quyen');
+        return $this->belongsTo('App\Models\Quyen','quyen');
     }
 
     public function lich_chieus(){
-        return $this->hasMany('Models\LichChieu','nv_lap','id');
+        return $this->hasMany('App\Models\LichChieu','nv_lap','id');
     }
 
     public function phims(){
-        return $this->hasMany('Models\Phim','nv_duyet','id');
+        return $this->hasMany('App\Models\Phim','nv_duyet','id');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Ghe;
+use App\Models\Ghe;
 use Illuminate\Database\Seeder;
 
 class GheSeeder extends Seeder

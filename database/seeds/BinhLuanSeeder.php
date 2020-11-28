@@ -1,6 +1,6 @@
 <?php
 
-use App\BinhLuan;
+use App\Models\BinhLuan;
 use Illuminate\Database\Seeder;
 
 class BinhLuanSeeder extends Seeder

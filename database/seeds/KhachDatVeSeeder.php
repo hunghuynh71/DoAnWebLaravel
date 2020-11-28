@@ -1,6 +1,6 @@
 <?php
 
-use App\KhachDatVe;
+use App\Models\KhachDatVe;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 

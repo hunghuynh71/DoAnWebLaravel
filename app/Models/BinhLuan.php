@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,10 +16,10 @@ class BinhLuan extends Model
     ];
 
     public function phim(){
-        return $this->belongsTo('Models\Phim','phim');
+        return $this->belongsTo('App\Models\Phim','phim');
     }
 
     public function khach_dat_ve(){
-        return $this->belongsTo('Models\KhachDatVe','nguoi_binh_luan');
+        return $this->belongsTo('App\Models\KhachDatVe','nguoi_binh_luan');
     }
 }

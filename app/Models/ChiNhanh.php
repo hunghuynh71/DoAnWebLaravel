@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +16,6 @@ class ChiNhanh extends Model
     ];
 
     public function rap_phims(){
-        return $this->hasMany('Models\RapPhim','chi_nhanh','id');
+        return $this->hasMany('App\Models\RapPhim','chi_nhanh','id');
     }
 }

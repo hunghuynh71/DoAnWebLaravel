@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,14 +16,14 @@ class Ghe extends Model
     ];
     
     public function rap_phim(){
-        return $this->belongsTo('Models\RapPhim','rap');
+        return $this->belongsTo('App\Models\RapPhim','rap');
     }
 
     public function loai_ghe(){
-        return $this->belongsTo('Models\LoaiGhe','loai_ghe');
+        return $this->belongsTo('App\Models\LoaiGhe','loai_ghe');
     }
 
     public function ves(){
-        return $this->hasMany('Models\Ve','ghe','id');
+        return $this->hasMany('App\Models\Ve','ghe','id');
     }
 }

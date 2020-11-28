@@ -20,12 +20,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Chi tiết phim</h1>
+          <h1>Chi tiết danh sách diễn viên</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Chi tiết phim</li>
+            <li class="breadcrumb-item active">Chi tiết danh sách diễn viên</li>
           </ol>
         </div>
       </div>
@@ -38,7 +38,7 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Thông tin phim</h3>
+        <h3 class="card-title">Chi tiết danh sách diễn viên</h3>
 
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -50,21 +50,11 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
-            <h1 class="text-primary text-center">{{$phim->ten_phim}}</h1>
-            <p>Đạo diễn: {{$phim->dao_dien}}</p>
-            <p>Diễn viên: </p>
-            <p>Thể loại: {{$phim->the_loai}}</p>
-            <p>Quốc gia: {{$phim->quoc_gia}}</p>
-            <p>Hình ảnh: {{$phim->hinh_anh}}</p>
-            <p>Nhà sản xuất: {{$phim->nha_san_xuat}}</p>
-            <p>Ngày xuất bản: {{$phim->ngay_xuat_ban}}</p>
-            <p>Thời lượng: {{$phim->thoi_luong}}</p>
-            <p>Trailer: {{$phim->trailer}}</p>
-            <p>Điểm: {{$phim->diem}}</p>
-            <p>Nhân viên duyệt: {{$phim->nv_duyet}}</p>
+            <p>Phim: {{$dsdv->phim}}</p>
+            <p>Diễn viên: {{$dsdv->dien_vien}}</p>
             <div class="text-center mt-5 mb-3">
-              <a href="{{route('phim.editPhim',$phim->id)}}" class="btn btn-sm btn-primary">Chỉnh sửa</a>
-              <a href="{{route('phim.getPhims') }}" class="btn btn-sm btn-warning">Thoát</a>
+              <a href="{{route('ds-dien-vien.editDsDienVien',$dsdv->id)}}" class="btn btn-sm btn-primary">Chỉnh sửa</a>
+              <a href="{{route('ds-dien-vien.getDsDienViens')}}" class="btn btn-sm btn-warning">Thoát</a>
             </div>
           </div>
         </div>

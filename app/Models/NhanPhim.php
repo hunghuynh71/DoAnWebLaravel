@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +16,6 @@ class NhanPhim extends Model
     ];
     
     public function gias(){
-        return $this->hasMany('Models\Gia','nhan_phim','id');
+        return $this->hasMany('App\Models\Gia','nhan_phim','id');
     }
 }

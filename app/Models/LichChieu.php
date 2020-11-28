@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,22 +16,22 @@ class LichChieu extends Model
     ];
     
     public function phim(){
-        return $this->belongsTo('Models\Phim','phim');
+        return $this->belongsTo('App\Models\Phim','phim');
     }
 
     public function khung_t_g_chieu(){
-        return $this->belongsTo('Models\KhungTGChieu','khung_tg_chieu');
+        return $this->belongsTo('App\Models\KhungTGChieu','khung_tg_chieu');
     }
 
     public function rap_phim(){
-        return $this->belongsTo('Models\RapPhim','rap');
+        return $this->belongsTo('App\Models\RapPhim','rap');
     }
 
     public function ves(){
-        return $this->hasMany('Models\Ve','lich_chieu','id');
+        return $this->hasMany('App\Models\Ve','lich_chieu','id');
     }
 
     public function nhan_vien(){
-        return $this->belongsTo('Models\NhanVien','nv_lap');
+        return $this->belongsTo('App\Models\NhanVien','nv_lap');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\ChiNhanh;
+use App\Models\ChiNhanh;
 use Illuminate\Database\Seeder;
 
 class ChiNhanhSeeder extends Seeder

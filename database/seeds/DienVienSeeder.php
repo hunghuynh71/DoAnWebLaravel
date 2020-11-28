@@ -1,6 +1,6 @@
 <?php
 
-use App\DienVien;
+use App\Models\DienVien;
 use Illuminate\Database\Seeder;
 
 class DienVienSeeder extends Seeder

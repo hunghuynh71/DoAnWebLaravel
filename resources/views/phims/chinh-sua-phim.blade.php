@@ -67,19 +67,8 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="dienVien">Danh sách diễn viên</label>
-                <!--<select name="dienVien" class="form-control custom-select">
-                  <option selected disabled>Chọn diễn viên</option>
-                  @foreach($dien_viens as $dv)
-                  @if($dv->id==$phim->dien_vien)
-                  <option value="{{$dv->id}}" selected="selected">{{$dv->ten_dv}}</option>
-                  @else
-                  <option value="{{$dv->id}}">{{$dv->ten_dv}}</option>
-                  @endif
-                  @endforeach
-                </select>-->
-                <input type="text" name="dienViens" class="form-control" value="{{$ds_dien_viens}}">
-                <a href="{{route('')}}" class="btn btn-secondary">Chỉnh sửa</a>
+                <label for="dienVien">Danh sách diễn viên</label>&nbsp;
+                <a href="{{route('ds-dien-vien.getDsDienViens')}}" class="btn btn-secondary">Danh sách diễn viên</a>
               </div>
               <div class="form-group">
                 <label for="theLoai">Thể loại</label>
@@ -108,7 +97,7 @@
               </div>
               <div class="form-group">
                 <label for="ngayXuatBan">Ngày xuất bản</label>
-                <input type="date" name="ngayXuatBan" class="form-control" value="{{$phim->ngay_san_xuat}}">
+                <input type="date" name="ngayXuatBan" class="form-control" value="{{$phim->ngay_xuat_ban}}">
               </div>
               <div class="form-group">
                 <label for="thoiLuong">Thời lượng</label>

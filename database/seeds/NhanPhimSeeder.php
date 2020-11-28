@@ -1,6 +1,6 @@
 <?php
 
-use App\NhanPhim;
+use App\Models\NhanPhim;
 use Illuminate\Database\Seeder;
 
 class NhanPhimSeeder extends Seeder

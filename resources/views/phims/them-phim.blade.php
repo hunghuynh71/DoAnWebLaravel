@@ -64,12 +64,7 @@
               </div>
               <div class="form-group">
                 <label for="dienVien">Diễn viên</label>
-                <select name="dienVien" class="form-control custom-select">
-                  <option selected disabled>Chọn diễn viên</option>
-                  @foreach($dien_viens as $dv)
-                  <option value="{{$dv->id}}">{{$dv->ten_dv}}</option>
-                  @endforeach
-                </select>
+                <a href="{{route('ds-dien-vien.getDsDienViens')}}" class="btn btn-secondary">Danh sách diễn viên</a>
               </div>
               <div class="form-group">
                 <label for="theLoai">Thể loại</label>
@@ -81,17 +76,12 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="quocGia">Quốc gia</label>
-                <select name="quocGia" class="form-control custom-select">
-                  <option selected disabled>Chọn quốc gia</option>
-                  @foreach($quoc_gias as $qg)
-                  <option value="{{$qg->id}}">{{$qg->ten_qg}}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="form-group">
                 <label for="hinhAnh">Hình ảnh</label>
                 <input type="file" name="hinhAnh" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="quocGia">Quốc gia</label>
+                <input type="text" name="quocGia" class="form-control">
               </div>
               <div class="form-group">
                 <label for="nhaSanXuat">Nhà sản xuất</label>

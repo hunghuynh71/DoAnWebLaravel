@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +16,6 @@ class DaoDien extends Model
     ];
 
     public function phims(){
-        return $this->hasMany('Models\Phim','dao_dien','id');
+        return $this->hasMany('App\Models\Phim','dao_dien','id');
     }
 }

@@ -27,7 +27,7 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Danh mục chức năng
+                Danh mục quản lý
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -35,43 +35,97 @@
               <li class="nav-item">
                 <a href="{{route('phim.getPhims')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Quản lí phim</p>
+                  <p>Phim</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{route('lich-chieu.getLichChieus')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Quản lí lịch chiếu</p>
+                  <p>Lịch chiếu</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="index3" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Quản lí đặt vé</p>
+                  <p>Đặt vé</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="index3" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Quản lí danh mục phim</p>
+                  <p>Thể loại phim</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="index3" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Quản lí khách đặt vé</p>
+                  <p>Khách đặt vé</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="index3" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Quản lí tài khoản quản trị</p>
+                  <p>Tài khoản quản trị</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="index3" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Quản lí bình luận</p>
+                  <p>Bình luận</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index3" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Chi nhánh</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index3" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Đạo diễn</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index3" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Diễn viên</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index3" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ghế</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index3" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Loại ghế</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index3" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nhãn phim</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index3" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nhân viên</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index3" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Quyền</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index3" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Rạp phim</p>
                 </a>
               </li>
             </ul>
