@@ -1,0 +1,22 @@
+<?php
+
+use App\GiaVe;
+use Illuminate\Database\Seeder;
+
+class GiaVeSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $gv=new GiaVe();
+        $gv->loai_ghe=1;
+        $gv->nhan_phim=1;
+        $gv->khung_tg_chieu=1;
+        $gv->gia=70000;
+        $gv->save();
+    }
+}
