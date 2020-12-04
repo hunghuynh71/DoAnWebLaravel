@@ -33,25 +33,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('phim.getPhims')}}" class="nav-link active">
+                <a href="{{url('phim/phim')}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Phim</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('lich-chieu.getLichChieus')}}" class="nav-link">
+                <a href="{{url('lich-chieu/lich-chieu')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Lịch chiếu</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3" class="nav-link">
+                <a href="{{url('ve/ve')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Đặt vé</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3" class="nav-link">
+                <a href="{{url('the-loai/the-loai')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thể loại phim</p>
                 </a>

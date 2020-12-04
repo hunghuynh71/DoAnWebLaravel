@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title','Chỉnh sửa phim')
+@section('title','Thêm danh sách vé')
 
 @section('css')
 <!-- Font Awesome -->
@@ -20,12 +20,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Chỉnh sửa danh sách diễn viên</h1>
+          <h1>Thêm danh sách vé</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Chỉnh sửa danh sách diễn viên</li>
+            <li class="breadcrumb-item active">Thêm danh sách vé</li>
           </ol>
         </div>
       </div>
@@ -49,38 +49,28 @@
               </div>
             </div>
             <div class="card-body">
-            <div class="alert alert-{{Session::get('flag')}}">{{Session::get('message')}}</div>
               <div class="form-group">
                 <label for="phim">Phim</label>
-                <select name="phim" class="form-control custom-select">
-                  <option selected disabled>Chọn phim</option>
-                  @foreach($phims as $p)
-                  @if($p->id==$dsdv->phim)
-                  <option value="{{$p->id}}" selected="selected">{{$p->ten_phim}}</option>
-                  @else
-                  <option value="{{$p->id}}">{{$p->ten_phim}}</option>
-                  @endif
+                <input type="date" name="tgDat" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="khachDatVe">Khách đặt vé</label>
+                <select name="khachDatVe" class="form-control custom-select">
+                  <option selected disabled>Chọn khách đặt vé</option>
+                  @foreach($khach_dat_ves as $kdv)
+                  <option value="{{$kdv->id}}">{{$kdv->ten_kdv}}</option>
                   @endforeach
                 </select>
               </div>
               <div class="form-group">
-                <label for="dienVien">Diễn viên</label>
-                <select name="dienVien" class="form-control custom-select">
-                  <option selected disabled>Chọn diễn viên</option>
-                  @foreach($dien_viens as $dv)
-                  @if($dv->id==$dsdv->dien_vien)
-                  <option value="{{$dv->id}}" selected="selected">{{$dv->ten_dv}}</option>
-                  @else
-                  <option value="{{$dv->id}}">{{$dv->ten_dv}}</option>
-                  @endif
-                  @endforeach
-                </select>
+                <label for="slVe">Số vé</label>
+                <input type="number" name="slVe" class="form-control">
               </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <a href="{{route('ds-dien-vien.getDsDienViens')}}" class="btn btn-secondary">Thoát</a>
-              <input type="submit" value="Chỉnh sửa phim" class="btn btn-success float-right">
+              <a href="{{url('ds-ve/ds-ve')}}" class="btn btn-secondary">Thoát</a>
+              <input type="submit" value="Thêm danh sách vé" class="btn btn-success float-right">
             </div>
             <!-- /.card-footer -->
 

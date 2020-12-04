@@ -12,6 +12,12 @@ use App\Models\Quyen;
 use App\Models\RapPhim;
 use App\Models\TheLoai;
 use App\Models\DienVien;
+use App\Models\DsVe;
+use App\Models\GiaVe;
+use App\Models\Ve;
+use App\Models\KhachDatVe;
+use App\Models\Ghe;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -124,7 +130,6 @@ class AdminController extends Controller
           $phim->thoi_luong=$thoi_luong;
           $phim->trailer=$trailer;
           $phim->diem=$diem;
-          //$phim->nv_duyet=$GLOBALS['nv'];
           $phim->nv_duyet=1;
           $phim->save();
           return redirect()->route('phim.getPhims');
@@ -194,34 +199,17 @@ class AdminController extends Controller
             $phim=$request->input('phim');
             $dien_vien=$request->input("dienVien");
 
-            $dsdv=new DsDienVien();
-            $dsdv->id=$this->getMaxIdInDsDV()+1;
-            if(!$this->ktTrung($phim,$dien_vien)){
+            try{
+                $dsdv=new DsDienVien();
                 $dsdv->phim=$phim;
                 $dsdv->dien_vien=$dien_vien;
                 $dsdv->save();
                 return redirect()->route('ds-dien-vien.getDsDienViens');
-            }else{
-                return redirect()->back()->with(['flag'=>'danger','message'=>'Danh sách diễn viên đã tồn tại']);
+            }catch(Exception $e){
+                return redirect()->back()->with(['flag'=>'danger','message'=>'Có thể danh sách diễn viên đã tồn tại']);
             }
         }
         return view('ds-dien-viens.them-ds-dien-vien',compact('phims','dien_viens'));
-    }
-
-    public function getMaxIdInDsDV(){
-        $count=DsDienVien::all()->count();
-        return $count;
-    }
-
-    public function ktTrung($id_phim,$id_dv){
-        $flag=false;
-        $dsdv=DsDienVien::where('da_xoa',false)->get();
-        $sl=$dsdv->count();
-        for($i=0;$i<$sl;$i++){
-            if($dsdv[$i]->phim==$id_phim&&$dsdv[$i]->dien_vien==$id_dv)
-                $flag=true;
-        }
-        return $flag;
     }
 
     public function editDsDienVien(Request $request){
@@ -232,14 +220,14 @@ class AdminController extends Controller
             $phim=$request->input('phim');
             $dien_vien=$request->input("dienVien");
 
-            if(!$this->ktTrung($phim,$dien_vien)){
+            try{
                 $dsdv->phim=$phim;
                 $dsdv->dien_vien=$dien_vien;
                 $dsdv->save();
                 return redirect()->route('ds-dien-vien.getDsDienViensByPhim',$phim);
-            }else{
-                return redirect()->back()->with(['flag'=>'danger','message'=>'Danh sách diễn viên đã tồn tại']);
-            }            
+            }catch(Exception $e){
+                return redirect()->back()->with(['flag'=>'danger','message'=>'Có thể danh sách diễn viên đã tồn tại']);
+            }         
         }
         return view('ds-dien-viens.chinh-sua-ds-dien-vien',compact('phims','dien_viens','dsdv'));
     }
@@ -270,8 +258,8 @@ class AdminController extends Controller
           $phim=$request->input("phim");
           $khung_tg_chieu=$request->input("khungTGChieu");
           $rap=$request->input("rap");
-            
-          if(!$this->ktTrungLichChieu($phim,$khung_tg_chieu,$rap)){
+           
+          try{
             $lichChieu=new LichChieu();
             $lichChieu->phim=$phim;
             $lichChieu->khung_tg_chieu=$khung_tg_chieu;
@@ -279,25 +267,11 @@ class AdminController extends Controller
             $lichChieu->nv_lap=1;
             $lichChieu->save();
             return redirect()->route('lich-chieu.getLichChieus');
-          }else{
-            return redirect()->back()->with(['flag'=>'danger','message'=>'Lịch chiếu đã tồn tại']);
+          }catch(Exception $e){
+            return redirect()->back()->with(['flag'=>'danger','message'=>'Có thể lịch chiếu đã tồn tại']);
           }
         }
         return view('lich-chieus.them-lich-chieu',compact('phims','khung_tg_chieus','raps'));
-    }
-
-    public function ktTrungLichChieu($id_phim,$id_khung_tg_chieu,$id_rap){
-        $lichChieus=LichChieu::where('da_xoa',false)->get();
-        $sl=$lichChieus->count();
-        $flag=false;
-        for($i=0;$i<$sl;$i++){
-            if($lichChieus[$i]->phim==$id_phim
-            &&$lichChieus[$i]->khung_tg_chieu==$id_khung_tg_chieu
-            &&$lichChieus[$i]->rap==$id_rap){
-                $flag=true;
-            }
-        }
-        return $flag;
     }
     
     public function deleteLichChieu(Request $request){
@@ -307,24 +281,123 @@ class AdminController extends Controller
         return redirect()->route('lich-chieu.getLichChieus');
     }
 
-    //Quản lí đặt vé
+    //Quản lí thể loại
+    public function getTheLoais(){
+        $the_loais=TheLoai::where('da_xoa',false)->get();
+        $sl_the_loai=$the_loais->count();
+        return view('the-loais.the-loais',compact('the_loais','sl_the_loai'));
+    }
+
+    public function addTheLoai(Request $request){
+        if($request->isMethod('post')){
+          $ten_tl=$request->input("tenTheLoai");
+
+          $the_loai=new TheLoai();
+          $the_loai->ten_tl=$ten_tl;
+          $the_loai->save();
+          return redirect()->route('the-loai.getTheLoais');
+        }
+        return view('the-loais/them-the-loai');
+    }
+
+    public function editTheLoai(Request $request){
+        $the_loai=TheLoai::where('id',$request->id,'da_xoa',false)->first();
+        if($request->isMethod('post')){
+            $ten_tl=$request->input("tenTheLoai");
+  
+            $the_loai->ten_tl=$ten_tl;
+            $the_loai->save();
+            return redirect()->route('the-loai.getTheLoais');
+          }
+        return view('the-loais/chinh-sua-the-loai',compact('the_loai'));
+    }
+
+    public function deleteTheLoai(Request $request){
+        $the_loai=TheLoai::where('id',$request->id,'da_xoa',false)->first();
+        $the_loai->da_xoa=true;
+        $the_loai->save();
+        return redirect()->route('the-loai.getTheLoais');
+    }
+
+    //Quản lí danh sách vé
+    public function getDsVes(){
+        $ds_ve=DsVe::where('da_xoa',false)->get();
+        $sl=$ds_ve->count();
+        return view('ds-ves.ds-ves',compact('ds_ve','sl'));
+    }
+
+    public function dsVeDetail(Request $request){
+        $ds_ve=DsVe::where('id',$request->id,'da_xoa',false)->first();
+        return view('ds-ves.chi-tiet-ds-ve',compact('ds_ve'));
+    }
+
+    public function addDsVe(Request $request){
+        $khach_dat_ves=KhachDatVe::where('da_xoa',false)->get();
+        if($request->isMethod('post')){
+            $tg_dat=$request->input("tgDat");
+            $kdv=$request->input("khachDatVe");
+            $slv=$request->input("slVe");
+
+            $dsVe=new DsVe();
+            $dsVe->tg_dat=$tg_dat;
+            $dsVe->khach_dat_ve=$kdv;
+            $dsVe->sl_ve=$slv;
+            $dsVe->save();
+            return redirect()->route('ds-ve.getDsVes');
+        }
+        return view('ds-ves.them-ds-ve',compact('khach_dat_ves'));
+    }
+
+    public function deleteDsVe(Request $request){
+        $ds_ve=DsVe::where('id',$request->id)->first();
+        $ds_ve->da_xoa=true;
+        $ds_ve->save();
+        return redirect()->route('ds-ve.getDsVes');
+    }
+
+    //Quản lí vé
     public function getVes(){
-
+        $ves=Ve::where('da_xoa',false)->get();
+        $sl=$ves->count();
+        return view('ves.ves',compact('ves','sl'));
     }
 
-    public function veDetail(){
-
+    public function veDetail(Request $request){
+        $ve=Ve::where('id',$request->id,'da_xoa',false)->first();
+        return view('ves.chi-tiet-ve',compact('ve'));
     }
 
-    public function addVe(){
+    public function addVe(Request $request){
+        $gia_ves=GiaVe::where('da_xoa',false)->get();
+        $lich_chieus=LichChieu::where('da_xoa',false)->get();
+        $ghes=Ghe::where('da_xoa',false)->get();
+        $ds_ves=DsVe::where('da_xoa',false)->get();
+        if($request->isMethod('post')){
+            $gia=$request->input("giaVe");
+            $lich_chieu=$request->input("lichChieu");
+            $ghe=$request->input("ghe");
+            $ds_ve=$request->input("dsVe");
 
+            try{
+                $ve=new Ve();
+                $ve->gia=$gia;
+                $ve->lich_chieu=$lich_chieu;
+                $ve->ghe=$ghe;
+                $ve->ds_ve=$ds_ve;
+                $ve->save();
+                return redirect()->route('ve.getVes');
+            }catch(Exception $e){
+                return redirect()->back()->with(['flag'=>'danger','message'=>'Có thể vé đã tồn tại']);
+            }
+            
+        }
+        return view('ves.them-ve',compact('gia_ves','lich_chieus','ghes','ds_ves'));
     }
 
-    public function editVe(){
-
-    }
-
-    public function deleteVe(){
-
+    public function deleteVe(Request $request){
+        $ve=Ve::where('id',$request->id)->first();
+        $ve->da_xoa=true;
+        $ve->save();
+        return redirect()->route('ve.getVes');
     }
 }

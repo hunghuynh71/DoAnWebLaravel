@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title','Chỉnh sửa phim')
+@section('title','Thêm phim')
 
 @section('css')
 <!-- Font Awesome -->
@@ -20,12 +20,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Chỉnh sửa danh sách diễn viên</h1>
+          <h1>Thêm vé</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Chỉnh sửa danh sách diễn viên</li>
+            <li class="breadcrumb-item active">Thêm phim</li>
           </ol>
         </div>
       </div>
@@ -51,36 +51,46 @@
             <div class="card-body">
             <div class="alert alert-{{Session::get('flag')}}">{{Session::get('message')}}</div>
               <div class="form-group">
-                <label for="phim">Phim</label>
-                <select name="phim" class="form-control custom-select">
-                  <option selected disabled>Chọn phim</option>
-                  @foreach($phims as $p)
-                  @if($p->id==$dsdv->phim)
-                  <option value="{{$p->id}}" selected="selected">{{$p->ten_phim}}</option>
-                  @else
-                  <option value="{{$p->id}}">{{$p->ten_phim}}</option>
-                  @endif
+                <label for="lichChieu">Lịch chiếu</label>
+                <select name="lichChieu" class="form-control custom-select">
+                  <option selected disabled>Chọn lịch chiếu</option>
+                  @foreach($lich_chieus as $lc)
+                  <option value="{{$lc->id}}">{{$lc->id}}</option>
                   @endforeach
                 </select>
               </div>
               <div class="form-group">
-                <label for="dienVien">Diễn viên</label>
-                <select name="dienVien" class="form-control custom-select">
-                  <option selected disabled>Chọn diễn viên</option>
-                  @foreach($dien_viens as $dv)
-                  @if($dv->id==$dsdv->dien_vien)
-                  <option value="{{$dv->id}}" selected="selected">{{$dv->ten_dv}}</option>
-                  @else
-                  <option value="{{$dv->id}}">{{$dv->ten_dv}}</option>
-                  @endif
+                <label for="ghe">Ghế</label>
+                <select name="ghe" class="form-control custom-select">
+                  <option selected disabled>Chọn ghế</option>
+                  @foreach($ghes as $g)
+                  <option value="{{$g->id}}">{{$g->id}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="giaVe">Gía vé</label>
+                <select name="giaVe" class="form-control custom-select">
+                  <option selected disabled>Chọn giá vé</option>
+                  @foreach($gia_ves as $gv)
+                  <option value="{{$gv->id}}">{{$gv->gia}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="dsVe">Danh sách vé</label>
+                <select name="dsVe" class="form-control custom-select">
+                  <option selected disabled>Chọn danh sách vé</option>
+                  @foreach($ds_ves as $dsv)
+                  <option value="{{$dsv->id}}">{{$dsv->id}}</option>
                   @endforeach
                 </select>
               </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <a href="{{route('ds-dien-vien.getDsDienViens')}}" class="btn btn-secondary">Thoát</a>
-              <input type="submit" value="Chỉnh sửa phim" class="btn btn-success float-right">
+              <a href="{{url('ve/ve')}}" class="btn btn-secondary">Thoát</a>
+              <input type="submit" value="Thêm vé" class="btn btn-success float-right">
             </div>
             <!-- /.card-footer -->
 

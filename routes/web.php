@@ -36,6 +36,13 @@ Route::prefix('phim')->group(function(){
     Route::get('xoa-phim/{id}', 'AdminController@deletePhim')->name('phim.deletePhim');
 });
 
+Route::prefix('the-loai')->group(function(){
+    Route::get('the-loai', 'AdminController@getTheLoais')->name('the-loai.getTheLoais');
+    Route::match(['get','post'],'them-the-loai','AdminController@addTheLoai')->name('the-loai.addTheLoai');
+    Route::match(['get','post'],'chinh-sua-the-loai/{id}','AdminController@editTheLoai')->name('the-loai.editTheLoai');
+    Route::get('xoa-the-loai/{id}', 'AdminController@deleteTheLoai')->name('the-loai.deleteTheLoai');
+});
+
 Route::prefix('ds-dien-vien')->group(function(){
     Route::get('ds-dien-vien', 'AdminController@getDsDienViens')->name('ds-dien-vien.getDsDienViens');
     Route::get('chi-tiet-ds-dien-vien/{id}', 'AdminController@dsDienVienDetail')->name('ds-dien-vien.dsDienVienDetail');
@@ -51,9 +58,16 @@ Route::prefix('lich-chieu')->group(function(){
     Route::get('xoa-lich-chieu/{id}', 'AdminController@deleteLichChieu')->name('lich-chieu.deleteLichChieu');
 });
 
+Route::prefix('ds-ve')->group(function(){
+    Route::get('ds-ve','AdminController@getDsVes')->name('ds-ve.getDsVes');
+    Route::get('chi-tiet-ds-ve/{id}','AdminController@dsVeDetail')->name('ds-ve.dsVeDetail');
+    Route::match(['get','post'],'them-ds-ve','AdminController@addDsVe')->name('ds-ve.addDsVe');
+    Route::get('xoa-ds-ve/{id}','AdminController@deleteDsVe')->name('ds-ve.deleteDsVe');
+});
+
 Route::prefix('ve')->group(function(){
     Route::get('ve','AdminController@getVes')->name('ve.getVes');
     Route::get('chi-tiet-ve/{id}','AdminController@veDetail')->name('ve.veDetail');
     Route::match(['get','post'],'them-ve','AdminController@addVe')->name('ve.addVe');
-    Route::get('xoa-ve','AdminController@deleteVe')->name('ve.deleteVe');
+    Route::get('xoa-ve/{id}','AdminController@deleteVe')->name('ve.deleteVe');
 });
