@@ -71,3 +71,49 @@ Route::prefix('ve')->group(function(){
     Route::match(['get','post'],'them-ve','AdminController@addVe')->name('ve.addVe');
     Route::get('xoa-ve/{id}','AdminController@deleteVe')->name('ve.deleteVe');
 });
+
+Route::prefix('khach-dat-ve')->group(function(){
+  Route::get('khach-dat-ve', 'AdminController@getKhachDatVes')->name('khach-dat-ve.getKhachDatVes');
+  Route::get('chi-tiet-khach-dat-ve/{id}', 'AdminController@khachDatVeDetail')->name('khach-dat-ve.khachDatVeDetail');
+  Route::match(['get','post'],'them-khach-dat-ve','AdminController@addKhachDatVe')->name('khach-dat-ve.addKhachDatVe');
+  Route::match(['get','post'],'chinh-sua-khach-dat-ve/{id}','AdminController@editKhachDatVe')->name('khach-dat-ve.editKhachDatVe');
+  Route::get('xoa-khach-dat-ve/{id}', 'AdminController@deleteKhachDatVe')->name('khach-dat-ve.deleteKhachDatVe');
+});
+
+Route::prefix('nhan-vien')->group(function(){
+  Route::get('nhan-vien', 'AdminController@getNhanViens')->name('nhan-vien.getNhanViens');
+  Route::get('chi-tiet-nhan-vien/{id}', 'AdminController@nhanVienDetail')->name('nhan-vien.nhanVienDetail');
+  Route::match(['get','post'],'them-nhan-vien','AdminController@addNhanVien')->name('nhan-vien.addNhanVien');
+  Route::match(['get','post'],'chinh-sua-nhan-vien/{id}','AdminController@editNhanVien')->name('nhan-vien.editNhanVien');
+  Route::get('xoa-nhan-vien/{id}', 'AdminController@deleteNhanVien')->name('nhan-vien.deleteNhanVien');
+});
+
+Route::prefix('binh-luan')->group(function(){
+  Route::get('binh-luan', 'AdminController@getBinhLuans')->name('binh-luan.getBinhLuans');
+  Route::get('chi-tiet-binh-luan/{id}', 'AdminController@binhLuanDetail')->name('binh-luan.binhLuanDetail');
+  Route::get('xoa-binh-luan/{id}', 'AdminController@deleteBinhLuan')->name('binh-luan.deleteBinhLuan');
+});
+
+Route::prefix('chi-nhanh')->group(function(){
+  Route::get('chi-nhanh', 'AdminController@getChiNhanhs')->name('chi-nhanh.getChiNhanhs');
+  Route::get('chi-tiet-chi-nhanh/{id}', 'AdminController@chiNhanhDetail')->name('chi-nhanh.chiNhanhDetail');
+  Route::match(['get','post'],'them-chi-nhanh','AdminController@addChiNhanh')->name('chi-nhanh.addChiNhanh');
+  Route::match(['get','post'],'chinh-sua-chi-nhanh/{id}','AdminController@editChiNhanh')->name('chi-nhanh.editChiNhanh');
+  Route::get('xoa-chi-nhanh/{id}', 'AdminController@deleteChiNhanh')->name('chi-nhanh.deleteChiNhanh');
+});
+
+Route::prefix('dao-dien')->group(function(){
+  Route::get('dao-dien', 'AdminController@getDaoDiens')->name('dao-dien.getDaoDiens');
+  Route::get('chi-tiet-dao-dien/{id}', 'AdminController@daoDienDetail')->name('dao-dien.daoDienDetail');
+  Route::match(['get','post'],'them-dao-dien','AdminController@addDaoDien')->name('dao-dien.addDaoDien');
+  Route::match(['get','post'],'chinh-sua-dao-dien/{id}','AdminController@editDaoDien')->name('dao-dien.editDaoDien');
+  Route::get('xoa-dao-dien/{id}', 'AdminController@deleteDaoDien')->name('dao-dien.deleteDaoDien');
+});
+
+Route::prefix('dien-vien')->group(function(){
+  Route::get('dien-vien', 'AdminController@getDienViens')->name('dien-vien.getDienViens');
+  Route::get('chi-tiet-dien-vien/{id}', 'AdminController@dienVienDetail')->name('dien-vien.dienVienDetail');
+  Route::match(['get','post'],'them-dien-vien','AdminController@addDienVien')->name('dien-vien.addDienVien');
+  Route::match(['get','post'],'chinh-sua-dien-vien/{id}','AdminController@editDienVien')->name('dien-vien.editDienVien');
+  Route::get('xoa-dien-vien/{id}', 'AdminController@deleteDienVien')->name('dien-vien.deleteDienVien');
+});

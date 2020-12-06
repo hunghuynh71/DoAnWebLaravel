@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title','Phim')
+@section('title','Khách đặt vé')
 
 @section('css')
 <!-- Font Awesome -->
@@ -21,12 +21,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Phim</h1>
+          <h1>Khách đặt vé</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Phim</li>
+            <li class="breadcrumb-item"><a href="{{route('trang-chu')}} 
+            ">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Khách đặt vé</li>
           </ol>
         </div>
       </div>
@@ -39,11 +40,11 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Danh sách phim</h3>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="btn btn-success btn-sm" href="{{route('phim.addPhim')}}">
+        <h3 class="card-title">Danh sách khách đặt vé</h3>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-success btn-sm" href="{{route('khach-dat-ve.addKhachDatVe')}}">
           <i class="fas fa-folder">
           </i>
-          Thêm phim
+          Thêm khách đặt vé
         </a>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -60,77 +61,54 @@
                 STT
               </th>
               <th>
-                Tên phim
+                Tên khách 
               </th>
               <th>
-                Đạo diễn
+                SĐT
               </th>
               <th>
-                Diễn viên
+                Email
               </th>
               <th>
-                Thể loại
+                Năm sinh
               </th>
               <th>
-                Quốc gia
+                Giới tính 
               </th>
-              <th>
-                Ngày xuất bản 
-              </th>
-              <th>
-                Thời lượng
-              </th>
-              <th>
-                Nhân viên duyệt
-              </th>
-            </tr>
           </thead>
           <tbody>
-            @for($p = 0;$p<$sl_phim;$p++)
+            @for($p = 0;$p<$sl;$p++)
             <tr>
               <td>
                 {{$p+1}}
               </td>
               <td>
-                {{$phims[$p]->ten_phim}}
+                {{$khach_dat_ves[$p]->ten_kdv}}
               </td>
               <td>
-                {{$phims[$p]->dao_dien}}
+                {{$khach_dat_ves[$p]->sdt}}
               </td>
               <td>
-                @foreach($ds_dien_viens as $ds)
-                @if($ds->phim==$phims[$p]->id)
-                {{$ds->dien_vien}}&nbsp;
-                @endif
-                @endforeach
+                {{$khach_dat_ves[$p]->email}}
               </td>
               <td>
-                {{$phims[$p]->the_loai}}
+                {{$khach_dat_ves[$p]->nam_sinh}}
               </td>
               <td>
-                {{$phims[$p]->quoc_gia}}
-              </td>
-              <td>
-                {{$phims[$p]->ngay_xuat_ban}}
-              </td>
-              <td>
-                {{$phims[$p]->thoi_luong}}
-              </td>
-              <td>
-                {{$phims[$p]->nv_duyet}}
+                {{$khach_dat_ves[$p]->gioi_tinh}}
               </td>
               <td class="project-actions text-right">
-                <a class="btn btn-primary btn-sm" href="{{route('phim.phimDetail',$phims[$p]->id)}}">
+                <a class="btn btn-primary btn-sm" href="{{route('khach-dat-ve.khachDatVeDetail',$khach_dat_ves[$p]->id)}}">
                   <i class="fas fa-folder">
                   </i>
                   Chi tiết
                 </a>
-                <a class="btn btn-info btn-sm" href="{{route('phim.editPhim',$phims[$p]->id)}}">
+                <a class="btn btn-info btn-sm" href="{{route('khach-dat-ve.editKhachDatVe',$khach_dat_ves[$p]->id)}}">
                   <i class="fas fa-pencil-alt">
                   </i>
                   Sửa
                 </a>
-                <a class="btn btn-danger btn-sm" href="{{route('phim.deletePhim',$phims[$p]->id)}}">
+                <a class="btn btn-danger btn-sm" href="{{route('khach-dat-ve.deleteKhachDatVe',$khach_dat_ves[$p]->id)}}">
                   <i class="fas fa-trash">
                   </i>
                   Xóa

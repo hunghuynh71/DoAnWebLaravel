@@ -57,37 +57,37 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3" class="nav-link">
+                <a href="{{url('khach-dat-ve/khach-dat-ve')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Khách đặt vé</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3" class="nav-link">
+                <a href="{{url('nhan-vien/nhan-vien')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tài khoản quản trị</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3" class="nav-link">
+                <a href="{{url('binh-luan/binh-luan')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Bình luận</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3" class="nav-link">
+                <a href="{{url('chi-nhanh/chi-nhanh')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Chi nhánh</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3" class="nav-link">
+                <a href="{{url('dao-dien/dao-dien')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Đạo diễn</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3" class="nav-link">
+                <a href="{{url('dien-vien/dien-vien')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Diễn viên</p>
                 </a>

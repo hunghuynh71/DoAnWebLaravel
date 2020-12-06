@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BinhLuan;
+use App\Models\ChiNhanh;
 use App\Models\DaoDien;
 use App\Models\DsDienVien;
 use App\Models\KhungTGChieu;
@@ -42,7 +44,7 @@ class AdminController extends Controller
             ]
             );
             //$user=array('email'=>$request->email, 'password'=>Hash::make('$request->password'));
-            /*$user=array('email'=>$request->input("email"), 'mat_khau'=>Hash::make('$request->input("password")'));
+            /*$user=array('email'=>$request->input("email"), 'password'=>$request->input("password"));
             if(Auth::attempt($user)){
                 return redirect()->route('trang-chu');
             }else{
@@ -52,7 +54,7 @@ class AdminController extends Controller
             $p=$request->input('password');
             $nhan_viens=NhanVien::where('da_xoa',false)->get();
             foreach($nhan_viens as $nv){
-                if($nv->email==$e&&$nv->mat_khau==$p){
+                if($nv->email==$e&&$nv->password==$p){
                     //return redirect()->back()->with(['flag'=>'success','message'=>'Đăng nhập thành công']);
                     //$GLOBALS['nv']=$nv->id;
                     return redirect()->route('trang-chu');
@@ -399,5 +401,347 @@ class AdminController extends Controller
         $ve->da_xoa=true;
         $ve->save();
         return redirect()->route('ve.getVes');
+    }
+
+    //Quản lí khách đặt vé
+    public function getKhachDatVes(){
+        $khach_dat_ves=KhachDatVe::where('da_xoa',false)->get();
+        $sl=$khach_dat_ves->count();
+        return view('khach-dat-ves.khach-dat-ves',compact('khach_dat_ves','sl'));
+    }
+
+    public function khachDatVeDetail(Request $request){
+        $khach_dat_ve=KhachDatVe::where('id',$request->id,'da_xoa',false)->first();
+        return view('khach-dat-ves.chi-tiet-khach-dat-ve',compact('khach_dat_ve'));
+    }
+
+    public function addKhachDatVe(Request $request){
+        if($request->isMethod('post')){
+          $ten_kdv=$request->input("tenKhachDatVe");
+          $sdt=$request->input("sdt");
+          $email=$request->input("email");
+          $mat_khau=$request->input("matKhau");
+          $nam_sinh=$request->input("namSinh");
+          $gioi_tinh=$request->input("gioiTinh");
+
+          $kdv=new KhachDatVe();
+          $kdv->ten_kdv=$ten_kdv;
+          $kdv->sdt=$sdt;
+          $kdv->email=$email;
+          $kdv->mat_khau=$mat_khau;
+          $kdv->nam_sinh=$nam_sinh;
+          $kdv->gioi_tinh=$gioi_tinh;
+          $kdv->save();
+          return redirect()->route('khach-dat-ve.getKhachDatVes');
+        }
+        return view('khach-dat-ves.them-khach-dat-ve');
+    }
+
+    public function editKhachDatVe(Request $request){
+        $kdv=KhachDatVe::where('id',$request->id,'da_xoa',false)->first();
+        if($request->isMethod('post')){
+            $ten_kdv=$request->input("tenKhachDatVe");
+            $sdt=$request->input("sdt");
+            $email=$request->input("email");
+            $mat_khau=$request->input("matKhau");
+            $nam_sinh=$request->input("namSinh");
+            $gioi_tinh=$request->input("gioiTinh");
+            
+            $kdv->ten_kdv=$ten_kdv;
+            $kdv->sdt=$sdt;
+            $kdv->email=$email;
+            $kdv->mat_khau=$mat_khau;
+            $kdv->nam_sinh=$nam_sinh;
+            $kdv->gioi_tinh=$gioi_tinh;
+            $kdv->save();
+            return redirect()->route('khach-dat-ve.getKhachDatVes');
+        }
+        return view('khach-dat-ves.chinh-sua-khach-dat-ve',compact('kdv'));
+    }
+    
+    public function deleteKhachDatVe(Request $request){
+        $kdv=KhachDatVe::where('id',$request->id,'da_xoa',false)->first();
+        $kdv->da_xoa=true;
+        $kdv->save();
+        return redirect()->route('khach-dat-ve.getKhachDatVes');
+    }
+
+    //Quản lí nhân viên
+    public function getNhanViens(){
+        $nhan_viens=NhanVien::where('da_xoa',false)->get();
+        $sl=$nhan_viens->count();
+        return view('nhan-viens.nhan-viens',compact('nhan_viens','sl'));
+    }
+
+    public function nhanVienDetail(Request $request){
+        $nhan_vien=NhanVien::where('id',$request->id,'da_xoa',false)->first();
+        return view('nhan-viens.chi-tiet-nhan-vien',compact('nhan_vien'));
+    }
+
+    public function addNhanVien(Request $request){
+        $quyens=Quyen::where('da_xoa',false)->get();
+        if($request->isMethod('post')){
+          $ten_nv=$request->input("tenNhanVien");
+          $cmnd=$request->input("cmnd");
+          $sdt=$request->input("sdt");
+          $email=$request->input("email");
+          $mat_khau=$request->input("matKhau");
+          $ngay_vao_lam=$request->input("ngayVaoLam");
+          $gioi_tinh=$request->input("gioiTinh");
+          $dia_chi=$request->input("diaChi");
+          $quyen=$request->input("quyen");
+
+          $nv=new NhanVien();
+          $nv->ten_nv=$ten_nv;
+          $nv->cmnd=$cmnd;
+          $nv->sdt=$sdt;
+          $nv->email=$email;
+          $nv->password=$mat_khau;
+          $nv->ngay_vao_lam=$ngay_vao_lam;
+          $nv->gioi_tinh=$gioi_tinh;
+          $nv->dia_chi=$dia_chi;
+          $nv->quyen=$quyen;
+          $nv->save();
+          return redirect()->route('nhan-vien.getNhanViens');
+        }
+        return view('nhan-viens.them-nhan-vien',compact('quyens'));
+    }
+
+    public function editNhanVien(Request $request){
+        $nhan_vien=NhanVien::where('id',$request->id,'da_xoa',false)->first();
+        $quyens=Quyen::where('da_xoa',false)->get();
+        if($request->isMethod('post')){
+          $ten_nv=$request->input("tenNhanVien");
+          $cmnd=$request->input("cmnd");
+          $sdt=$request->input("sdt");
+          $email=$request->input("email");
+          $mat_khau=$request->input("matKhau");
+          $ngay_vao_lam=$request->input("ngayVaoLam");
+          $gioi_tinh=$request->input("gioiTinh");
+          $dia_chi=$request->input("diaChi");
+          $dang_lam=$request->input("dangLam");
+          $quyen=$request->input("quyen");
+          
+          $nhan_vien->ten_nv=$ten_nv;
+          $nhan_vien->cmnd=$cmnd;
+          $nhan_vien->sdt=$sdt;
+          $nhan_vien->email=$email;
+          $nhan_vien->password=$mat_khau;
+          $nhan_vien->ngay_vao_lam=$ngay_vao_lam;
+          $nhan_vien->gioi_tinh=$gioi_tinh;
+          $nhan_vien->dia_chi=$dia_chi;
+          $nhan_vien->dang_lam=$dang_lam;
+          $nhan_vien->quyen=$quyen;
+          $nhan_vien->save();
+          return redirect()->route('nhan-vien.getNhanViens');
+        }
+        return view('nhan-viens.chinh-sua-nhan-vien',compact('nhan_vien','quyens'));
+    }
+    
+    public function deleteNhanVien(Request $request){
+        $nhan_vien=NhanVien::where('id',$request->id,'da_xoa',false)->first();
+        $nhan_vien->da_xoa=true;
+        $nhan_vien->save();
+        return redirect()->route('nhan-vien.getNhanViens');
+    }
+
+    //Quản lí bình luận
+    public function getBinhLuans(){
+        $binh_luans=BinhLuan::where('da_xoa',false)->get();
+        $sl=$binh_luans->count();
+        return view('binh-luans.binh-luans',compact('binh_luans','sl'));
+    }
+
+    public function binhLuanDetail(Request $request){
+        $binh_luan=BinhLuan::where('id',$request->id,'da_xoa',false)->first();
+        return view('binh-luans.chi-tiet-binh-luan',compact('binh_luan'));
+    }
+    
+    public function deleteBinhLuan(Request $request){
+        $binh_luan=BinhLuan::where('id',$request->id,'da_xoa',false)->first();
+        $binh_luan->da_xoa=true;
+        $binh_luan->save();
+        return redirect()->route('binh-luan.getBinhLuans');
+    }
+
+    //Quản lí chi nhánh
+    public function getChiNhanhs(){
+        $chi_nhanhs=ChiNhanh::where('da_xoa',false)->get();
+        $sl=$chi_nhanhs->count();
+        return view('chi-nhanhs.chi-nhanhs',compact('chi_nhanhs','sl'));
+    }
+
+    public function chiNhanhDetail(Request $request){
+        $chi_nhanh=ChiNhanh::where('id',$request->id,'da_xoa',false)->first();
+        return view('chi-nhanhs.chi-tiet-chi-nhanh',compact('chi_nhanh'));
+    }
+
+    public function addChiNhanh(Request $request){
+        if($request->isMethod('post')){
+          $ten_cn=$request->input("tenChiNhanh");
+          $dia_chi=$request->input("diaChi");
+          $sdt=$request->input("sdt");
+          $hinh_anh=$request->input("hinhAnh");
+
+          $chi_nhanh=new ChiNhanh();
+          $chi_nhanh->ten_cn=$ten_cn;
+          $chi_nhanh->dia_chi=$dia_chi;
+          $chi_nhanh->sdt=$sdt;
+          $chi_nhanh->hinh_anh=$hinh_anh;
+          $chi_nhanh->save();
+          return redirect()->route('chi-nhanh.getChiNhanhs');
+        }
+        return view('chi-nhanhs.them-chi-nhanh');
+    }
+
+    public function editChiNhanh(Request $request){
+        $chi_nhanh=ChiNhanh::where('id',$request->id,'da_xoa',false)->first();
+        if($request->isMethod('post')){
+            $ten_cn=$request->input("tenChiNhanh");
+            $dia_chi=$request->input("diaChi");
+            $sdt=$request->input("sdt");
+            $hinh_anh=$request->input("hinhAnh");
+  
+            $chi_nhanh->ten_cn=$ten_cn;
+            $chi_nhanh->dia_chi=$dia_chi;
+            $chi_nhanh->sdt=$sdt;
+            $chi_nhanh->hinh_anh=$hinh_anh;
+            $chi_nhanh->save();
+            return redirect()->route('chi-nhanh.getChiNhanhs');
+          }
+          return view('chi-nhanhs.chinh-sua-chi-nhanh',compact('chi_nhanh'));
+    }
+    
+    public function deleteChiNhanh(Request $request){
+        $chi_nhanh=ChiNhanh::where('id',$request->id,'da_xoa',false)->first();
+        $chi_nhanh->da_xoa=true;
+        $chi_nhanh->save();
+        return redirect()->route('chi-nhanh.getChiNhanhs');
+    }
+
+    //Quản lí đạo diễn
+    public function getDaoDiens(){
+        $dao_diens=DaoDien::where('da_xoa',false)->get();
+        $sl=$dao_diens->count();
+        return view('dao-diens.dao-diens',compact('dao_diens','sl'));
+    }
+
+    public function daoDienDetail(Request $request){
+        $dao_dien=DaoDien::where('id',$request->id,'da_xoa',false)->first();
+        return view('dao-diens.chi-tiet-dao-dien',compact('dao_dien'));
+    }
+
+    public function addDaoDien(Request $request){
+        if($request->isMethod('post')){
+          $ten_dd=$request->input("tenDaoDien");
+          $ngay_sinh=$request->input("ngaySinh");
+          $chieu_cao=$request->input("chieuCao");
+          $quoc_gia=$request->input("quocGia");
+          $tieu_su=$request->input("tieuSu");
+          $hinh_anh=$request->input("hinhAnh");
+
+          $dao_dien=new DaoDien();
+          $dao_dien->ten_dd=$ten_dd;
+          $dao_dien->ngay_sinh=$ngay_sinh;
+          $dao_dien->chieu_cao=$chieu_cao;
+          $dao_dien->quoc_gia=$quoc_gia;
+          $dao_dien->tieu_su=$tieu_su;
+          $dao_dien->hinh_anh=$hinh_anh;
+          $dao_dien->save();
+          return redirect()->route('dao-dien.getDaoDiens');
+        }
+        return view('dao-diens.them-dao-dien');
+    }
+
+    public function editDaoDien(Request $request){
+        $dao_dien=DaoDien::where('id',$request->id,'da_xoa',false)->first();
+        if($request->isMethod('post')){
+            $ten_dd=$request->input("tenDaoDien");
+            $ngay_sinh=$request->input("ngaySinh");
+            $chieu_cao=$request->input("chieuCao");
+            $quoc_gia=$request->input("quocGia");
+            $tieu_su=$request->input("tieuSu");
+            $hinh_anh=$request->input("hinhAnh");
+            
+            $dao_dien->ten_dd=$ten_dd;
+            $dao_dien->ngay_sinh=$ngay_sinh;
+            $dao_dien->chieu_cao=$chieu_cao;
+            $dao_dien->quoc_gia=$quoc_gia;
+            $dao_dien->tieu_su=$tieu_su;
+            $dao_dien->hinh_anh=$hinh_anh;
+            $dao_dien->save();
+            return redirect()->route('dao-dien.getDaoDiens');
+          }
+          return view('dao-diens.chinh-sua-dao-dien',compact('dao_dien'));
+    }
+    
+    public function deleteDaoDien(Request $request){
+        $dao_dien=DaoDien::where('id',$request->id,'da_xoa',false)->first();
+        $dao_dien->da_xoa=true;
+        $dao_dien->save();
+        return redirect()->route('dao-dien.getDaoDiens');
+    }
+
+    //Quản lí diễn viên
+    public function getDienViens(){
+        $dien_viens=DienVien::where('da_xoa',false)->get();
+        $sl=$dien_viens->count();
+        return view('dien-viens.dien-viens',compact('dien_viens','sl'));
+    }
+
+    public function dienVienDetail(Request $request){
+        $dien_vien=DienVien::where('id',$request->id,'da_xoa',false)->first();
+        return view('dien-viens.chi-tiet-dien-vien',compact('dien_vien'));
+    }
+
+    public function addDienVien(Request $request){
+        if($request->isMethod('post')){
+          $ten_dv=$request->input("tenDienVien");
+          $ngay_sinh=$request->input("ngaySinh");
+          $chieu_cao=$request->input("chieuCao");
+          $quoc_gia=$request->input("quocGia");
+          $tieu_su=$request->input("tieuSu");
+          $hinh_anh=$request->input("hinhAnh");
+
+          $dien_vien=new DienVien();
+          $dien_vien->ten_dv=$ten_dv;
+          $dien_vien->ngay_sinh=$ngay_sinh;
+          $dien_vien->chieu_cao=$chieu_cao;
+          $dien_vien->quoc_gia=$quoc_gia;
+          $dien_vien->tieu_su=$tieu_su;
+          $dien_vien->hinh_anh=$hinh_anh;
+          $dien_vien->save();
+          return redirect()->route('dien-vien.getDienViens');
+        }
+        return view('dien-viens.them-dien-vien');
+    }
+
+    public function editDienVien(Request $request){
+        $dien_vien=DienVien::where('id',$request->id,'da_xoa',false)->first();
+        if($request->isMethod('post')){
+            $ten_dv=$request->input("tenDienVien");
+            $ngay_sinh=$request->input("ngaySinh");
+            $chieu_cao=$request->input("chieuCao");
+            $quoc_gia=$request->input("quocGia");
+            $tieu_su=$request->input("tieuSu");
+            $hinh_anh=$request->input("hinhAnh");
+            
+            $dien_vien->ten_dv=$ten_dv;
+            $dien_vien->ngay_sinh=$ngay_sinh;
+            $dien_vien->chieu_cao=$chieu_cao;
+            $dien_vien->quoc_gia=$quoc_gia;
+            $dien_vien->tieu_su=$tieu_su;
+            $dien_vien->hinh_anh=$hinh_anh;
+            $dien_vien->save();
+            return redirect()->route('dien-vien.getDienViens');
+          }
+          return view('dien-viens.chinh-sua-dien-vien',compact('dien_vien'));
+    }
+    
+    public function deleteDienVien(Request $request){
+        $dien_vien=DienVien::where('id',$request->id,'da_xoa',false)->first();
+        $dien_vien->da_xoa=true;
+        $dien_vien->save();
+        return redirect()->route('dien-vien.getDienViens');
     }
 }
