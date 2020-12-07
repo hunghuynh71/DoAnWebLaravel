@@ -130,5 +130,41 @@ Route::prefix('loai-ghe')->group(function(){
   Route::get('loai-ghe', 'AdminController@getLoaiGhes')->name('loai-ghe.getLoaiGhes');
   Route::match(['get','post'],'them-loai-ghe','AdminController@addLoaiGhe')->name('loai-ghe.addLoaiGhe');
   Route::match(['get','post'],'chinh-sua-loai-ghe/{id}','AdminController@editLoaiGhe')->name('loai-ghe.editLoaiGhe');
-  Route::get('xoa-loai-ghe/{id}', 'AdminController@deleteLoaiGhe')->name('loai-ghe.deleteLoaiGhe');
+  Route::get('xoa-loai-ghe/{id}','AdminController@deleteLoaiGhe')->name('loai-ghe.deleteLoaiGhe');
+});
+
+Route::prefix('dinh-dang')->group(function(){
+  Route::get('dinh-dang', 'AdminController@getDinhDangs')->name('dinh-dang.getDinhDangs');
+  Route::match(['get','post'],'them-dinh-dang','AdminController@addDinhDang')->name('dinh-dang.addDinhDang');
+  Route::match(['get','post'],'chinh-sua-dinh-dang/{id}','AdminController@editDinhDang')->name('dinh-dang.editDinhDang');
+  Route::get('xoa-dinh-dang/{id}','AdminController@deleteDinhDang')->name('dinh-dang.deleteDinhDang');
+});
+
+Route::prefix('quyen')->group(function(){
+  Route::get('quyen', 'AdminController@getQuyens')->name('quyen.getQuyens');
+  Route::match(['get','post'],'them-quyen','AdminController@addQuyen')->name('quyen.addQuyen');
+  Route::match(['get','post'],'chinh-sua-quyen/{id}','AdminController@editQuyen')->name('quyen.editQuyen');
+  Route::get('xoa-quyen/{id}','AdminController@deleteQuyen')->name('quyen.deleteQuyen');
+});
+
+Route::prefix('rap-phim')->group(function(){
+  Route::get('rap-phim', 'AdminController@getRapPhims')->name('rap-phim.getRapPhims');
+  Route::get('chi-tiet-rap-phim/{id}', 'AdminController@rapPhimDetail')->name('rap-phim.rapPhimDetail');
+  Route::match(['get','post'],'them-rap-phim','AdminController@addRapPhim')->name('rap-phim.addRapPhim');
+  Route::match(['get','post'],'chinh-sua-rap-phim/{id}','AdminController@editRapPhim')->name('rap-phim.editRapPhim');
+  Route::get('xoa-rap-phim/{id}', 'AdminController@deleteRapPhim')->name('rap-phim.deleteRapPhim');
+});
+
+Route::prefix('gia-ve')->group(function(){
+  Route::get('gia-ve', 'AdminController@getGiaVes')->name('gia-ve.getGiaVes');
+  Route::get('chi-tiet-gia-ve/{id}', 'AdminController@giaVeDetail')->name('gia-ve.giaVeDetail');
+  Route::match(['get','post'],'them-gia-ve','AdminController@addGiaVe')->name('gia-ve.addGiaVe');
+  Route::match(['get','post'],'chinh-sua-gia-ve/{id}','AdminController@editGiaVe')->name('gia-ve.editGiaVe');
+  Route::get('xoa-gia-ve/{id}', 'AdminController@deleteGiaVe')->name('gia-ve.deleteGiaVe');
+});
+
+Route::prefix('khung-tg-chieu')->group(function(){
+  Route::get('khung-tg-chieu', 'AdminController@getKhungTGChieus')->name('khung-tg-chieu.getKhungTGChieus');
+  Route::match(['get','post'],'them-khung-tg-chieu','AdminController@addKhungTGChieu')->name('khung-tg-chieu.addKhungTGChieu');
+  Route::get('xoa-khung-tg-chieu/{id}', 'AdminController@deleteKhungTGCHieu')->name('khung-tg-chieu.deleteKhungTGChieu');
 });

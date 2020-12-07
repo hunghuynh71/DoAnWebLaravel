@@ -40,7 +40,7 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">Danh sách phim</h3>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="btn btn-success btn-sm" href="{{route('phim.addPhim')}}">
+        <a class="btn btn-success btn-sm" href="{{url('phim/them-phim')}}">
           <i class="fas fa-folder">
           </i>
           Thêm phim

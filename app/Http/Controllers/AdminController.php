@@ -14,6 +14,7 @@ use App\Models\Quyen;
 use App\Models\RapPhim;
 use App\Models\TheLoai;
 use App\Models\DienVien;
+use App\Models\DinhDang;
 use App\Models\DsVe;
 use App\Models\GiaVe;
 use App\Models\Ve;
@@ -841,5 +842,231 @@ class AdminController extends Controller
         $loai_ghe->da_xoa=true;
         $loai_ghe->save();
         return redirect()->route('loai-ghe.getLoaiGhes');
+    }
+
+    //Quản lí định dạng
+    public function getDinhDangs(){
+        $dinh_dangs=DinhDang::where('da_xoa',false)->get();
+        $sl=$dinh_dangs->count();
+        return view('dinh-dangs.dinh-dangs',compact('dinh_dangs','sl'));
+    }
+
+    public function addDinhDang(Request $request){
+        if($request->isMethod('post')){
+          $ten_dd=$request->input("tenDinhDang");
+
+          $dinh_dang=new DinhDang();
+          $dinh_dang->ten_dd=$ten_dd;
+          $dinh_dang->save();
+          return redirect()->route('dinh-dang.getDinhDangs');
+        }
+        return view('dinh-dangs.them-dinh-dang');
+    }
+
+    public function editDinhDang(Request $request){
+        $dinh_dang=DinhDang::where('id',$request->id,'da_xoa',false)->first();
+        if($request->isMethod('post')){
+            $ten_dd=$request->input("tenDinhDang");
+            
+            $dinh_dang->ten_dd=$ten_dd;
+            $dinh_dang->save();
+            return redirect()->route('dinh-dang.getDinhDangs');
+        }
+        return view('dinh-dangs.chinh-sua-dinh-dang',compact('dinh_dang'));
+    }
+    
+    public function deleteDinhDang(Request $request){
+        $dinh_dang=DinhDang::where('id',$request->id,'da_xoa',false)->first();
+        $dinh_dang->da_xoa=true;
+        $dinh_dang->save();
+        return redirect()->route('dinh-dang.getDinhDangs');
+    }
+
+    //Quản lí quyền
+    public function getQuyens(){
+        $quyens=Quyen::where('da_xoa',false)->get();
+        $sl=$quyens->count();
+        return view('quyens.quyens',compact('quyens','sl'));
+    }
+
+    public function addQuyen(Request $request){
+        if($request->isMethod('post')){
+          $ten_quyen=$request->input("tenQuyen");
+
+          $quyen=new Quyen();
+          $quyen->ten_quyen=$ten_quyen;
+          $quyen->save();
+          return redirect()->route('quyen.getQuyens');
+        }
+        return view('quyens.them-quyen');
+    }
+
+    public function editQuyen(Request $request){
+        $quyen=Quyen::where('id',$request->id,'da_xoa',false)->first();
+        if($request->isMethod('post')){
+            $ten_quyen=$request->input("tenQuyen");
+            
+            $quyen->ten_quyen=$ten_quyen;
+            $quyen->save();
+            return redirect()->route('quyen.getQuyens');
+        }
+        return view('quyens.chinh-sua-quyen',compact('quyen'));
+    }
+    
+    public function deleteQuyen(Request $request){
+        $quyen=Quyen::where('id',$request->id,'da_xoa',false)->first();
+        $quyen->da_xoa=true;
+        $quyen->save();
+        return redirect()->route('quyen.getQuyens');
+    }
+
+    //Quản lí rạp phim
+    public function getRapPhims(){
+        $rap_phims=RapPhim::where('da_xoa',false)->get();
+        $sl=$rap_phims->count();
+        return view('rap-phims.rap-phims',compact('rap_phims','sl'));
+    }
+
+    public function rapPhimDetail(Request $request){
+        $rap_phim=RapPhim::where('id',$request->id,'da_xoa',false)->first();
+        return view('rap-phims.chi-tiet-rap-phim',compact('rap_phim'));
+    }
+
+    public function addRapPhim(Request $request){
+        $chi_nhanhs=ChiNhanh::where('da_xoa',false)->get();
+        if($request->isMethod('post')){
+          $ten_rap=$request->input("tenRapPhim");
+          $chi_nhanh=$request->input("chiNhanh");
+          $so_ghe=$request->input("soGhe");
+
+          $rap_phim=new RapPhim();
+          $rap_phim->ten_rap=$ten_rap;
+          $rap_phim->chi_nhanh=$chi_nhanh;
+          $rap_phim->so_ghe=$so_ghe;
+          $rap_phim->save();
+          return redirect()->route('rap-phim.getRapPhims');
+        }
+        return view('rap-phims.them-rap-phim',compact('chi_nhanhs'));
+    }
+
+    public function editRapPhim(Request $request){
+        $rap_phim=RapPhim::where('id',$request->id,'da_xoa',false)->first();
+        $chi_nhanhs=ChiNhanh::where('da_xoa',false)->get();
+        if($request->isMethod('post')){
+          $ten_rap=$request->input("tenRapPhim");
+          $chi_nhanh=$request->input("chiNhanh");
+          $so_ghe=$request->input("soGhe");
+
+          $rap_phim->ten_rap=$ten_rap;
+          $rap_phim->chi_nhanh=$chi_nhanh;
+          $rap_phim->so_ghe=$so_ghe;
+          $rap_phim->save();
+          return redirect()->route('rap-phim.getRapPhims');
+        }
+        return view('rap-phims.chinh-sua-rap-phim',compact('rap_phim','chi_nhanhs'));
+    }
+    
+    public function deleteRapPhim(Request $request){
+        $rap_phim=RapPhim::where('id',$request->id,'da_xoa',false)->first();
+        $rap_phim->da_xoa=true;
+        $rap_phim->save();
+        return redirect()->route('rap-phim.getRapPhims');
+    }
+
+    //Quản lí giá vé
+    public function getGiaVes(){
+        $gia_ves=GiaVe::where('da_xoa',false)->get();
+        $sl=$gia_ves->count();
+        return view('gia-ves.gia-ves',compact('gia_ves','sl'));
+    }
+
+    public function giaVeDetail(Request $request){
+        $gia_ve=GiaVe::where('id',$request->id,'da_xoa',false)->first();
+        return view('gia-ves.chi-tiet-gia-ve',compact('gia_ve'));
+    }
+
+    public function addGiaVe(Request $request){
+        $loai_ghes=LoaiGhe::where('da_xoa',false)->get();
+        $dinh_dangs=DinhDang::where('da_xoa',false)->get();
+        $khung_tg_chieus=KhungTGChieu::where('da_xoa',false)->get();
+        if($request->isMethod('post')){
+            $loai_ghe=$request->input("loaiGhe");
+            $dinh_dang=$request->input("dinhDang");
+            $khung_tg_chieu=$request->input("khungTGChieu");
+            $gia=(double)$request->input("giaVe"); 
+
+            try{
+                $gia_ve=new GiaVe();
+                $gia_ve->loai_ghe=$loai_ghe;
+                $gia_ve->dinh_dang=$dinh_dang;
+                $gia_ve->khung_tg_chieu=$khung_tg_chieu;
+                $gia_ve->gia=$gia;
+                $gia_ve->save();
+                return redirect()->route('gia-ve.getGiaVes');
+            }catch(Exception $e){
+                return redirect()->back()->with(['flag'=>'danger','message'=>'Có thể giá vé đã tồn tại']);
+            }
+            
+        }
+        return view('gia-ves.them-gia-ve',compact('loai_ghes','dinh_dangs','khung_tg_chieus'));
+    }
+
+    public function editGiaVe(Request $request){
+        $gia_ve=GiaVe::where('id',$request->id,'da_xoa',false)->first();
+        $loai_ghes=LoaiGhe::where('da_xoa',false)->get();
+        $dinh_dangs=DinhDang::where('da_xoa',false)->get();
+        $khung_tg_chieus=KhungTGChieu::where('da_xoa',false)->get();
+        if($request->isMethod('post')){
+            $loai_ghe=$request->input("loaiGhe");
+            $dinh_dang=$request->input("dinhDang");
+            $khung_tg_chieu=$request->input("khungTGChieu");
+            $gia=(double)$request->input("giaVe");
+
+            try{
+                $gia_ve->loai_ghe=$loai_ghe;
+                $gia_ve->dinh_dang=$dinh_dang;
+                $gia_ve->khung_tg_chieu=$khung_tg_chieu;
+                $gia_ve->gia=$gia;
+                $gia_ve->save();
+                return redirect()->route('gia-ve.getGiaVes');
+            }catch(Exception $e){
+                return redirect()->back()->with(['flag'=>'danger','message'=>'Có thể giá vé đã tồn tại']);
+            }
+            
+        }
+        return view('gia-ves.chinh-sua-gia-ve',compact('gia_ve','loai_ghes','dinh_dangs','khung_tg_chieus'));
+    }
+
+    public function deleteGiaVe(Request $request){
+        $gia_ve=GiaVe::where('id',$request->id,'da_xoa',false)->first();
+        $gia_ve->da_xoa=true;
+        $gia_ve->save();
+        return redirect()->route('gia-ve.getGiaVes');
+    }
+
+    //Quản lí khung thời gian chiếu
+    public function getKhungTGChieus(){
+        $khung_tg_chieus=KhungTGChieu::where('da_xoa',false)->get();
+        $sl=$khung_tg_chieus->count();
+        return view('khung-tg-chieus.khung-tg-chieus',compact('khung_tg_chieus','sl'));
+    }
+
+    public function addKhungTGChieu(Request $request){
+        if($request->isMethod('post')){
+            $tgc=$request->input("tgChieu");
+
+            $khung_tg_chieu=new KhungTGChieu();
+            $khung_tg_chieu->tg_chieu=$tgc;
+            $khung_tg_chieu->save();
+            return redirect()->route('khung-tg-chieu.getKhungTGChieus');
+        }
+        return view('khung-tg-chieus.them-khung-tg-chieu');
+    }
+
+    public function deleteKhungTGChieu(Request $request){
+        $khung_tg_chieu=KhungTGChieu::where('id',$request->id,'da_xoa',false)->first();
+        $khung_tg_chieu->da_xoa=true;
+        $khung_tg_chieu->save();
+        return redirect()->route('khung-tg-chieu.getKhungTGChieus');
     }
 }

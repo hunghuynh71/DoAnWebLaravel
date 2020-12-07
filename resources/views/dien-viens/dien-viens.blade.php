@@ -40,7 +40,7 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">Danh sách diễn viên</h3>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="btn btn-success btn-sm" href="{{route('dien-vien.addDienVien')}}">
+        <a class="btn btn-success btn-sm" href="{{url('dien-vien/them-dien-vien')}}">
           <i class="fas fa-folder">
           </i>
           Thêm diễn viên

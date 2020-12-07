@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title','Đạo diễn')
+@section('title','Giá vé')
 
 @section('css')
 <!-- Font Awesome -->
@@ -21,12 +21,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Đạo diễn</h1>
+          <h1>Giá vé</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Đạo diễn</li>
+            <li class="breadcrumb-item active">Giá vé</li>
           </ol>
         </div>
       </div>
@@ -39,11 +39,11 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Danh sách đạo diễn</h3>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="btn btn-success btn-sm" href="{{url('dao-dien/them-dao-dien')}}">
+        <h3 class="card-title">Danh giá vé</h3>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-success btn-sm" href="{{url('gia-ve/them-gia-ve')}}">
           <i class="fas fa-folder">
           </i>
-          Thêm đạo diễn
+          Thêm giá vé
         </a>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -60,22 +60,16 @@
                 STT
               </th>
               <th>
-                Tên đạo diễn
+                Loại ghế
               </th>
               <th>
-                Ngày sinh
+                Định dạng
               </th>
               <th>
-                Chiều cao
+                Khung thời gian chiếu
               </th>
               <th>
-                Quốc gia
-              </th>
-              <th>
-                Tiểu sử
-              </th>
-              <th>
-                Hình ảnh
+                Giá
               </th>
             </tr>
           </thead>
@@ -86,35 +80,29 @@
                 {{$p+1}}
               </td>
               <td>
-                {{$dao_diens[$p]->ten_dd}}
+                {{$gia_ves[$p]->loai_ghe}}
               </td>
               <td>
-                {{$dao_diens[$p]->ngay_sinh}}
+                {{$gia_ves[$p]->dinh_dang}}
               </td>
               <td>
-                {{$dao_diens[$p]->chieu_cao}}
+                {{$gia_ves[$p]->khung_tg_chieu}}
               </td>
               <td>
-                {{$dao_diens[$p]->quoc_gia}}
-              </td>
-              <td>
-                {{$dao_diens[$p]->tieu_su}}
-              </td>
-              <td>
-                {{$dao_diens[$p]->hinh_anh}}
+                {{$gia_ves[$p]->gia}}
               </td>
               <td class="project-actions text-right">
-                <a class="btn btn-primary btn-sm" href="{{route('dao-dien.daoDienDetail',$dao_diens[$p]->id)}}">
+                <a class="btn btn-primary btn-sm" href="{{route('gia-ve.giaVeDetail',$gia_ves[$p]->id)}}">
                   <i class="fas fa-folder">
                   </i>
                   Chi tiết
                 </a>
-                <a class="btn btn-info btn-sm" href="{{route('dao-dien.editDaoDien',$dao_diens[$p]->id)}}">
+                <a class="btn btn-info btn-sm" href="{{route('gia-ve.editGiaVe',$gia_ves[$p]->id)}}">
                   <i class="fas fa-pencil-alt">
                   </i>
                   Sửa
                 </a>
-                <a class="btn btn-danger btn-sm" href="{{route('dao-dien.deleteDaoDien',$dao_diens[$p]->id)}}">
+                <a class="btn btn-danger btn-sm" href="{{route('gia-ve.deleteGiaVe',$gia_ves[$p]->id)}}">
                   <i class="fas fa-trash">
                   </i>
                   Xóa

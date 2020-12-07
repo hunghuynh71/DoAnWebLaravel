@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title','Đạo diễn')
+@section('title','Rạp phim')
 
 @section('css')
 <!-- Font Awesome -->
@@ -21,12 +21,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Đạo diễn</h1>
+          <h1>Rạp phim</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Đạo diễn</li>
+            <li class="breadcrumb-item active">Rạp phim</li>
           </ol>
         </div>
       </div>
@@ -39,11 +39,11 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Danh sách đạo diễn</h3>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="btn btn-success btn-sm" href="{{url('dao-dien/them-dao-dien')}}">
+        <h3 class="card-title">Danh sách rạp phim</h3>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-success btn-sm" href="{{url('rap-phim/them-rap-phim')}}">
           <i class="fas fa-folder">
           </i>
-          Thêm đạo diễn
+          Thêm rạp phim
         </a>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -60,24 +60,14 @@
                 STT
               </th>
               <th>
-                Tên đạo diễn
+                Tên rạp phim
               </th>
               <th>
-                Ngày sinh
+                Chi nhánh
               </th>
               <th>
-                Chiều cao
+                Số ghế
               </th>
-              <th>
-                Quốc gia
-              </th>
-              <th>
-                Tiểu sử
-              </th>
-              <th>
-                Hình ảnh
-              </th>
-            </tr>
           </thead>
           <tbody>
             @for($p = 0;$p<$sl;$p++)
@@ -86,35 +76,26 @@
                 {{$p+1}}
               </td>
               <td>
-                {{$dao_diens[$p]->ten_dd}}
+                {{$rap_phims[$p]->ten_rap}}
               </td>
               <td>
-                {{$dao_diens[$p]->ngay_sinh}}
+                {{$rap_phims[$p]->chi_nhanh}}
               </td>
               <td>
-                {{$dao_diens[$p]->chieu_cao}}
-              </td>
-              <td>
-                {{$dao_diens[$p]->quoc_gia}}
-              </td>
-              <td>
-                {{$dao_diens[$p]->tieu_su}}
-              </td>
-              <td>
-                {{$dao_diens[$p]->hinh_anh}}
+                {{$rap_phims[$p]->so_ghe}}
               </td>
               <td class="project-actions text-right">
-                <a class="btn btn-primary btn-sm" href="{{route('dao-dien.daoDienDetail',$dao_diens[$p]->id)}}">
+                <a class="btn btn-primary btn-sm" href="{{route('rap-phim.rapPhimDetail',$rap_phims[$p]->id)}}">
                   <i class="fas fa-folder">
                   </i>
                   Chi tiết
                 </a>
-                <a class="btn btn-info btn-sm" href="{{route('dao-dien.editDaoDien',$dao_diens[$p]->id)}}">
+                <a class="btn btn-info btn-sm" href="{{route('rap-phim.editRapPhim',$rap_phims[$p]->id)}}">
                   <i class="fas fa-pencil-alt">
                   </i>
                   Sửa
                 </a>
-                <a class="btn btn-danger btn-sm" href="{{route('dao-dien.deleteDaoDien',$dao_diens[$p]->id)}}">
+                <a class="btn btn-danger btn-sm" href="{{route('rap-phim.deleteRapPhim',$rap_phims[$p]->id)}}">
                   <i class="fas fa-trash">
                   </i>
                   Xóa
