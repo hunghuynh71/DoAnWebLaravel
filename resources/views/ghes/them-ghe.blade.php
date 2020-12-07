@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title','Chỉnh sửa thể loại')
+@section('title','Thêm ghế')
 
 @section('css')
 <!-- Font Awesome -->
@@ -20,12 +20,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Chỉnh sửa thể loại</h1>
+          <h1>Thêm ghế</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Chỉnh sửa thể loại</li>
+            <li class="breadcrumb-item active">Thêm ghế</li>
           </ol>
         </div>
       </div>
@@ -49,15 +49,28 @@
               </div>
             </div>
             <div class="card-body">
-              <div class="form-group">
-                <label for="tenTheLoai">Tên thể loại</label>
-                <input type="text" name="tenTheLoai" class="form-control" value="{{$the_loai->ten_tl}}">
+            <div class="form-group">
+                <label for="loaiGhe">Loại ghế</label>
+                <select name="loaiGhe" class="form-control custom-select">
+                  <option selected disabled>Chọn loại ghế</option>
+                  @foreach($loai_ghes as $tl)
+                  <option value="{{$tl->id}}">{{$tl->ten_lg}}</option>
+                  @endforeach
+                </select>
               </div>
-            </div>
+              <div class="form-group">
+                <label for="rapPhim">Rạp phim</label>
+                <select name="rapPhim" class="form-control custom-select">
+                  <option selected disabled>Chọn rạp phim</option>
+                  @foreach($rap_phims as $tl)
+                  <option value="{{$tl->id}}">{{$tl->ten_rap}}</option>
+                  @endforeach
+                </select>
+              </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <a href="{{route('the-loai.getTheLoais')}}" class="btn btn-secondary">Thoát</a>
-              <input type="submit" value="Chỉnh sửa thể loại" class="btn btn-success float-right">
+              <a href="{{route('ghe.getGhes')}}" class="btn btn-secondary">Thoát</a>
+              <input type="submit" value="Thêm ghế" class="btn btn-success float-right">
             </div>
             <!-- /.card-footer -->
 

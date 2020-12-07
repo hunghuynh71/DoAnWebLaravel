@@ -117,3 +117,18 @@ Route::prefix('dien-vien')->group(function(){
   Route::match(['get','post'],'chinh-sua-dien-vien/{id}','AdminController@editDienVien')->name('dien-vien.editDienVien');
   Route::get('xoa-dien-vien/{id}', 'AdminController@deleteDienVien')->name('dien-vien.deleteDienVien');
 });
+
+Route::prefix('ghe')->group(function(){
+  Route::get('ghe', 'AdminController@getGhes')->name('ghe.getGhes');
+  Route::get('chi-tiet-ghe/{id}', 'AdminController@gheDetail')->name('ghe.gheDetail');
+  Route::match(['get','post'],'them-ghe','AdminController@addGhe')->name('ghe.addGhe');
+  Route::match(['get','post'],'chinh-sua-ghe/{id}','AdminController@editGhe')->name('ghe.editGhe');
+  Route::get('xoa-ghe/{id}', 'AdminController@deleteGhe')->name('ghe.deleteGhe');
+});
+
+Route::prefix('loai-ghe')->group(function(){
+  Route::get('loai-ghe', 'AdminController@getLoaiGhes')->name('loai-ghe.getLoaiGhes');
+  Route::match(['get','post'],'them-loai-ghe','AdminController@addLoaiGhe')->name('loai-ghe.addLoaiGhe');
+  Route::match(['get','post'],'chinh-sua-loai-ghe/{id}','AdminController@editLoaiGhe')->name('loai-ghe.editLoaiGhe');
+  Route::get('xoa-loai-ghe/{id}', 'AdminController@deleteLoaiGhe')->name('loai-ghe.deleteLoaiGhe');
+});

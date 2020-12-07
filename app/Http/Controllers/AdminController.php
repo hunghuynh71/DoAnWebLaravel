@@ -19,10 +19,12 @@ use App\Models\GiaVe;
 use App\Models\Ve;
 use App\Models\KhachDatVe;
 use App\Models\Ghe;
+use App\Models\LoaiGhe;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
 class AdminController extends Controller
@@ -113,6 +115,7 @@ class AdminController extends Controller
           $ten_phim=$request->input("tenPhim");
           $dao_dien=$request->input("daoDien");
           $the_loai=$request->input("theLoai");
+          $nhan_phim=$request->input("nhanPhim");
           $quoc_gia=$request->input("quocGia");
           $hinh_anh=$request->input("hinhAnh");
           $nha_san_xuat=$request->input("nhaSanXuat");
@@ -125,6 +128,7 @@ class AdminController extends Controller
           $phim->ten_phim=$ten_phim;
           $phim->dao_dien=$dao_dien;
           $phim->the_loai=$the_loai;
+          $phim->nhan_phim=$nhan_phim;
           $phim->quoc_gia=$quoc_gia;
           $phim->hinh_anh=$hinh_anh;
           $phim->nha_san_xuat=$nha_san_xuat;
@@ -148,6 +152,7 @@ class AdminController extends Controller
             $ten_phim=$request->input("tenPhim");
             $dao_dien=$request->input("daoDien");
             $the_loai=$request->input("theLoai");
+            $nhan_phim=$request->input("nhanPhim");
             $quoc_gia=$request->input("quocGia");
             $hinh_anh=$request->input("hinhAnh");
             $nha_san_xuat=$request->input("nhaSanXuat");
@@ -159,6 +164,7 @@ class AdminController extends Controller
             $phim->ten_phim=$ten_phim;
             $phim->dao_dien=$dao_dien;
             $phim->the_loai=$the_loai;
+            $phim->nhan_phim=$nhan_phim;
             $phim->quoc_gia=$quoc_gia;
             $phim->hinh_anh=$hinh_anh;
             $phim->nha_san_xuat=$nha_san_xuat;
@@ -743,5 +749,97 @@ class AdminController extends Controller
         $dien_vien->da_xoa=true;
         $dien_vien->save();
         return redirect()->route('dien-vien.getDienViens');
+    }
+
+    //Quản lí ghế
+    public function getGhes(){
+        $ghes=Ghe::where('da_xoa',false)->get();
+        $sl=$ghes->count();
+        return view('ghes.ghes',compact('ghes','sl'));
+    }
+
+    public function gheDetail(Request $request){
+        $ghe=Ghe::where('id',$request->id,'da_xoa',false)->first();
+        return view('ghes.chi-tiet-ghe',compact('ghe'));
+    }
+
+    public function addGhe(Request $request){
+        $loai_ghes=LoaiGhe::where('da_xoa',false)->get();
+        $rap_phims=RapPhim::where('da_xoa',false)->get();
+        if($request->isMethod('post')){
+          $loai_ghe=$request->input("loaiGhe");
+          $rap_phim=$request->input("rapPhim");
+
+          $ghe=new Ghe();
+          $ghe->loai_ghe=$loai_ghe;
+          $ghe->rap=$rap_phim;
+          $ghe->tinh_trang=0;
+          $ghe->save();
+          return redirect()->route('ghe.getGhes');
+        }
+        return view('ghes.them-ghe',compact('loai_ghes','rap_phims'));
+    }
+
+    public function editGhe(Request $request){
+        $ghe=Ghe::where('id',$request->id,'da_xoa',false)->first();
+        $loai_ghes=LoaiGhe::where('da_xoa',false)->get();
+        $rap_phims=RapPhim::where('da_xoa',false)->get();
+        if($request->isMethod('post')){
+          $loai_ghe=$request->input("loaiGhe");
+          $rap_phim=$request->input("rapPhim");
+          $tinh_trang=$request->input("tinhTrang");
+          
+          $ghe->loai_ghe=$loai_ghe;
+          $ghe->rap=$rap_phim;
+          $ghe->tinh_trang=$tinh_trang;
+          $ghe->save();
+          return redirect()->route('ghe.getGhes');
+        }
+        return view('ghes.chinh-sua-ghe',compact('ghe','loai_ghes','rap_phims'));
+    }
+    
+    public function deleteGhe(Request $request){
+        $ghe=Ghe::where('id',$request->id,'da_xoa',false)->first();
+        $ghe->da_xoa=true;
+        $ghe->save();
+        return redirect()->route('ghe.getGhes');
+    }
+
+    //Quản lí loại ghế
+    public function getLoaiGhes(){
+        $loai_ghes=LoaiGhe::where('da_xoa',false)->get();
+        $sl=$loai_ghes->count();
+        return view('loai-ghes.loai-ghes',compact('loai_ghes','sl'));
+    }
+
+    public function addLoaiGhe(Request $request){
+        if($request->isMethod('post')){
+          $ten_lg=$request->input("tenLoaiGhe");
+
+          $loai_ghe=new LoaiGhe();
+          $loai_ghe->ten_lg=$ten_lg;
+          $loai_ghe->save();
+          return redirect()->route('loai-ghe.getLoaiGhes');
+        }
+        return view('loai-ghes.them-loai-ghe');
+    }
+
+    public function editLoaiGhe(Request $request){
+        $loai_ghe=LoaiGhe::where('id',$request->id,'da_xoa',false)->first();
+        if($request->isMethod('post')){
+            $ten_lg=$request->input("tenLoaiGhe");
+            
+            $loai_ghe->ten_lg=$ten_lg;
+            $loai_ghe->save();
+            return redirect()->route('loai-ghe.getLoaiGhes');
+        }
+        return view('loai-ghes.chinh-sua-loai-ghe',compact('loai_ghe'));
+    }
+    
+    public function deleteLoaiGhe(Request $request){
+        $loai_ghe=LoaiGhe::where('id',$request->id,'da_xoa',false)->first();
+        $loai_ghe->da_xoa=true;
+        $loai_ghe->save();
+        return redirect()->route('loai-ghe.getLoaiGhes');
     }
 }

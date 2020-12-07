@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title','Phim')
+@section('title','Ghế')
 
 @section('css')
 <!-- Font Awesome -->
@@ -21,12 +21,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Phim</h1>
+          <h1>Ghế</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Phim</li>
+            <li class="breadcrumb-item active">Ghế</li>
           </ol>
         </div>
       </div>
@@ -39,11 +39,11 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Danh sách phim</h3>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="btn btn-success btn-sm" href="{{route('phim.addPhim')}}">
+        <h3 class="card-title">Danh sách ghế</h3>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-success btn-sm" href="{{route('ghe.addGhe')}}">
           <i class="fas fa-folder">
           </i>
-          Thêm phim
+          Thêm ghế
         </a>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -60,83 +60,55 @@
                 STT
               </th>
               <th>
-                Tên phim
+                Tên ghế
               </th>
               <th>
-                Đạo diễn
+                Loại ghế
               </th>
               <th>
-                Diễn viên
+                Rạp phim
               </th>
               <th>
-                Thể loại
-              </th>
-              <th>
-                Nhãn phim
-              </th>
-              <th>
-                Quốc gia
-              </th>
-              <th>
-                Ngày xuất bản 
-              </th>
-              <th>
-                Thời lượng
-              </th>
-              <th>
-                Nhân viên duyệt
+                Tình trạng
               </th>
             </tr>
           </thead>
           <tbody>
-            @for($p = 0;$p<$sl_phim;$p++)
+            @for($p = 0;$p<$sl;$p++)
             <tr>
               <td>
                 {{$p+1}}
               </td>
               <td>
-                {{$phims[$p]->ten_phim}}
+                {{$ghes[$p]->id}}
               </td>
               <td>
-                {{$phims[$p]->dao_dien}}
+                {{$ghes[$p]->loai_ghe}}
               </td>
               <td>
-                @foreach($ds_dien_viens as $ds)
-                @if($ds->phim==$phims[$p]->id)
-                {{$ds->dien_vien}}&nbsp;
+                {{$ghes[$p]->rap}}
+              </td>
+              <td>
+                @if($ghes[$p]->tinh_trang==1)
+                <p>Đã được đặt chỗ</p>
+                @elseif($ghes[$p]->tinh_trang==0)
+                <p>Trống</p>
+                @else
+                <p>Bị hỏng hoặc đang bảo trì</p>
                 @endif
-                @endforeach
-              </td>
-              <td>
-                {{$phims[$p]->the_loai}}
-              </td>
-              <td>
-                {{$phims[$p]->nhan_phim}}
-              </td>
-              <td>
-                {{$phims[$p]->quoc_gia}}
-              </td>
-              <td>
-                {{$phims[$p]->ngay_xuat_ban}}
-              </td>
-              <td>
-                {{$phims[$p]->thoi_luong}}
-              </td>
-              <td>
-                {{$phims[$p]->nv_duyet}}
               </td>
               <td class="project-actions text-right">
-                <a class="btn btn-primary btn-sm" href="{{route('phim.phimDetail',$phims[$p]->id)}}">
+                <a class="btn btn-primary btn-sm" href="{{route('ghe.gheDetail',$ghes[$p]->id)}}">
                   <i class="fas fa-folder">
                   </i>
                   Chi tiết
                 </a>
-                <a class="btn btn-info btn-sm" href="{{route('phim.editPhim',$phims[$p]->id)}}">
+                <a class="btn btn-info btn-sm" href="{{route('ghe.editGhe',$ghes[$p]->id)}}">
                   <i class="fas fa-pencil-alt">
                   </i>
                   Sửa
                 </a>
-                <a class="btn btn-danger btn-sm" href="{{route('phim.deletePhim',$phims[$p]->id)}}">
+                <a class="btn btn-danger btn-sm" href="{{route('ghe.deleteGhe',$ghes[$p]->id)}}">
                   <i class="fas fa-trash">
                   </i>
                   Xóa

@@ -57,7 +57,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
               <a href="{{route('the-loai.getTheLoais')}}" class="btn btn-secondary">Thoát</a>
-              <input type="submit" value="Thêm Thể loại" class="btn btn-success float-right">
+              <input type="submit" value="Thêm thể loại" class="btn btn-success float-right">
             </div>
             <!-- /.card-footer -->
 

@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title','Chỉnh sửa thể loại')
+@section('title','Chi tiết ghế')
 
 @section('css')
 <!-- Font Awesome -->
@@ -20,12 +20,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Chỉnh sửa thể loại</h1>
+          <h1>Chi tiết ghế</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Chỉnh sửa thể loại</li>
+            <li class="breadcrumb-item active">Chi tiết ghế</li>
           </ol>
         </div>
       </div>
@@ -34,38 +34,42 @@
 
   <!-- Main content -->
   <section class="content">
-    <div class="row">
-      <div class="col-md-12">
-        <form method="post" action="">
-          <!--them token-->
-          <input type="hidden" name="_token" value="{{csrf_token()}}">
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">Thông tin</h3>
 
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i></button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label for="tenTheLoai">Tên thể loại</label>
-                <input type="text" name="tenTheLoai" class="form-control" value="{{$the_loai->ten_tl}}">
-              </div>
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-              <a href="{{route('the-loai.getTheLoais')}}" class="btn btn-secondary">Thoát</a>
-              <input type="submit" value="Chỉnh sửa thể loại" class="btn btn-success float-right">
-            </div>
-            <!-- /.card-footer -->
+    <!-- Default box -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Thông tin ghế</h3>
 
-          </div>
-          <!-- /.card -->
-        </form>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+            <i class="fas fa-minus"></i></button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+            <i class="fas fa-times"></i></button>
+        </div>
       </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
+            <p>Loại ghế: {{$ghe->loai_ghe}}</p>
+            <p>Rạp phim: {{$ghe->rap}}</p>
+            @if($ghe->tinh_trang==1)
+              <p>Tình trạng: Đã được đặt chỗ</p>
+            @elseif($ghe->tinh_trang==0)
+              <p>Tình trạng: Trống</p>
+            @else
+              <p>Tình trạng: Bị hỏng hoặc đang bảo trì</p>
+            @endif
+            <div class="text-center mt-5 mb-3">
+              <a href="{{route('ghe.editGhe',$ghe->id)}}" class="btn btn-sm btn-primary">Chỉnh sửa</a>
+              <a href="{{route('ghe.getGhes')}}" class="btn btn-sm btn-warning">Thoát</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.card-body -->
     </div>
+    <!-- /.card -->
+
   </section>
   <!-- /.content -->
 </div>

@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title','Chỉnh sửa thể loại')
+@section('title','Thêm loại ghế')
 
 @section('css')
 <!-- Font Awesome -->
@@ -20,12 +20,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Chỉnh sửa thể loại</h1>
+          <h1>Thêm loại ghế</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Chỉnh sửa thể loại</li>
+            <li class="breadcrumb-item active">Thêm loại ghế</li>
           </ol>
         </div>
       </div>
@@ -50,14 +50,14 @@
             </div>
             <div class="card-body">
               <div class="form-group">
-                <label for="tenTheLoai">Tên thể loại</label>
-                <input type="text" name="tenTheLoai" class="form-control" value="{{$the_loai->ten_tl}}">
+                <label for="tenLoaiGhe">Tên loại ghế</label>
+                <input type="text" name="tenLoaiGhe" class="form-control">
               </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <a href="{{route('the-loai.getTheLoais')}}" class="btn btn-secondary">Thoát</a>
-              <input type="submit" value="Chỉnh sửa thể loại" class="btn btn-success float-right">
+              <a href="{{route('loai-ghe.getLoaiGhes')}}" class="btn btn-secondary">Thoát</a>
+              <input type="submit" value="Thêm loại ghế" class="btn btn-success float-right">
             </div>
             <!-- /.card-footer -->
 

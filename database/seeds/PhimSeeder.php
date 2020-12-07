@@ -16,6 +16,7 @@ class PhimSeeder extends Seeder
         $phim->ten_phim='Tiệc trăng máu';
         $phim->dao_dien=1;
         $phim->the_loai=1;
+        $phim->nhan_phim="18+";
         $phim->hinh_anh='fsdf';
         $phim->nha_san_xuat='fsfds';
         $phim->quoc_gia='Việt Nam';

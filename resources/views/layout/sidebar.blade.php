@@ -93,39 +93,45 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3" class="nav-link">
+                <a href="{{url('ghe/ghe')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ghế</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3" class="nav-link">
+                <a href="{{url('loai-ghe/loai-ghe')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Loại ghế</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3" class="nav-link">
+                <a href="{{url('dinh-dang/dinh-dang')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Nhãn phim</p>
+                  <p>Định dạng</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Nhân viên</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index3" class="nav-link">
+                <a href="{{url('quyen/quyen')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Quyền</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index3" class="nav-link">
+                <a href="{{url('rap-phim/rap-phim')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Rạp phim</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('gia-ve/gia-ve')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Giá vé</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('khung-tg-chieu/khung-tg-chieu')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Khung thời gian chiếu</p>
                 </a>
               </li>
             </ul>

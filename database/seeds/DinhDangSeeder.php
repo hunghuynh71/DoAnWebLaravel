@@ -13,7 +13,7 @@ class NhanPhimSeeder extends Seeder
     public function run()
     {
         $np=new DinhDang();
-        $np->ten_dd='18+';
+        $np->ten_dd='2D';
         $np->save();
     }
 }

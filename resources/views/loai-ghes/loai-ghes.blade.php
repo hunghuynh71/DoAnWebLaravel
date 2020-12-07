@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title','Chi tiết phim')
+@section('title','Loại ghế')
 
 @section('css')
 <!-- Font Awesome -->
@@ -14,18 +14,19 @@
 @endsection
 
 @section('content')
+<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Chi tiết phim</h1>
+          <h1>Loại ghế</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item active">Chi tiết phim</li>
+            <li class="breadcrumb-item active">Loại ghế</li>
           </ol>
         </div>
       </div>
@@ -38,8 +39,12 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Thông tin phim</h3>
-
+        <h3 class="card-title">Danh sách loại ghế</h3>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-success btn-sm" href="{{url('loai-ghe/them-loai-ghe')}}">
+          <i class="fas fa-folder">
+          </i>
+          Thêm loại ghế
+        </a>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
             <i class="fas fa-minus"></i></button>
@@ -47,31 +52,43 @@
             <i class="fas fa-times"></i></button>
         </div>
       </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
-            <h1 class="text-primary text-center">{{$phim->ten_phim}}</h1>
-            <p>Đạo diễn: {{$phim->dao_dien}}</p>
-            <p>Diễn viên: </p>
-            @foreach($ds_dien_viens as $ds)
-              {{$ds->dien_vien}}&nbsp;
-            @endforeach
-            <p>Thể loại: {{$phim->the_loai}}</p>
-            <p>Quốc gia: {{$phim->quoc_gia}}</p>
-            <p>Nhãn phim {{$phim->nhan_phim}}</p>
-            <p>Hình ảnh: {{$phim->hinh_anh}}</p>
-            <p>Nhà sản xuất: {{$phim->nha_san_xuat}}</p>
-            <p>Ngày xuất bản: {{$phim->ngay_xuat_ban}}</p>
-            <p>Thời lượng: {{$phim->thoi_luong}}</p>
-            <p>Trailer: {{$phim->trailer}}</p>
-            <p>Điểm: {{$phim->diem}}</p>
-            <p>Nhân viên duyệt: {{$phim->nv_duyet}}</p>
-            <div class="text-center mt-5 mb-3">
-              <a href="{{route('phim.editPhim',$phim->id)}}" class="btn btn-sm btn-primary">Chỉnh sửa</a>
-              <a href="{{route('phim.getPhims') }}" class="btn btn-sm btn-warning">Thoát</a>
-            </div>
-          </div>
-        </div>
+      <div class="card-body p-0">
+        <table class="table table-striped projects">
+          <thead>
+            <tr>
+              <th>
+                STT
+              </th>
+              <th>
+                Tên loại ghế
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for($p = 0;$p<$sl;$p++)
+            <tr>
+              <td>
+                {{$p+1}}
+              </td>
+              <td>
+                {{$loai_ghes[$p]->ten_lg}}
+              </td>
+              <td class="project-actions text-right">
+                <a class="btn btn-info btn-sm" href="{{route('loai-ghe.editLoaiGhe',$loai_ghes[$p]->id)}}">
+                  <i class="fas fa-pencil-alt">
+                  </i>
+                  Sửa
+                </a>
+                <a class="btn btn-danger btn-sm" href="{{route('loai-ghe.deleteLoaiGhe',$loai_ghes[$p]->id)}}">
+                  <i class="fas fa-trash">
+                  </i>
+                  Xóa
+                </a>
+              </td>
+            </tr>
+            @endfor
+          </tbody>
+        </table>
       </div>
       <!-- /.card-body -->
     </div>

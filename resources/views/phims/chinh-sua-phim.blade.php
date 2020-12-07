@@ -84,6 +84,10 @@
                 </select>
               </div>
               <div class="form-group">
+                <label for="nhanPhim">Nhãn phim</label>
+                <input type="text" name="nhanPhim" class="form-control" value="{{$phim->nhan_phim}}">
+              </div>
+              <div class="form-group">
                 <label for="quocGia">Quốc gia</label>
                 <input type="text" name="quocGia" class="form-control" value="{{$phim->quoc_gia}}">
               </div>
