@@ -45,8 +45,14 @@ class AdminController extends Controller
                 'email.email'=>'Vui lòng nhập đúng định dạng email',
                 'password.required'=>'Vui lòng nhập mật khẩu',
                 'password.min'=>'Mật khẩu phải trên 6 kí tự'
+            ],
+            [
+                'email'=>'fgdfbf',
             ]
             );
+
+            //Định nghĩa lỗi
+            $errors=$this->validate->errors();
             //$user=array('email'=>$request->email, 'password'=>Hash::make('$request->password'));
             /*$user=array('email'=>$request->input("email"), 'password'=>$request->input("password"));
             if(Auth::attempt($user)){

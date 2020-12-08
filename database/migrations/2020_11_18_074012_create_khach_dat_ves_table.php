@@ -16,7 +16,7 @@ class CreateKhachDatVesTable extends Migration
         Schema::create('khach_dat_ves', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ten_kdv');
-            $table->string('sdt');
+            $table->string('sdt')->unique();
             $table->string('email')->unique();
             $table->string('mat_khau');
             $table->integer('nam_sinh');

@@ -24,7 +24,7 @@ class CreatePhimsTable extends Migration
             $table->date('ngay_xuat_ban');
             $table->integer('thoi_luong');
             $table->string('trailer');
-            $table->integer('diem');
+            $table->integer('diem')->default(0);
             $table->integer('nv_duyet')->unsigned();
             $table->boolean('da_xoa')->default(false);
             $table->timestamps();
