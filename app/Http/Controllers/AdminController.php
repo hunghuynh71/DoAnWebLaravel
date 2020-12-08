@@ -34,6 +34,7 @@ class AdminController extends Controller
     public function login(Request $request){
         //return redirect()->back()->with(['flag'=>'primary','message'=>'Nhập thông tin đăng nhập']);
         if($request->isMethod('post')){
+            //echo $request->all();
             $this->validate($request,
             [
             'email' =>'required|email',

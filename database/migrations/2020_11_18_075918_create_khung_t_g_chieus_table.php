@@ -15,7 +15,7 @@ class CreateKhungTGChieusTable extends Migration
     {
         Schema::create('khung_t_g_chieus', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('tg_chieu');
+            $table->time('tg_chieu');
             $table->boolean('da_xoa')->default(false);
             $table->timestamps();
         });

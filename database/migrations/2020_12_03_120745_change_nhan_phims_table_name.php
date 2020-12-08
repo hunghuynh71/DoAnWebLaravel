@@ -13,7 +13,7 @@ class ChangeNhanPhimsTableName extends Migration
      */
     public function up()
     {
-        Schema::rename('ten_np','dinh_dangs');
+        Schema::rename('nhan_phims','dinh_dangs');
     }
 
     /**

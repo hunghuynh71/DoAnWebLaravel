@@ -13,7 +13,7 @@ class KhungTGChieuSeeder extends Seeder
     public function run()
     {
         $ktgc=new KhungTGChieu();
-        $ktgc->tg_chieu='2020-11-21';
+        $ktgc->tg_chieu='09:00:00';
         $ktgc->save();
     }
 }
