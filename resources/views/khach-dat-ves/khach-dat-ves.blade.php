@@ -40,12 +40,7 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Danh sách khách đặt vé</h3>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="btn btn-success btn-sm" href="{{route('khach-dat-ve.addKhachDatVe')}}">
-          <i class="fas fa-folder">
-          </i>
-          Thêm khách đặt vé
-        </a>
+        <h3 class="card-title">Danh sách khách đặt vé</h3>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
             <i class="fas fa-minus"></i></button>
@@ -102,11 +97,6 @@
                   <i class="fas fa-folder">
                   </i>
                   Chi tiết
-                </a>
-                <a class="btn btn-info btn-sm" href="{{route('khach-dat-ve.editKhachDatVe',$khach_dat_ves[$p]->id)}}">
-                  <i class="fas fa-pencil-alt">
-                  </i>
-                  Sửa
                 </a>
                 <a class="btn btn-danger btn-sm" href="{{route('khach-dat-ve.deleteKhachDatVe',$khach_dat_ves[$p]->id)}}">
                   <i class="fas fa-trash">

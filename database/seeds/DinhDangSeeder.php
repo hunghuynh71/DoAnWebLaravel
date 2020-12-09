@@ -3,7 +3,7 @@
 use App\Models\DinhDang;
 use Illuminate\Database\Seeder;
 
-class NhanPhimSeeder extends Seeder
+class DinhDangSeeder extends Seeder
 {
     /**
      * Run the database seeds.

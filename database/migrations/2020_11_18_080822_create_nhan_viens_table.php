@@ -19,7 +19,7 @@ class CreateNhanViensTable extends Migration
             $table->string('cmnd')->unique();
             $table->string('sdt')->unique();
             $table->string('email')->unique();
-            $table->string('mat_khau');
+            $table->string('password');
             $table->date('ngay_vao_lam');
             $table->boolean('gioi_tinh')->default(true);
             $table->string('dia_chi');

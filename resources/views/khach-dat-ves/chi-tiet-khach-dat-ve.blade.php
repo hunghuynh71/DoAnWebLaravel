@@ -57,7 +57,6 @@
             <p>Năm sinh: {{$khach_dat_ve->nam_sinh}}</p>
             <p>Giới tính: {{$khach_dat_ve->gioi_tinh}}</p>
             <div class="text-center mt-5 mb-3">
-              <a href="{{route('khach-dat-ve.editKhachDatVe',$khach_dat_ve->id)}}" class="btn btn-sm btn-primary">Chỉnh sửa</a>
               <a href="{{route('khach-dat-ve.getKhachDatVes') }}" class="btn btn-sm btn-warning">Thoát</a>
             </div>
           </div>

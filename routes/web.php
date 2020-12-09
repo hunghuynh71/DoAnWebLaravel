@@ -75,8 +75,6 @@ Route::prefix('ve')->group(function(){
 Route::prefix('khach-dat-ve')->group(function(){
   Route::get('khach-dat-ve', 'AdminController@getKhachDatVes')->name('khach-dat-ve.getKhachDatVes');
   Route::get('chi-tiet-khach-dat-ve/{id}', 'AdminController@khachDatVeDetail')->name('khach-dat-ve.khachDatVeDetail');
-  Route::match(['get','post'],'them-khach-dat-ve','AdminController@addKhachDatVe')->name('khach-dat-ve.addKhachDatVe');
-  Route::match(['get','post'],'chinh-sua-khach-dat-ve/{id}','AdminController@editKhachDatVe')->name('khach-dat-ve.editKhachDatVe');
   Route::get('xoa-khach-dat-ve/{id}', 'AdminController@deleteKhachDatVe')->name('khach-dat-ve.deleteKhachDatVe');
 });
 

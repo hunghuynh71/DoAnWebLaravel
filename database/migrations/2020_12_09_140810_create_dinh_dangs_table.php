@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNhanPhimsTable extends Migration
+class CreateDinhDangsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateNhanPhimsTable extends Migration
      */
     public function up()
     {
-        Schema::create('nhan_phims', function (Blueprint $table) {
+        Schema::create('dinh_dangs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('ten_np');
+            $table->string('ten_dd');
             $table->boolean('da_xoa')->default(false);
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateNhanPhimsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nhan_phims');
+        Schema::dropIfExists('dinh_dangs');
     }
 }

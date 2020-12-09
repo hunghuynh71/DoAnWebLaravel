@@ -66,6 +66,9 @@
                 Khách đặt vé 
               </th>
               <th>
+                Chi nhánh
+              </th>
+              <th>
                 Số vé
               </th>
             </tr>
@@ -81,6 +84,9 @@
               </td>
               <td>
                 {{$ds_ve[$i]->khach_dat_ve}} 
+              </td>
+              <td>
+                {{$ds_ve[$i]->chi_nhanh}} 
               </td>
               <td class="project_progress">
                 {{$ds_ve[$i]->sl_ve}}

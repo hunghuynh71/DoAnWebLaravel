@@ -13,7 +13,7 @@ class TheLoaiSeeder extends Seeder
     public function run()
     {
         $tl=new TheLoai();
-        $tl->ten_tl='Hài';
+        $tl->ten_tl='Tình cảm';
         $tl->save();
     }
 }

@@ -50,15 +50,20 @@
             </div>
             <div class="card-body">
               <div class="form-group">
-                <label for="phim">Phim</label>
-                <input type="date" name="tgDat" class="form-control">
-              </div>
-              <div class="form-group">
                 <label for="khachDatVe">Khách đặt vé</label>
                 <select name="khachDatVe" class="form-control custom-select">
                   <option selected disabled>Chọn khách đặt vé</option>
                   @foreach($khach_dat_ves as $kdv)
                   <option value="{{$kdv->id}}">{{$kdv->ten_kdv}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="chiNhanh">Chi nhánh</label>
+                <select name="chiNhanh" class="form-control custom-select">
+                  <option selected disabled>Chọn chi nhánh</option>
+                  @foreach($chi_nhanhs as $cn)
+                  <option value="{{$cn->id}}">{{$cn->ten_cn}}</option>
                   @endforeach
                 </select>
               </div>

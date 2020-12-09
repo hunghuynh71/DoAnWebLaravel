@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
+
 class AdminController extends Controller
 {
     //Đăng nhập đăng kí
@@ -45,9 +46,6 @@ class AdminController extends Controller
                 'email.email'=>'Vui lòng nhập đúng định dạng email',
                 'password.required'=>'Vui lòng nhập mật khẩu',
                 'password.min'=>'Mật khẩu phải trên 6 kí tự'
-            ],
-            [
-                'email'=>'fgdfbf',
             ]
             );
 
@@ -349,19 +347,21 @@ class AdminController extends Controller
 
     public function addDsVe(Request $request){
         $khach_dat_ves=KhachDatVe::where('da_xoa',false)->get();
+        $chi_nhanhs=ChiNhanh::where('da_xoa',false)->get();
         if($request->isMethod('post')){
-            $tg_dat=$request->input("tgDat");
             $kdv=$request->input("khachDatVe");
+            $cn=$request->input("chiNhanh");
             $slv=$request->input("slVe");
 
             $dsVe=new DsVe();
-            $dsVe->tg_dat=$tg_dat;
+            $dsVe->tg_dat='2020-12-9';
             $dsVe->khach_dat_ve=$kdv;
+            $dsVe->chi_nhanh=$cn;
             $dsVe->sl_ve=$slv;
             $dsVe->save();
             return redirect()->route('ds-ve.getDsVes');
         }
-        return view('ds-ves.them-ds-ve',compact('khach_dat_ves'));
+        return view('ds-ves.them-ds-ve',compact('khach_dat_ves','chi_nhanhs'));
     }
 
     public function deleteDsVe(Request $request){

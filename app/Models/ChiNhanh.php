@@ -18,4 +18,8 @@ class ChiNhanh extends Model
     public function rap_phims(){
         return $this->hasMany('App\Models\RapPhim','chi_nhanh','id');
     }
+
+    public function ds_ves(){
+        return $this->hasMany('App\Models\DsVE','chi_nhanh','id');
+    }
 }

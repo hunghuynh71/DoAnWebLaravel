@@ -52,6 +52,7 @@
           <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
             <p>Thời gian đặt: {{$ds_ve->tg_dat}}</p>
             <p>Khách đặt vé: {{$ds_ve->khach_dat_ve}}</p>
+            <p>Chi nhánh: {{$ds_ve->chi_nhanh}}</p>
             <p>Số vé: {{$ds_ve->sl_ve}}</p>
             <div class="text-center mt-5 mb-3">
               <a href="{{url('ds-ve/ds-ve')}}" class="btn btn-sm btn-warning">Thoát</a>
