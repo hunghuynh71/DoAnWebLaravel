@@ -18,7 +18,8 @@ class CreateLichChieusTable extends Migration
             $table->integer('phim')->unsigned();
             $table->integer('khung_tg_chieu')->unsigned();
             $table->integer('rap')->unsigned();
-            $table->unique(['phim','khung_tg_chieu','rap']);
+            $table->date('ngay_chieu');
+            $table->unique(['phim','khung_tg_chieu','rap','ngay_chieu']);
             $table->integer('nv_lap')->unsigned();
             $table->boolean('da_xoa')->default(false);
             $table->timestamps();

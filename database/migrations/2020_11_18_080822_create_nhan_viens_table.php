@@ -16,8 +16,8 @@ class CreateNhanViensTable extends Migration
         Schema::create('nhan_viens', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ten_nv');
-            $table->string('cmnd');
-            $table->string('sdt');
+            $table->string('cmnd')->unique();
+            $table->string('sdt')->unique();
             $table->string('email')->unique();
             $table->string('mat_khau');
             $table->date('ngay_vao_lam');
