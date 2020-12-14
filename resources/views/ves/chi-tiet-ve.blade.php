@@ -50,10 +50,12 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
-            <p>Lịch chiếu: {{$ve->lich_chieu}}</p>
-            <p>Ghế: {{$ve->ghe}}</p>
-            <p>Danh sách vé: {{$ve->ds_ve}}</p>
-            <p>Giá: {{$ve->gia}}</p>
+            <p>Phim: {{$ve->lich_chieu->phim->ten_phim}}</p>
+            <p>Ngày chiếu: {{$ve->lich_chieu->ngay_chieu}}</p>
+            <p>Giờ chiếu: {{$ve->lich_chieu->khung_tg_chieu->tg_chieu}}</p>
+            <p>Rạp: {{$ve->lich_chieu->rap_phim->ten_rap}}</p>
+            <p>Ghế: {{$ve->ghe_id}}</p>
+            <p>Giá: {{$ve->gia_ve->gia}}</p>
             <div class="text-center mt-5 mb-3">
               <a href="{{route('ve.getVes')}}" class="btn btn-sm btn-warning">Thoát</a>
             </div>

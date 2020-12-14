@@ -16,12 +16,12 @@ class CreateRapPhimsTable extends Migration
         Schema::create('rap_phims', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ten_rap');
-            $table->integer('chi_nhanh')->unsigned();
+            $table->integer('chi_nhanh_id')->unsigned();
             $table->integer('so_ghe');
             $table->boolean('da_xoa')->default(false);
             $table->timestamps();
 
-            $table->foreign('chi_nhanh')->references('id')->on('chi_nhanhs');
+            $table->foreign('chi_nhanh_id')->references('id')->on('chi_nhanhs');
         });
     }
 

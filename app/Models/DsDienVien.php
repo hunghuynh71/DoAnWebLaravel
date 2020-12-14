@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class DsDienVien extends Model
 {
-    protected $fillable=['phim','dien_vien',];
+    protected $fillable=['phim_id','dien_vien_id',];
 
     public function dien_vien(){
-        return $this->belongsTo('App\Models\DienVien','dien_vien');
+        return $this->belongsTo('App\Models\DienVien','dien_vien_id');
     }
 
     public function phim(){
-        return $this->belongsTo('App\Models\Phim','phim');
+        return $this->belongsTo('App\Models\Phim','phim_id');
     }
 }

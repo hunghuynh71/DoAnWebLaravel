@@ -71,10 +71,10 @@
                 {{$p+1}}
               </td>
               <td>
-                {{$binh_luans[$p]->phim}}
+                {{$binh_luans[$p]->phim->ten_phim}}
               </td>
               <td>
-                {{$binh_luans[$p]->nguoi_binh_luan}}
+                {{$binh_luans[$p]->khach_dat_ve->ten_kdv}}
               </td>
               <td>
                 {{$binh_luans[$p]->noi_dung}}

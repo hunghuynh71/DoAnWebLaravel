@@ -55,7 +55,7 @@
                 <select name="phim" class="form-control custom-select">
                   <option selected disabled>Chọn phim</option>
                   @foreach($phims as $p)
-                  @if($p->id==$dsdv->phim)
+                  @if($p->id==$dsdv->phim_id)
                   <option value="{{$p->id}}" selected="selected">{{$p->ten_phim}}</option>
                   @else
                   <option value="{{$p->id}}">{{$p->ten_phim}}</option>
@@ -68,7 +68,7 @@
                 <select name="dienVien" class="form-control custom-select">
                   <option selected disabled>Chọn diễn viên</option>
                   @foreach($dien_viens as $dv)
-                  @if($dv->id==$dsdv->dien_vien)
+                  @if($dv->id==$dsdv->dien_vien_id)
                   <option value="{{$dv->id}}" selected="selected">{{$dv->ten_dv}}</option>
                   @else
                   <option value="{{$dv->id}}">{{$dv->ten_dv}}</option>

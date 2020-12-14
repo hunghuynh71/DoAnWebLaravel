@@ -16,6 +16,6 @@ class DienVien extends Model
     ];
 
     public function ds_dien_viens(){
-        return $this->hasMany('App\Models\DsDienVien','dien_vien','id');
+        return $this->hasMany('App\Models\DsDienVien','dien_vien_id','id');
     }
 }

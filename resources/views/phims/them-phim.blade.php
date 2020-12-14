@@ -96,7 +96,7 @@
                 <input type="date" name="ngayXuatBan" class="form-control">
               </div>
               <div class="form-group">
-                <label for="thoiLuong">Thời lượng</label>
+                <label for="thoiLuong">Thời lượng (Phút)</label>
                 <input type="text" name="thoiLuong" class="form-control">
               </div>
               <div class="form-group">

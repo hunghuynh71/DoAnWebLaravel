@@ -24,11 +24,11 @@ class CreateNhanViensTable extends Migration
             $table->boolean('gioi_tinh')->default(true);
             $table->string('dia_chi');
             $table->boolean('dang_lam')->default(true);
-            $table->integer('quyen')->unsigned();
+            $table->integer('quyen_id')->unsigned();
             $table->boolean('da_xoa')->default(false);
             $table->timestamps();
 
-            $table->foreign('quyen')->references('id')->on('quyens');
+            $table->foreign('quyen_id')->references('id')->on('quyens');
         });
     }
 

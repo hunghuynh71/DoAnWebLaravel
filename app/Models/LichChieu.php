@@ -12,26 +12,26 @@ class LichChieu extends Model
      * @var array
      */
     protected $fillable = [
-        'phim', 'khung_tg_chieu', 'rap','nv_lap',
+        'phim_id', 'khung_tg_chieu_id', 'rap_id','nv_lap_id',
     ];
     
     public function phim(){
-        return $this->belongsTo('App\Models\Phim','phim');
+        return $this->belongsTo('App\Models\Phim','phim_id');
     }
 
-    public function khung_t_g_chieu(){
-        return $this->belongsTo('App\Models\KhungTGChieu','khung_tg_chieu');
+    public function khung_tg_chieu(){
+        return $this->belongsTo('App\Models\KhungTGChieu','khung_tg_chieu_id');
     }
 
     public function rap_phim(){
-        return $this->belongsTo('App\Models\RapPhim','rap');
+        return $this->belongsTo('App\Models\RapPhim','rap_id');
     }
 
     public function ves(){
-        return $this->hasMany('App\Models\Ve','lich_chieu','id');
+        return $this->hasMany('App\Models\Ve','lich_chieu_id','id');
     }
 
     public function nhan_vien(){
-        return $this->belongsTo('App\Models\NhanVien','nv_lap');
+        return $this->belongsTo('App\Models\NhanVien','nv_lap_id');
     }
 }

@@ -12,18 +12,18 @@ class Ghe extends Model
      * @var array
      */
     protected $fillable = [
-        'loai_ghe', 'rap', 'tinh_trang',
+        'loai_ghe_id', 'rap_id', 'tinh_trang',
     ];
     
     public function rap_phim(){
-        return $this->belongsTo('App\Models\RapPhim','rap');
+        return $this->belongsTo('App\Models\RapPhim','rap_id');
     }
 
     public function loai_ghe(){
-        return $this->belongsTo('App\Models\LoaiGhe','loai_ghe');
+        return $this->belongsTo('App\Models\LoaiGhe','loai_ghe_id');
     }
 
     public function ves(){
-        return $this->hasMany('App\Models\Ve','ghe','id');
+        return $this->hasMany('App\Models\Ve','ghe_id','id');
     }
 }

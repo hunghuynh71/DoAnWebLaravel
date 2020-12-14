@@ -13,10 +13,10 @@ class VeSeeder extends Seeder
     public function run()
     {
         $ve=new Ve();
-        $ve->gia=1;
-        $ve->lich_chieu=1;
-        $ve->ghe=1;
-        $ve->ds_ve=1;
+        $ve->gia_id=1;
+        $ve->lich_chieu_id=1;
+        $ve->ghe_id=1;
+        $ve->ds_ve_id=1;
         $ve->save();
     }
 }

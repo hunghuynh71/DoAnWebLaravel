@@ -13,9 +13,9 @@ class GiaVeSeeder extends Seeder
     public function run()
     {
         $gv=new GiaVe();
-        $gv->loai_ghe=1;
-        $gv->dinh_dang=1;
-        $gv->khung_tg_chieu=1;
+        $gv->loai_ghe_id=1;
+        $gv->dinh_dang_id=1;
+        $gv->khung_tg_chieu_id=1;
         $gv->gia=70000;
         $gv->save();
     }

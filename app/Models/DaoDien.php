@@ -16,6 +16,6 @@ class DaoDien extends Model
     ];
 
     public function phims(){
-        return $this->hasMany('App\Models\Phim','dao_dien','id');
+        return $this->hasMany('App\Models\Phim','dao_dien_id','id');
     }
 }

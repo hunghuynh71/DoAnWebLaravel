@@ -57,34 +57,46 @@
         <table class="table table-striped projects">
           <thead>
             <tr>
-              <th style="width: 1%">
+              <th>
                 STT
               </th>
-              <th style="width: 40%">
+              <th>
                 Phim
               </th>
-              <th style="width: 38%">
-                Khung thời gian chiếu 
+              <th>
+                Giờ chiếu 
+              </th>
+              <th>
+                Ngày chiếu 
               </th>
               <th>
                 Rạp
               </th>
             </tr>
           </thead>
+          <?php
+          $count=1;
+          ?>
           <tbody>
             @foreach($lichChieus as $lichChieu)
             <tr>
               <td>
-                #
+                {{$count}}
+                <?php
+                $count++;
+                ?>
               </td>
               <td>
-                {{$lichChieu->phim}}
+                {{$lichChieu->phim->ten_phim}}
               </td>
               <td>
-                {{$lichChieu->khung_tg_chieu}} 
+                {{$lichChieu->khung_tg_chieu->tg_chieu}} 
+              </td>
+              <td>
+                {{$lichChieu->ngay_chieu}} 
               </td>
               <td class="project_progress">
-                {{$lichChieu->rap}}
+                {{$lichChieu->rap_phim->ten_rap}}
               </td>
               <td class="project-actions text-right">
                 <a class="btn btn-primary btn-sm" href="{{route('lich-chieu.lichChieuDetail',$lichChieu->id)}}">

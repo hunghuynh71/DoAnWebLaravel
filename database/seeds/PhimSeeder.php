@@ -14,8 +14,8 @@ class PhimSeeder extends Seeder
     {
         $phim=new Phim();
         $phim->ten_phim='Tiệc trăng máu';
-        $phim->dao_dien=1;
-        $phim->the_loai=1;
+        $phim->dao_dien_id=1;
+        $phim->the_loai_id=1;
         $phim->nhan_phim="18+";
         $phim->hinh_anh='fsdf';
         $phim->nha_san_xuat='fsfds';
@@ -24,7 +24,7 @@ class PhimSeeder extends Seeder
         $phim->thoi_luong=120;
         $phim->trailer='dsac';
         $phim->diem=10;
-        $phim->nv_duyet=1;
+        $phim->nv_duyet_id=1;
         $phim->save();
     }
 }

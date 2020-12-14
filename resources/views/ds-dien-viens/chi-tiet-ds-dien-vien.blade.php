@@ -50,8 +50,8 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
-            <p>Phim: {{$dsdv->phim}}</p>
-            <p>Diễn viên: {{$dsdv->dien_vien}}</p>
+            <p>Phim: {{$dsdv->phim->ten_phim}}</p>
+            <p>Diễn viên: {{$dsdv->dien_vien->ten_dv}}</p>
             <div class="text-center mt-5 mb-3">
               <a href="{{route('ds-dien-vien.editDsDienVien',$dsdv->id)}}" class="btn btn-sm btn-primary">Chỉnh sửa</a>
               <a href="{{route('ds-dien-vien.getDsDienViens')}}" class="btn btn-sm btn-warning">Thoát</a>

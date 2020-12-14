@@ -15,7 +15,7 @@ class NhanPhim extends Model
         'ten_np',
     ];
     
-    public function gias(){
-        return $this->hasMany('App\Models\Gia','nhan_phim','id');
+    public function gia_ves(){
+        return $this->hasMany('App\Models\GiaVe','nhan_phim_id','id');
     }
 }

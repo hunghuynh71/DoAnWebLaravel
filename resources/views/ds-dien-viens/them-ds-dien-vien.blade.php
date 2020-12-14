@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title','Thêm phim')
+@section('title','Thêm danh sách diễn viên')
 
 @section('css')
 <!-- Font Awesome -->

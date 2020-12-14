@@ -12,22 +12,22 @@ class Ve extends Model
      * @var array
      */
     protected $fillable = [
-        'gia','lich_chieu', 'ghe', 'khach_dat_ve','nv_lap','tg_dat',
+        'gia_id','lich_chieu_id', 'ghe_id','ds_ve_id',
     ];
 
     public function lich_chieu(){
-        return $this->belongsTo('App\Models\LichChieu','lich_chieu');
+        return $this->belongsTo('App\Models\LichChieu','lich_chieu_id');
     }
 
     public function ghe(){
-        return $this->belongsTo('App\Models\Ghe','ghe');
+        return $this->belongsTo('App\Models\Ghe','ghe_id');
     }
 
     public function ds_ve(){
-        return $this->belongsTo('App\Models\Ve','ds_ve');
+        return $this->belongsTo('App\Models\DsVe','ds_ve_id');
     }
 
-    public function gia(){
-        return $this->belongsTo('App\Models\Gia','gia');
+    public function gia_ve(){
+        return $this->belongsTo('App\Models\GiaVe','gia_id');
     }
 }
