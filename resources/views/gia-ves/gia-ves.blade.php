@@ -80,13 +80,13 @@
                 {{$p+1}}
               </td>
               <td>
-                {{$gia_ves[$p]->loai_ghe}}
+                {{$gia_ves[$p]->loai_ghe->ten_lg}}
               </td>
               <td>
-                {{$gia_ves[$p]->dinh_dang}}
+                {{$gia_ves[$p]->dinh_dang->ten_dd}}
               </td>
               <td>
-                {{$gia_ves[$p]->khung_tg_chieu}}
+                {{$gia_ves[$p]->khung_tg_chieu->tg_chieu}}
               </td>
               <td>
                 {{$gia_ves[$p]->gia}}

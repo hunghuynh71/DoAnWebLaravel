@@ -25,6 +25,7 @@ class CreatePhimsTable extends Migration
             $table->integer('thoi_luong');
             $table->string('trailer');
             $table->string('nhan_phim');
+            $table->string('mo_ta');
             $table->integer('diem')->default(0);
             $table->integer('nv_duyet_id')->unsigned();
             $table->boolean('da_xoa')->default(false);

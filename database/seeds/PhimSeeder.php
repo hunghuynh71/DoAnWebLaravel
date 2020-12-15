@@ -23,6 +23,7 @@ class PhimSeeder extends Seeder
         $phim->ngay_xuat_ban='2020-1-1';
         $phim->thoi_luong=120;
         $phim->trailer='dsac';
+        $phim->mo_ta='asdsfdw';
         $phim->diem=10;
         $phim->nv_duyet_id=1;
         $phim->save();

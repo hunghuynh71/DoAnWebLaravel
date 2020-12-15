@@ -67,7 +67,7 @@
             @else
             <p>Tình trạng: Đã nghỉ việc</p>
             @endif
-            <p>Quyền: {{$nhan_vien->quyen}}</p>
+            <p>Quyền: {{$nhan_vien->quyen->ten_quyen}}</p>
             <div class="text-center mt-5 mb-3">
               <a href="{{route('nhan-vien.editNhanVien',$nhan_vien->id)}}" class="btn btn-sm btn-primary">Chỉnh sửa</a>
               <a href="{{route('nhan-vien.getNhanViens') }}" class="btn btn-sm btn-warning">Thoát</a>

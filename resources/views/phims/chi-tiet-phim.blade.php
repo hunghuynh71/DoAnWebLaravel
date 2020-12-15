@@ -58,6 +58,7 @@
             @endforeach
             </p>
             <p>Thể loại: {{$phim->the_loai->ten_tl}}</p>
+            <p>Mô tả: {{$phim->mo_ta}}</p>  
             <p>Quốc gia: {{$phim->quoc_gia}}</p>
             <p>Nhãn phim {{$phim->nhan_phim}}</p>
             <p>Hình ảnh: {{$phim->hinh_anh}}</p>

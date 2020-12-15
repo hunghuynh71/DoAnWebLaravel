@@ -39,11 +39,13 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            //'provider' => 'nhan_viens',
         ],
 
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
+            //'provider' => 'nhan_viens',
             'hash' => false,
         ],
     ],
@@ -96,6 +98,7 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            //'provider' => 'nhan_viens',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

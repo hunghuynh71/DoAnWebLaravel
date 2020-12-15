@@ -53,11 +53,11 @@
                 <label for="loaiGhe">Loại ghế</label>
                 <select name="loaiGhe" class="form-control custom-select">
                   <option selected disabled>Chọn loại ghế</option>
-                  @foreach($loai_ghes as $tl)
-                  @if($tl->id==$ghe->loai_ghe)
-                  <option value="{{$tl->id}}" selected="selected">{{$tl->ten_lg}}</option>
+                  @foreach($loai_ghes as $lg)
+                  @if($lg->id==$ghe->loai_ghe_id)
+                  <option value="{{$lg->id}}" selected="selected">{{$lg->ten_lg}}</option>
                   @else
-                  <option value="{{$tl->id}}">{{$tl->ten_lg}}</option>
+                  <option value="{{$lg->id}}">{{$lg->ten_lg}}</option>
                   @endif
                   @endforeach
                 </select>
@@ -66,11 +66,11 @@
                 <label for="rapPhim">Rạp phim</label>
                 <select name="rapPhim" class="form-control custom-select">
                   <option selected disabled>Chọn rạp phim</option>
-                  @foreach($rap_phims as $tl)
-                  @if($tl->id==$ghe->rap)
-                  <option value="{{$tl->id}}" selected="selected">{{$tl->ten_rap}}</option>
+                  @foreach($rap_phims as $rp)
+                  @if($rp->id==$ghe->rap_id)
+                  <option value="{{$rp->id}}" selected="selected">{{$rp->ten_rap}}</option>
                   @else
-                  <option value="{{$tl->id}}">{{$tl->ten_rap}}</option>
+                  <option value="{{$rp->id}}">{{$rp->ten_rap}}</option>
                   @endif
                   @endforeach
                 </select>

@@ -49,9 +49,6 @@
       <p class="mt-3 mb-1">
         <a href="{{route('dang-nhap')}}">Đăng nhập</a>
       </p>
-      <p class="mb-0">
-        <a href="{{route('dang-ki')}}" class="text-center">Đăng kí</a>
-      </p>
     </div>
     <!-- /.login-card-body -->
   </div>

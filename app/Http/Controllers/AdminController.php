@@ -39,8 +39,8 @@ class AdminController extends Controller
             //echo $request->all();
             $this->validate($request,
             [
-            'email' =>'required|email',
-            'password'=>'required|min:5'
+                'email' =>'required|email',
+                'password'=>'required|min:6'
             ],
             [
                 'email.required'=>'Vui lòng nhập email',
@@ -55,8 +55,7 @@ class AdminController extends Controller
             /*echo bcrypt("123456");
             exit;*/
             //Định nghĩa lỗi
-            //$errors=$this->validate->errors();
-            //$user=array('email'=>$request->email, 'password'=>Hash::make('$request->password'));
+            //$errors=$validate->errors();
             //$user=array('email'=>$request->input("email"), 'password'=>$request->input("password"));
             $email=$request->input("email");
             $pass=$request->input("password");
@@ -82,6 +81,12 @@ class AdminController extends Controller
             }
             return redirect()->back()->with(['flag'=>'danger','message'=>'Đăng nhập thất bại']);*/
         }
+        return view('login');
+    }
+
+    //Đăng xuất
+    public function logout(){
+        Auth::logout();
         return view('login');
     }
 
@@ -133,6 +138,7 @@ class AdminController extends Controller
           $ten_phim=$request->input("tenPhim");
           $dao_dien=$request->input("daoDien");
           $the_loai=$request->input("theLoai");
+          $mo_ta=$request->input("moTa");
           $nhan_phim=$request->input("nhanPhim");
           $quoc_gia=$request->input("quocGia");
           $hinh_anh=$request->input("hinhAnh");
@@ -146,6 +152,7 @@ class AdminController extends Controller
           $phim->ten_phim=$ten_phim;
           $phim->dao_dien_id=$dao_dien;
           $phim->the_loai_id=$the_loai;
+          $phim->mo_ta=$mo_ta;
           $phim->nhan_phim=$nhan_phim;
           $phim->quoc_gia=$quoc_gia;
           $phim->hinh_anh=$hinh_anh;
@@ -170,6 +177,7 @@ class AdminController extends Controller
             $ten_phim=$request->input("tenPhim");
             $dao_dien=$request->input("daoDien");
             $the_loai=$request->input("theLoai");
+            $mo_ta=$request->input("moTa");
             $nhan_phim=$request->input("nhanPhim");
             $quoc_gia=$request->input("quocGia");
             $hinh_anh=$request->input("hinhAnh");
@@ -182,6 +190,7 @@ class AdminController extends Controller
             $phim->ten_phim=$ten_phim;
             $phim->dao_dien_id=$dao_dien;
             $phim->the_loai_id=$the_loai;
+            $phim->mo_ta=$mo_ta;
             $phim->nhan_phim=$nhan_phim;
             $phim->quoc_gia=$quoc_gia;
             $phim->hinh_anh=$hinh_anh;
@@ -293,7 +302,7 @@ class AdminController extends Controller
             $lichChieu->khung_tg_chieu_id=$khung_tg_chieu;
             $lichChieu->rap_id=$rap;
             $lichChieu->ngay_chieu=$ngay_chieu;
-            $lichChieu->nv_lap_id=1;
+            $lichChieu->nv_lap_id=Auth::user()->id;
             $lichChieu->save();
             return redirect()->route('lich-chieu.getLichChieus');
           }catch(Exception $e){
@@ -370,8 +379,8 @@ class AdminController extends Controller
 
             $dsVe=new DsVe();
             $dsVe->tg_dat='2020-12-9';
-            $dsVe->khach_dat_ve=$kdv;
-            $dsVe->chi_nhanh=$cn;
+            $dsVe->khach_dat_ve_id=$kdv;
+            $dsVe->chi_nhanh_id=$cn;
             $dsVe->sl_ve=$slv;
             $dsVe->save();
             return redirect()->route('ds-ve.getDsVes');
@@ -529,7 +538,7 @@ class AdminController extends Controller
           $nv->ngay_vao_lam=$ngay_vao_lam;
           $nv->gioi_tinh=$gioi_tinh;
           $nv->dia_chi=$dia_chi;
-          $nv->quyen=$quyen;
+          $nv->quyen_id=$quyen;
           $nv->save();
           return redirect()->route('nhan-vien.getNhanViens');
         }
@@ -560,7 +569,7 @@ class AdminController extends Controller
           $nhan_vien->gioi_tinh=$gioi_tinh;
           $nhan_vien->dia_chi=$dia_chi;
           $nhan_vien->dang_lam=$dang_lam;
-          $nhan_vien->quyen=$quyen;
+          $nhan_vien->quyen_id=$quyen;
           $nhan_vien->save();
           return redirect()->route('nhan-vien.getNhanViens');
         }
@@ -794,8 +803,8 @@ class AdminController extends Controller
           $rap_phim=$request->input("rapPhim");
 
           $ghe=new Ghe();
-          $ghe->loai_ghe=$loai_ghe;
-          $ghe->rap=$rap_phim;
+          $ghe->loai_ghe_id=$loai_ghe;
+          $ghe->rap_id=$rap_phim;
           $ghe->tinh_trang=0;
           $ghe->save();
           return redirect()->route('ghe.getGhes');
@@ -812,8 +821,8 @@ class AdminController extends Controller
           $rap_phim=$request->input("rapPhim");
           $tinh_trang=$request->input("tinhTrang");
           
-          $ghe->loai_ghe=$loai_ghe;
-          $ghe->rap=$rap_phim;
+          $ghe->loai_ghe_id=$loai_ghe;
+          $ghe->rap_id=$rap_phim;
           $ghe->tinh_trang=$tinh_trang;
           $ghe->save();
           return redirect()->route('ghe.getGhes');
@@ -963,7 +972,7 @@ class AdminController extends Controller
 
           $rap_phim=new RapPhim();
           $rap_phim->ten_rap=$ten_rap;
-          $rap_phim->chi_nhanh=$chi_nhanh;
+          $rap_phim->chi_nhanh_id=$chi_nhanh;
           $rap_phim->so_ghe=$so_ghe;
           $rap_phim->save();
           return redirect()->route('rap-phim.getRapPhims');
@@ -980,7 +989,7 @@ class AdminController extends Controller
           $so_ghe=$request->input("soGhe");
 
           $rap_phim->ten_rap=$ten_rap;
-          $rap_phim->chi_nhanh=$chi_nhanh;
+          $rap_phim->chi_nhanh_id=$chi_nhanh;
           $rap_phim->so_ghe=$so_ghe;
           $rap_phim->save();
           return redirect()->route('rap-phim.getRapPhims');
@@ -1016,15 +1025,15 @@ class AdminController extends Controller
             $dinh_dang=$request->input("dinhDang");
             $khung_tg_chieu=$request->input("khungTGChieu");
             $gia=(double)$request->input("giaVe"); 
-
+            
             try{
                 $gia_ve=new GiaVe();
-                $gia_ve->loai_ghe=$loai_ghe;
-                $gia_ve->dinh_dang=$dinh_dang;
-                $gia_ve->khung_tg_chieu=$khung_tg_chieu;
+                $gia_ve->loai_ghe_id=$loai_ghe;
+                $gia_ve->dinh_dang_id=$dinh_dang;
+                $gia_ve->khung_tg_chieu_id=$khung_tg_chieu;
                 $gia_ve->gia=$gia;
                 $gia_ve->save();
-                return redirect()->route('gia-ve.getGiaVes');
+                return redirect()->route('gia-ve.getGiaVes'); 
             }catch(Exception $e){
                 return redirect()->back()->with(['flag'=>'danger','message'=>'Có thể giá vé đã tồn tại']);
             }
@@ -1045,9 +1054,9 @@ class AdminController extends Controller
             $gia=(double)$request->input("giaVe");
 
             try{
-                $gia_ve->loai_ghe=$loai_ghe;
-                $gia_ve->dinh_dang=$dinh_dang;
-                $gia_ve->khung_tg_chieu=$khung_tg_chieu;
+                $gia_ve->loai_ghe_id=$loai_ghe;
+                $gia_ve->dinh_dang_id=$dinh_dang;
+                $gia_ve->khung_tg_chieu_id=$khung_tg_chieu;
                 $gia_ve->gia=$gia;
                 $gia_ve->save();
                 return redirect()->route('gia-ve.getGiaVes');

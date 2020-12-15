@@ -79,7 +79,7 @@
                 {{$rap_phims[$p]->ten_rap}}
               </td>
               <td>
-                {{$rap_phims[$p]->chi_nhanh}}
+                {{$rap_phims[$p]->chi_nhanh->ten_cn}}
               </td>
               <td>
                 {{$rap_phims[$p]->so_ghe}}

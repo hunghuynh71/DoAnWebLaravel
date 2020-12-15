@@ -50,8 +50,8 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
-            <p>Loại ghế: {{$ghe->loai_ghe}}</p>
-            <p>Rạp phim: {{$ghe->rap}}</p>
+            <p>Loại ghế: {{$ghe->loai_ghe->ten_lg}}</p>
+            <p>Rạp phim: {{$ghe->rap_phim->ten_rap}}</p>
             @if($ghe->tinh_trang==1)
               <p>Tình trạng: Đã được đặt chỗ</p>
             @elseif($ghe->tinh_trang==0)

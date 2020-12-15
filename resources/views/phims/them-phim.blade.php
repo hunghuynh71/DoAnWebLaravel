@@ -76,6 +76,10 @@
                 </select>
               </div>
               <div class="form-group">
+                <label for="moTa">Mô tả</label>
+                <textarea type="text" name="moTa" class="form-control"></textarea>
+              </div>
+              <div class="form-group">
                 <label for="hinhAnh">Hình ảnh</label>
                 <input type="file" name="hinhAnh" class="form-control">
               </div>

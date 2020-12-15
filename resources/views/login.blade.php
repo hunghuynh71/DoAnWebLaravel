@@ -83,9 +83,6 @@
         <p class="mb-1">
           <a href="{{route('quen-mat-khau')}}">Quên mật khẩu</a>
         </p>
-        <p class="mb-0">
-          <a href="{{route('dang-ki')}}" class="text-center">Đăng kí</a>
-        </p>
       </div>
       <!-- /.login-card-body -->
     </div>

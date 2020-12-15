@@ -55,11 +55,11 @@
               </div>
               <select name="chiNhanh" class="form-control custom-select">
                   <option selected disabled>Chọn chi nhánh</option>
-                  @foreach($chi_nhanhs as $tl)
-                  @if($tl->id==$rap_phim->chi_nhanh)
-                  <option value="{{$tl->id}}" selected="selected">{{$tl->ten_cn}}</option>
+                  @foreach($chi_nhanhs as $cn)
+                  @if($cn->id==$rap_phim->chi_nhanh_id)
+                  <option value="{{$cn->id}}" selected="selected">{{$cn->ten_cn}}</option>
                   @else
-                  <option value="{{$tl->id}}">{{$tl->ten_cn}}</option>
+                  <option value="{{$cn->id}}">{{$cn->ten_cn}}</option>
                   @endif
                   @endforeach
                 </select>

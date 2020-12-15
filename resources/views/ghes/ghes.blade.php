@@ -83,10 +83,10 @@
                 {{$ghes[$p]->id}}
               </td>
               <td>
-                {{$ghes[$p]->loai_ghe}}
+                {{$ghes[$p]->loai_ghe->ten_lg}}
               </td>
               <td>
-                {{$ghes[$p]->rap}}
+                {{$ghes[$p]->rap_phim->ten_rap}}
               </td>
               <td>
                 @if($ghes[$p]->tinh_trang==1)

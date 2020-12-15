@@ -57,8 +57,8 @@
                 <label for="chiNhanh">Chi nhánh</label>
                 <select name="chiNhanh" class="form-control custom-select">
                   <option selected disabled>Chọn chi nhánh</option>
-                  @foreach($chi_nhanhs as $tl)
-                  <option value="{{$tl->id}}">{{$tl->ten_cn}}</option>
+                  @foreach($chi_nhanhs as $cn)
+                  <option value="{{$cn->id}}">{{$cn->ten_cn}}</option>
                   @endforeach
                 </select>
               </div>

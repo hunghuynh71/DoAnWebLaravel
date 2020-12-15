@@ -51,7 +51,7 @@
         <div class="row">
           <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
             <h1 class="text-primary text-center">{{$rap_phim->ten_rap}}</h1>
-            <p>Chi nhánh: {{$rap_phim->chi_nhanh}}</p>
+            <p>Chi nhánh: {{$rap_phim->chi_nhanh->ten_cn}}</p>
             <p>Số ghế: {{$rap_phim->so_ghe}}</p>
             <div class="text-center mt-5 mb-3">
               <a href="{{route('rap-phim.editRapPhim',$rap_phim->id)}}" class="btn btn-sm btn-primary">Chỉnh sửa</a>

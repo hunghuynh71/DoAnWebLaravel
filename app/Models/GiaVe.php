@@ -23,11 +23,11 @@ class GiaVe extends Model
         return $this->belongsTo('App\Models\LoaiGhe','loai_ghe_id');
     }
 
-    public function khung_t_g_chieu(){
+    public function khung_tg_chieu(){
         return $this->belongsTo('App\Models\KhungTGChieu','khung_tg_chieu_id');
     }
 
-    public function nhan_phim(){
-        return $this->belongsTo('App\Models\NhanPhim','nhan_phim_id');
+    public function dinh_dang(){
+        return $this->belongsTo('App\Models\DinhDang','dinh_dang_id');
     }
 }

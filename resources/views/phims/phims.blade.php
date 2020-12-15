@@ -72,6 +72,9 @@
                 Thể loại
               </th>
               <th>
+                Mô tả
+              </th>
+              <th>
                 Nhãn phim
               </th>
               <th>
@@ -109,6 +112,9 @@
               </td>
               <td>
                 {{$phims[$p]->the_loai->ten_tl}}
+              </td>
+              <td>
+                {{$phims[$p]->mo_ta}}
               </td>
               <td>
                 {{$phims[$p]->nhan_phim}}

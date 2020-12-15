@@ -83,10 +83,10 @@
                 {{$ds_ve[$i]->tg_dat}}
               </td>
               <td>
-                {{$ds_ve[$i]->khach_dat_ve}} 
+                {{$ds_ve[$i]->khach_dat_ve->ten_kdv}} 
               </td>
               <td>
-                {{$ds_ve[$i]->chi_nhanh}} 
+                {{$ds_ve[$i]->chi_nhanh->ten_cn}} 
               </td>
               <td class="project_progress">
                 {{$ds_ve[$i]->sl_ve}}

@@ -126,7 +126,7 @@
                 <select name="quyen" class="form-control custom-select">
                   <option selected disabled>Chọn quyền</option>
                   @foreach($quyens as $q)
-                  @if($q->id==$nhan_vien->quyen)
+                  @if($q->id==$nhan_vien->quyen_id)
                   <option selected="selected" value="{{$q->id}}">{{$q->ten_quyen}}</option>
                   @else
                   <option value="{{$q->id}}">{{$q->ten_quyen}}</option>

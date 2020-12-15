@@ -54,11 +54,11 @@
                 <label for="loaiGhe">Loại ghế</label>
                 <select name="loaiGhe" class="form-control custom-select">
                   <option selected disabled>Chọn loại ghế</option>
-                  @foreach($loai_ghes as $dd)
-                  @if($dd->id==$gia_ve->loai_ghe)
-                  <option value="{{$dd->id}}" selected="selected">{{$dd->ten_lg}}</option>
+                  @foreach($loai_ghes as $lg)
+                  @if($lg->id==$gia_ve->loai_ghe_id)
+                  <option value="{{$lg->id}}" selected="selected">{{$lg->ten_lg}}</option>
                   @else
-                  <option value="{{$dd->id}}">{{$dd->ten_lg}}</option>
+                  <option value="{{$lg->id}}">{{$lg->ten_lg}}</option>
                   @endif
                   @endforeach
                 </select>
@@ -67,11 +67,11 @@
                 <label for="dinhDang">Định dạng</label>
                 <select name="dinhDang" class="form-control custom-select">
                   <option selected disabled>Chọn định dạng</option>
-                  @foreach($dinh_dangs as $tl)
-                  @if($tl->id==$gia_ve->dinh_dang)
-                  <option value="{{$tl->id}}" selected="selected">{{$tl->ten_dd}}</option>
+                  @foreach($dinh_dangs as $dd)
+                  @if($dd->id==$gia_ve->dinh_dang_id)
+                  <option value="{{$dd->id}}" selected="selected">{{$dd->ten_dd}}</option>
                   @else
-                  <option value="{{$tl->id}}">{{$tl->ten_dd}}</option>
+                  <option value="{{$dd->id}}">{{$dd->ten_dd}}</option>
                   @endif
                   @endforeach
                 </select>
@@ -80,11 +80,11 @@
                 <label for="khungTGChieu">Khung thời gian chiếu</label>
                 <select name="khungTGChieu" class="form-control custom-select">
                   <option selected disabled>Chọn khung thời gian chiếu</option>
-                  @foreach($khung_tg_chieus as $tl)
-                  @if($tl->id==$gia_ve->khung_tg_chieu)
-                  <option value="{{$tl->id}}" selected="selected">{{$tl->tg_chieu}}</option>
+                  @foreach($khung_tg_chieus as $ktgc)
+                  @if($ktgc->id==$gia_ve->khung_tg_chieu_id)
+                  <option value="{{$ktgc->id}}" selected="selected">{{$ktgc->tg_chieu}}</option>
                   @else
-                  <option value="{{$tl->id}}">{{$tl->tg_chieu}}</option>
+                  <option value="{{$ktgc->id}}">{{$ktgc->tg_chieu}}</option>
                   @endif
                   @endforeach
                 </select>

@@ -106,7 +106,7 @@
                 {{$nhan_viens[$p]->dia_chi}}
               </td>
               <td>
-                {{$nhan_viens[$p]->quyen}}
+                {{$nhan_viens[$p]->quyen->ten_quyen}}
               </td>
               <td class="project-actions text-right">
                 <a class="btn btn-primary btn-sm" href="{{route('nhan-vien.nhanVienDetail',$nhan_viens[$p]->id)}}">
