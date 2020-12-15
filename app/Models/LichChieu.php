@@ -16,11 +16,6 @@ class LichChieu extends Model
     ];
     
     public function phim(){
-        return $this->belongsTo('App\Models\Phim','id','phim');
-    }
-    
-    public function khung_t_g_chieu(){
-        return $this->belongsTo('App\Models\KhungTGChieu','khung_tg_chieu');
         return $this->belongsTo('App\Models\Phim','phim_id');
     }
 
