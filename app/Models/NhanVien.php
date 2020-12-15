@@ -12,7 +12,7 @@ class NhanVien extends Model
      * @var array
      */
     protected $fillable = [
-        'ten_nv','cmnd', 'sdt', 'email','mat_khau','ngay_vao_lam','gioi_tinh','dia_chi','dang_lam','quyen',
+        'ten_nv','cmnd', 'sdt', 'email','mat_khau','ngay_vao_lam','gioi_tinh','dia_chi','dang_lam','quyen_id',
     ];
     
     /**
@@ -25,14 +25,14 @@ class NhanVien extends Model
     ];
     
     public function quyen(){
-        return $this->belongsTo('App\Models\Quyen','quyen');
+        return $this->belongsTo('App\Models\Quyen','quyen_id');
     }
 
     public function lich_chieus(){
-        return $this->hasMany('App\Models\LichChieu','nv_lap','id');
+        return $this->hasMany('App\Models\LichChieu','nv_lap_id','id');
     }
 
     public function phims(){
-        return $this->hasMany('App\Models\Phim','nv_duyet','id');
+        return $this->hasMany('App\Models\Phim','nv_duyet_id','id');
     }
 }

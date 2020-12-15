@@ -69,6 +69,10 @@
                 </select>
               </div>
               <div class="form-group">
+                <label for="ngayChieu">Ngày chiếu</label>
+                <input type="date" name="ngayChieu" class="form-control">
+              </div>
+              <div class="form-group">
                 <label for="rap">Rạp</label>
                 <select name="rap" class="form-control custom-select">
                   <option selected disabled>Chọn rạp</option>

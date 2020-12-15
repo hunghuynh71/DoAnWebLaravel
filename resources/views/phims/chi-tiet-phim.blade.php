@@ -51,21 +51,22 @@
         <div class="row">
           <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
             <h1 class="text-primary text-center">{{$phim->ten_phim}}</h1>
-            <p>Đạo diễn: {{$phim->dao_dien}}</p>
-            <p>Diễn viên: </p>
+            <p>Đạo diễn: {{$phim->dao_dien->ten_dd}}</p>
+            <p>Diễn viên: 
             @foreach($ds_dien_viens as $ds)
-              {{$ds->dien_vien}}&nbsp;
+              {{$ds->dien_vien->ten_dv}}&nbsp;
             @endforeach
-            <p>Thể loại: {{$phim->the_loai}}</p>
+            </p>
+            <p>Thể loại: {{$phim->the_loai->ten_tl}}</p>
             <p>Quốc gia: {{$phim->quoc_gia}}</p>
             <p>Nhãn phim {{$phim->nhan_phim}}</p>
             <p>Hình ảnh: {{$phim->hinh_anh}}</p>
             <p>Nhà sản xuất: {{$phim->nha_san_xuat}}</p>
             <p>Ngày xuất bản: {{$phim->ngay_xuat_ban}}</p>
-            <p>Thời lượng: {{$phim->thoi_luong}}</p>
+            <p>Thời lượng: {{$phim->thoi_luong}} phút</p>
             <p>Trailer: {{$phim->trailer}}</p>
             <p>Điểm: {{$phim->diem}}</p>
-            <p>Nhân viên duyệt: {{$phim->nv_duyet}}</p>
+            <p>Nhân viên duyệt: {{$phim->nhan_vien->ten_nv}}</p>
             <div class="text-center mt-5 mb-3">
               <a href="{{route('phim.editPhim',$phim->id)}}" class="btn btn-sm btn-primary">Chỉnh sửa</a>
               <a href="{{route('phim.getPhims') }}" class="btn btn-sm btn-warning">Thoát</a>

@@ -13,11 +13,11 @@ class LichChieuSeeder extends Seeder
     public function run()
     {
         $lc=new LichChieu();
-        $lc->phim=1;
-        $lc->khung_tg_chieu=1;
-        $lc->rap=1;
+        $lc->phim_id=1;
+        $lc->khung_tg_chieu_id=1;
+        $lc->rap_id=1;
         $lc->ngay_chieu='2020-12-31';
-        $lc->nv_lap=1;
+        $lc->nv_lap_id=1;
         $lc->save();
     }
 }

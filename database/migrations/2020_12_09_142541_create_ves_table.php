@@ -15,18 +15,18 @@ class CreateVesTable extends Migration
     {
         Schema::create('ves', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('gia')->unsigned();
-            $table->integer('lich_chieu')->unsigned();
-            $table->integer('ghe')->unsigned();
-            $table->integer('ds_ve')->unsigned();
-            $table->unique(['gia','lich_chieu','ghe','ds_ve']);
+            $table->integer('gia_id')->unsigned();
+            $table->integer('lich_chieu_id')->unsigned();
+            $table->integer('ghe_id')->unsigned();
+            $table->integer('ds_ve_id')->unsigned();
+            $table->unique(['gia_id','lich_chieu_id','ghe_id','ds_ve_id']);
             $table->boolean('da_xoa')->default(false);
             $table->timestamps();
 
-            $table->foreign('gia')->references('id')->on('gia_ves');
-            $table->foreign('lich_chieu')->references('id')->on('lich_chieus');
-            $table->foreign('ds_ve')->references('id')->on('ds_ves');
-            $table->foreign('ghe')->references('id')->on('ghes');
+            $table->foreign('gia_id')->references('id')->on('gia_ves');
+            $table->foreign('lich_chieu_id')->references('id')->on('lich_chieus');
+            $table->foreign('ds_ve_id')->references('id')->on('ds_ves');
+            $table->foreign('ghe_id')->references('id')->on('ghes');
         });
     }
 

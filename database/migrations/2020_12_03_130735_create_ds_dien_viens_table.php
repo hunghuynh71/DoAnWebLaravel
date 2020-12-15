@@ -15,14 +15,14 @@ class CreateDsDienViensTable extends Migration
     {
         Schema::create('ds_dien_viens', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('phim')->unsigned();
-            $table->integer('dien_vien')->unsigned();
-            $table->unique(array('phim','dien_vien'));
+            $table->integer('phim_id')->unsigned();
+            $table->integer('dien_vien_id')->unsigned();
+            $table->unique(array('phim_id','dien_vien_id'));
             $table->boolean('da_xoa')->default(0);
             $table->timestamps();
 
-            $table->foreign('phim')->references('id')->on('phims');
-            $table->foreign('dien_vien')->references('id')->on('dien_viens');
+            $table->foreign('phim_id')->references('id')->on('phims');
+            $table->foreign('dien_vien_id')->references('id')->on('dien_viens');
         });
     }
 

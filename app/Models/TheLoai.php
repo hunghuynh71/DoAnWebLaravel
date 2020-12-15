@@ -16,6 +16,6 @@ class TheLoai extends Model
     ];
 
     public function phims(){
-        return $this->hasMany('App\Models\Phim','the_loai','id');
+        return $this->hasMany('App\Models\Phim','the_loai_id','id');
     }
 }

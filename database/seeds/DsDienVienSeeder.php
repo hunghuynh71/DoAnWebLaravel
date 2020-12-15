@@ -13,8 +13,8 @@ class DsDienVienSeeder extends Seeder
     public function run()
     {
         $dsdv=new DsDienVien();
-        $dsdv->phim=1;
-        $dsdv->dien_vien=1;
+        $dsdv->phim_id=1;
+        $dsdv->dien_vien_id=1;
         $dsdv->save();
     }
 }

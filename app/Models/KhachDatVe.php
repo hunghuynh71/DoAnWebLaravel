@@ -25,10 +25,10 @@ class KhachDatVe extends Model
     ];
 
     public function binh_luans(){
-        return $this->hasMany('App\Models\BinhLuan','nguoi_binh_luan','id');
+        return $this->hasMany('App\Models\BinhLuan','nguoi_binh_luan_id','id');
     }
 
     public function ds_ves(){
-        return $this->hasMany('App\Models\DsVe','khach_dat_ve','id');
+        return $this->hasMany('App\Models\DsVe','khach_dat_ve_id','id');
     }
 }

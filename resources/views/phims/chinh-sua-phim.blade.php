@@ -58,7 +58,7 @@
                 <select name="daoDien" class="form-control custom-select">
                   <option selected disabled>Chọn đạo diễn</option>
                   @foreach($dao_diens as $dd)
-                  @if($dd->id==$phim->dao_dien)
+                  @if($dd->id==$phim->dao_dien_id)
                   <option value="{{$dd->id}}" selected="selected">{{$dd->ten_dd}}</option>
                   @else
                   <option value="{{$dd->id}}">{{$dd->ten_dd}}</option>
@@ -75,7 +75,7 @@
                 <select name="theLoai" class="form-control custom-select">
                   <option selected disabled>Chọn thể loại</option>
                   @foreach($the_loais as $tl)
-                  @if($tl->id==$phim->the_loai)
+                  @if($tl->id==$phim->the_loai_id)
                   <option value="{{$tl->id}}" selected="selected">{{$tl->ten_tl}}</option>
                   @else
                   <option value="{{$tl->id}}">{{$tl->ten_tl}}</option>
@@ -104,7 +104,7 @@
                 <input type="date" name="ngayXuatBan" class="form-control" value="{{$phim->ngay_xuat_ban}}">
               </div>
               <div class="form-group">
-                <label for="thoiLuong">Thời lượng</label>
+                <label for="thoiLuong">Thời lượng (Phút)</label>
                 <input type="text" name="thoiLuong" class="form-control" value="{{$phim->thoi_luong}}">
               </div>
               <div class="form-group">

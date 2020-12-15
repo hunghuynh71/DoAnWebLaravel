@@ -15,14 +15,14 @@ class CreateBinhLuansTable extends Migration
     {
         Schema::create('binh_luans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('phim')->unsigned();
-            $table->integer('nguoi_binh_luan')->unsigned();
+            $table->integer('phim_id')->unsigned();
+            $table->integer('nguoi_binh_luan_id')->unsigned();
             $table->string('noi_dung');
             $table->boolean('da_xoa')->default(false);
             $table->timestamps();
 
-            $table->foreign('phim')->references('id')->on('phims');
-            $table->foreign('nguoi_binh_luan')->references('id')->on('khach_dat_ves');
+            $table->foreign('phim_id')->references('id')->on('phims');
+            $table->foreign('nguoi_binh_luan_id')->references('id')->on('khach_dat_ves');
         });
     }
 

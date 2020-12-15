@@ -15,6 +15,6 @@ class Quyen extends Model
         'ten_quyen',
     ];
     public function nhan_viens(){
-        return $this->hasMany('App\Models\NhanVien','quyen','id');
+        return $this->hasMany('App\Models\NhanVien','quyen_id','id');
     }
 }

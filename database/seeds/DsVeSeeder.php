@@ -14,9 +14,9 @@ class DsVeSeeder extends Seeder
     {
         $dsv=new DsVe();
         $dsv->tg_dat='2020-11-21';
-        $dsv->khach_dat_ve=1;
+        $dsv->khach_dat_ve_id=1;
         $dsv->sl_ve=1;
-        $dsv->chi_nhanh=1;
+        $dsv->chi_nhanh_id=1;
         $dsv->save();
     }
 }

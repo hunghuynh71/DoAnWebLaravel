@@ -81,7 +81,7 @@
                 Ngày xuất bản 
               </th>
               <th>
-                Thời lượng
+                Thời lượng (Phút)
               </th>
               <th>
                 Nhân viên duyệt
@@ -98,17 +98,17 @@
                 {{$phims[$p]->ten_phim}}
               </td>
               <td>
-                {{$phims[$p]->dao_dien}}
+                {{$phims[$p]->dao_dien->ten_dd}}
               </td>
               <td>
                 @foreach($ds_dien_viens as $ds)
-                @if($ds->phim==$phims[$p]->id)
-                {{$ds->dien_vien}}&nbsp;
+                @if($ds->phim_id==$phims[$p]->id)
+                {{$ds->dien_vien->ten_dv}}&nbsp;
                 @endif
                 @endforeach
               </td>
               <td>
-                {{$phims[$p]->the_loai}}
+                {{$phims[$p]->the_loai->ten_tl}}
               </td>
               <td>
                 {{$phims[$p]->nhan_phim}}
@@ -123,7 +123,7 @@
                 {{$phims[$p]->thoi_luong}}
               </td>
               <td>
-                {{$phims[$p]->nv_duyet}}
+                {{$phims[$p]->nhan_vien->ten_nv}}
               </td>
               <td class="project-actions text-right">
                 <a class="btn btn-primary btn-sm" href="{{route('phim.phimDetail',$phims[$p]->id)}}">

@@ -75,10 +75,10 @@
                 {{$ds+1}}
               </td>
               <td>
-                {{$dsdv[$ds]->phim}}
+                {{$dsdv[$ds]->phim->ten_phim}}
               </td>
               <td>
-                {{$dsdv[$ds]->dien_vien}}
+                {{$dsdv[$ds]->dien_vien->ten_dv}}
               </td>
               <td class="project-actions text-right">
                 <a class="btn btn-primary btn-sm" href="{{route('ds-dien-vien.dsDienVienDetail',$dsdv[$ds]->id)}}">

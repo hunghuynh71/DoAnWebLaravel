@@ -16,10 +16,10 @@ class LoaiGhe extends Model
     ];
     
     public function ghes(){
-        return $this->hasMany('Models\Ghe','loai_ghe','id');
+        return $this->hasMany('Models\Ghe','loai_ghe_id','id');
     }
 
-    public function gias(){
-        return $this->hasMany('Models\Gia','loai_ghe','id');
+    public function gia_ves(){
+        return $this->hasMany('Models\GiaVe','loai_ghe_id','id');
     }
 }

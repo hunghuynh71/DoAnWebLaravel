@@ -60,13 +60,19 @@
                 STT
               </th>
               <th>
-                Lịch chiếu
+                Phim
+              </th>
+              <th>
+                Ngày chiếu 
+              </th>
+              <th>
+                Giờ chiếu
+              </th>
+              <th>
+                Rạp
               </th>
               <th>
                 Ghế
-              </th>
-              <th>
-                Danh sách vé 
               </th>
               <th>
                 Giá
@@ -80,16 +86,22 @@
                 {{$p+1}}
               </td>
               <td>
-                {{$ves[$p]->lich_chieu}}
+                {{$ves[$p]->lich_chieu->phim->ten_phim}}
               </td>
               <td>
-                {{$ves[$p]->ghe}}
+                {{$ves[$p]->lich_chieu->ngay_chieu}}
               </td>
               <td>
-                {{$ves[$p]->ds_ve}}
+                {{$ves[$p]->lich_chieu->khung_tg_chieu->tg_chieu}}
               </td>
               <td>
-                {{$ves[$p]->gia}}
+                {{$ves[$p]->lich_chieu->rap_phim->ten_rap}}
+              </td>
+              <td>
+                {{$ves[$p]->ghe_id}}
+              </td>
+              <td>
+                {{$ves[$p]->gia_ve->gia}}
               </td>
               <td class="project-actions text-right">
                 <a class="btn btn-primary btn-sm" href="{{route('ve.veDetail',$ves[$p]->id)}}">

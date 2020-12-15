@@ -13,8 +13,8 @@ class BinhLuanSeeder extends Seeder
     public function run()
     {
         $bl=new BinhLuan();
-        $bl->phim=1;
-        $bl->nguoi_binh_luan=1;
+        $bl->phim_id=1;
+        $bl->nguoi_binh_luan_id=1;
         $bl->noi_dung='dsadsaf';
         $bl->save();
     }

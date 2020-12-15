@@ -50,9 +50,9 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
-            <p>Phim: {{$lichChieu->phim}}</p>
-            <p>Khung thời gian chiếu: {{$lichChieu->khung_tg_chieu}}</p>
-            <p>Rạp: {{$lichChieu->rap}}</p>
+            <p>Phim: {{$lichChieu->phim->ten_phim}}</p>
+            <p>Khung thời gian chiếu: {{$lichChieu->khung_tg_chieu->tg_chieu}}</p>
+            <p>Rạp: {{$lichChieu->rap_phim->ten_rap}}</p>
             <div class="text-center mt-5 mb-3">
               <a href="{{route('lich-chieu.getLichChieus') }}" class="btn btn-sm btn-warning">Thoát</a>
             </div>

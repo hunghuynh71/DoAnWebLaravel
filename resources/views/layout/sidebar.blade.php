@@ -14,7 +14,13 @@
           <img src="sources/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Huynh Hoang Hung</a>
+          <!--<a href="#" class="d-block">{{Auth::user()->name}}</a>-->
+
+          <a href="#" class="d-block">
+            @if(Session::has('user'))
+            {{Session::get('user')->name}}
+            @endif
+          </a>
         </div>
       </div>
 

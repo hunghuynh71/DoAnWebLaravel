@@ -16,10 +16,10 @@ class ChiNhanh extends Model
     ];
 
     public function rap_phims(){
-        return $this->hasMany('App\Models\RapPhim','chi_nhanh','id');
+        return $this->hasMany('App\Models\RapPhim','chi_nhanh_id','id');
     }
 
     public function ds_ves(){
-        return $this->hasMany('App\Models\DsVE','chi_nhanh','id');
+        return $this->hasMany('App\Models\DsVE','chi_nhanh_id','id');
     }
 }

@@ -50,8 +50,8 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
-            <p>Phim: {{$binh_luan->phim}}</p>
-            <p>Người bình luận: {{$binh_luan->nguoi_binh_luan}}</p>
+            <p>Phim: {{$binh_luan->phim->ten_phim}}</p>
+            <p>Người bình luận: {{$binh_luan->khach_dat_ve->ten_kdv}}</p>
             <p>Nội dung: {{$binh_luan->noi_dung}}</p>
             <div class="text-center mt-5 mb-3">
               <a href="{{route('binh-luan.getBinhLuans') }}" class="btn btn-sm btn-warning">Thoát</a>

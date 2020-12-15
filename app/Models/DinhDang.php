@@ -16,6 +16,6 @@ class DinhDang extends Model
     ];
     
     public function gia_ves(){
-        return $this->hasMany('App\Models\GiaVe','dinh_dang','id');
+        return $this->hasMany('App\Models\GiaVe','dinh_dang_id','id');
     }
 }
