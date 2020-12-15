@@ -141,7 +141,7 @@ class AdminController extends Controller
           $mo_ta=$request->input("moTa");
           $nhan_phim=$request->input("nhanPhim");
           $quoc_gia=$request->input("quocGia");
-          $hinh_anh=$request->input("hinhAnh");
+          $hinh_anh=$request->hinhAnh;
           $nha_san_xuat=$request->input("nhaSanXuat");
           $ngay_xuat_ban=$request->input("ngayXuatBan");
           $thoi_luong=$request->input("thoiLuong");
@@ -163,6 +163,18 @@ class AdminController extends Controller
           $phim->diem=$diem;
           $phim->nv_duyet_id=Auth::user()->id;
           $phim->save();
+         
+          if($request->hasfile('hinhAnh'))
+          {     
+            $fileImage = $request->file('hinhAnh');
+            $extension= $fileImage->getClientOriginalExtension();
+           
+            $phimend= Phim::all()->last();
+            $phimend->hinh_anh=$phimend->id.'.'.$extension;
+            $phimend->save();
+            $fileImage->move('FolderImage', $phimend->hinh_anh);
+          }
+        
           return redirect()->route('phim.getPhims');
         }
         return view('phims.them-phim',compact('dao_diens','dien_viens','the_loais'));
