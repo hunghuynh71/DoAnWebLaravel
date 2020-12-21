@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class CheckLogout
+class CheckLogin
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,10 @@ class CheckLogout
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::guest()){
-            return redirect()->route('dang-nhap');
+        if(Auth::check()){
+            return redirect()->route('trang-chu');
         }else{
             return $next($request);
-        }
+        }        
     }
 }

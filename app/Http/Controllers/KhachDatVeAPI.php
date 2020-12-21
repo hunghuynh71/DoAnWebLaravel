@@ -17,7 +17,6 @@ class KhachDatVeAPI extends Controller
     {
         if($request->isMethod('post'))
         { 
-            
             $Data = KhachDatve::where('email',$request->input("Email"))->first(); 
             if(Hash::check($request->input('MatKhau'), $Data->mat_khau)&&!empty($Data))
             {               

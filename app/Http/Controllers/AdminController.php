@@ -23,11 +23,13 @@ use App\Models\Ghe;
 use App\Models\LoaiGhe;
 use App\User;
 use Exception;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
+//use App\Http\Controllers\Session;
 
 
 class AdminController extends Controller
@@ -62,7 +64,7 @@ class AdminController extends Controller
             //echo($email.' '.$pass);
             //exit();
             if(Auth::attempt(['email'=>$email, 'password'=>$pass])){
-                $user=User::find(Auth::user()->id);
+                $user=NhanVien::find(Auth::user()->id);
                 $request->session()->put('user',$user);
                 //$request->session()->forget('user'); quen session
                 return redirect()->route('trang-chu');
@@ -90,27 +92,64 @@ class AdminController extends Controller
         return view('login');
     }
 
-    public function register(Request $request){
-        $quyens=Quyen::where('da_xoa',false)->get();
+    //Quên mật khẩu
+    public function forgotPassword(Request $request){
         if($request->isMethod('post')){
-            if($request->input("matKhau")==$request->input("nhapLaiMatKhau")){
-                $nv=new NhanVien();
-                $nv->ten_nv=$request->input("hoTen");
-                $nv->email=$request->input("email");
-                $nv->mat_khau=$request->input("matKhau");
-                $nv->cmnd=$request->input("cmnd");
-                $nv->sdt=$request->input("sdt");
-                $nv->ngay_vao_lam=$request->input("ngayVaoLam");
-                $nv->gioi_tinh=$request->input("gioiTinh");
-                $nv->dia_chi=$request->input("diaChi");
-                $nv->quyen=$request->input("quyen");
-                $nv->save();
-                return redirect()->back()->with(['flag'=>'success','message'=>'Đăng kí thành công']);
+            $email_khoi_phuc=$request->input("email");
+            if($this->ktEmail($email_khoi_phuc)){
+                /*$nvKhoiPhuc=NhanVien::where('email',$email_khoi_phuc);
+                $request->session()->put('nvKhoiPhuc',$nvKhoiPhuc);*/
+                return redirect()->route('xac-nhan-tai-khoan');                
             }else{
-                return redirect()->back()->with(['flag'=>'danger','message'=>'Nhập lại mật khẩu không trùng khớp']);
+                return redirect()->back()->with(['flag'=>'danger','message'=>'Email khôi phục không hợp lệ']);
             }
         }
-        return view('register',compact('quyens'));
+        return view('quen-mat-khau');
+    }
+
+    public function ktEmail($email){
+        $nhan_viens=NhanVien::where('da_xoa',false)->get();
+        foreach($nhan_viens as $nv){
+            if($nv->email==$email){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Xác nhận tài khoản
+    public function confirmAccount(Request $request){
+        if($request->isMethod('post')){
+            $ma_xac_nhan=$request->input("maXacNhan");
+            if($ma_xac_nhan=='123456'){
+                return redirect()->route('khoi-phuc-mat-khau');
+            }else{
+                return redirect()->back()->with(['flag'=>'danger','message'=>'Mã xác nhận không chính xác']);
+            }
+        }
+        return view('xac-nhan-tai-khoan');
+    }
+
+    //Thay đổi mật khẩu
+    public function changePassword(Request $request){
+        if($request->isMethod('post')){
+            $mat_khau=$request->input("matKhau");
+            $nhap_lai_mat_khau=$request->input("nhapLaiMatKhau");
+
+            if($mat_khau!=$nhap_lai_mat_khau){
+                return redirect()->back()->with(['flag'=>'danger','message'=>'Nhập lại mật khẩu mới phải trùng mật khẩu mới!']);
+            }else{
+                //$nv=Session->get('nvKhoiPhuc');
+                $email=$GLOBALS['email_khoi_phuc'];//chưa lây email được
+                $nv=NhanVien::where('email',$email)->first();
+                dd($email);
+                exit;
+                $nv->password=bcrypt($mat_khau);
+                $nv->save();
+                return redirect()->route('trang-chu');
+            }            
+        }
+        return view('khoi-phuc-mat-khau');
     }
 
     //Quản lí phim
@@ -478,7 +517,7 @@ class AdminController extends Controller
           $kdv->ten_kdv=$ten_kdv;
           $kdv->sdt=$sdt;
           $kdv->email=$email;
-          $kdv->mat_khau=$mat_khau;
+          $kdv->mat_khau=bcrypt($mat_khau);
           $kdv->nam_sinh=$nam_sinh;
           $kdv->gioi_tinh=$gioi_tinh;
           $kdv->save();
@@ -546,7 +585,7 @@ class AdminController extends Controller
           $nv->cmnd=$cmnd;
           $nv->sdt=$sdt;
           $nv->email=$email;
-          $nv->password=$mat_khau;
+          $nv->password=bcrypt($mat_khau);
           $nv->ngay_vao_lam=$ngay_vao_lam;
           $nv->gioi_tinh=$gioi_tinh;
           $nv->dia_chi=$dia_chi;

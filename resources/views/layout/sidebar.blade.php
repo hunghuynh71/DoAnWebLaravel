@@ -17,7 +17,7 @@
 
         <a href="#" class="d-block">
           @if(Session::has('user'))
-          {{Session::get('user')->name}}
+          {{Session::get('user')->ten_nv}}
           @endif
         </a>
       </div>
@@ -67,12 +67,16 @@
                 <p>Khách đặt vé</p>
               </a>
             </li>
+            @if(Session::has('user'))
+            @if(Session::get('user')->quyen_id==1)
             <li class="nav-item">
               <a href="{{url('nhan-vien/nhan-vien')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Tài khoản quản trị</p>
               </a>
             </li>
+            @endif
+            @endif
             <li class="nav-item">
               <a href="{{url('binh-luan/binh-luan')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
@@ -115,12 +119,16 @@
                 <p>Định dạng</p>
               </a>
             </li>
+            @if(Session::has('user'))
+            @if(Session::get('user')->quyen_id==1)
             <li class="nav-item">
               <a href="{{url('quyen/quyen')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Quyền</p>
               </a>
             </li>
+            @endif
+            @endif
             <li class="nav-item">
               <a href="{{url('rap-phim/rap-phim')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
