@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/trang-chu', function () {
-    return view('index');
+    return view('trang-chu');
 })->name('trang-chu')->middleware(CheckLogout::class);
 
 Route::match(['get','post'],'/','AdminController@login')->name('dang-nhap')->middleware(CheckLogin::class);

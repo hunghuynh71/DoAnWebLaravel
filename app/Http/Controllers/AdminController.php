@@ -83,13 +83,13 @@ class AdminController extends Controller
             }
             return redirect()->back()->with(['flag'=>'danger','message'=>'Đăng nhập thất bại']);*/
         }
-        return view('login');
+        return view('dang-nhap');
     }
 
     //Đăng xuất
     public function logout(){
         Auth::logout();
-        return view('login');
+        return redirect()->route('dang-nhap');
     }
 
     //Quên mật khẩu
