@@ -17,7 +17,7 @@ class KhachDatVeSeeder extends Seeder
         $kdv->ten_kdv='Khang';
         $kdv->sdt='8957495749067';
         $kdv->email='khang@gmail.com';
-        $kdv->mat_khau=Hash::make('abc123');
+        $kdv->mat_khau=bcrypt('abc123');
         $kdv->nam_sinh=2000;
         $kdv->save();
     }

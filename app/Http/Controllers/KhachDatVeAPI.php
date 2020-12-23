@@ -18,7 +18,7 @@ class KhachDatVeAPI extends Controller
         if($request->isMethod('post'))
         { 
             $Data = KhachDatve::where('email',$request->input("Email"))->first(); 
-            if(Hash::check($request->input('MatKhau'), $Data->mat_khau)&&!empty($Data))
+            if(Hash::check($request->input('MatKhau'), $Data->mat_khau)&&(string)$Data!=='[]')
             {               
                 return $Data; 
             }
@@ -29,6 +29,7 @@ class KhachDatVeAPI extends Controller
           
         }
     }
+    /*
     public function testdemo(Request $request)
     {
          $time =Carbon::now('Asia/Ho_Chi_Minh')->toDateString();          
@@ -51,5 +52,5 @@ class KhachDatVeAPI extends Controller
            
      
 
-    }
+    }*/
 }

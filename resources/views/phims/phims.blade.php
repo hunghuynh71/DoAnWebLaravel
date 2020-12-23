@@ -158,6 +158,8 @@
     <!-- /.card -->
 
   </section>
+
+  
   <!-- /.content -->
 </div>
 @endsection

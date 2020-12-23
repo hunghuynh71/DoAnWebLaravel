@@ -51,7 +51,7 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="tgChieu">Thời gian chiếu</label>
-                <input type="date" name="tgChieu" class="form-control">
+                <input type="time" name="tgChieu" class="form-control">
               </div>
             </div>
             <!-- /.card-body -->

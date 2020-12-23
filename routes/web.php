@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\CheckLogin;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +24,7 @@ Route::get('/dang-xuat','AdminController@logout')->name('dang-xuat');
 
 Route::match(['get','post'],'/quen-mat-khau','AdminController@forgotPassword')->name('quen-mat-khau');
 
-Route::match(['get','post'],'/xac-nhan-tai-khoan','AdminController@confirmAccount')->name('xac-nhan-tai-khoan');
-
 Route::match(['get','post'],'/khoi-phuc-mat-khau','AdminController@changePassword')->name('khoi-phuc-mat-khau');
-
-//Route::group(['prefix'=>'/admin','middleware'=>['CheckLogout']],function(){});
 
       Route::group(['prefix'=>'/phim','middleware'=>['CheckLogout']],function(){
         Route::get('phim', 'AdminController@getPhims')->name('phim.getPhims');

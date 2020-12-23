@@ -22,10 +22,13 @@ use App\Models\KhachDatVe;
 use App\Models\Ghe;
 use App\Models\LoaiGhe;
 use App\User;
+use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
@@ -71,17 +74,6 @@ class AdminController extends Controller
             }else{
                 return redirect()->back()->with(['flag'=>'danger','message'=>'Đăng nhập thất bại']);
             }
-            /*$e=$request->input('email');
-            $p=$request->input('password');
-            $nhan_viens=NhanVien::where('da_xoa',false)->get();
-            foreach($nhan_viens as $nv){
-                if($nv->email==$e&&$nv->password==$p){
-                    //return redirect()->back()->with(['flag'=>'success','message'=>'Đăng nhập thành công']);
-                    //$GLOBALS['nv']=$nv->id;
-                    return redirect()->route('trang-chu');
-                }
-            }
-            return redirect()->back()->with(['flag'=>'danger','message'=>'Đăng nhập thất bại']);*/
         }
         return view('dang-nhap');
     }
@@ -96,38 +88,38 @@ class AdminController extends Controller
     public function forgotPassword(Request $request){
         if($request->isMethod('post')){
             $email_khoi_phuc=$request->input("email");
-            if($this->ktEmail($email_khoi_phuc)){
+            $nhan_vien=NhanVien::where('email',$email_khoi_phuc,'da_xoa',false)->first();
+            if($nhan_vien){
                 /*$nvKhoiPhuc=NhanVien::where('email',$email_khoi_phuc);
                 $request->session()->put('nvKhoiPhuc',$nvKhoiPhuc);*/
-                return redirect()->route('xac-nhan-tai-khoan');                
+                //$idUser=(NhanVien::where('email',$email_khoi_phuc,'da-xoa',false)->first())->id;
+
+                //phát sinh đoạn mã dùng để kiểm tra khi lấy lại mật khẩu
+                $code=bcrypt(md5(time().$email_khoi_phuc));
+
+                $nhan_vien->code=$code;
+                $nhan_vien->time_code=Carbon::now();
+                $nhan_vien->save();
+
+                $details = [
+                    'title' => 'Khôi phục mật khẩu',
+                ];
+
+                //$url=route('gui-mail',['code'=>$nhan_vien->code,'email'=>$email_khoi_phuc]);
+
+                /*$data=[
+                    'route'=>$url
+                ];*/
+              
+                Mail::to($nhan_vien->email)->send(new \App\Mail\SendMail($details, $nhan_vien->code,$email_khoi_phuc));
+                    
+                return redirect()->back()->with(['flag'=>'success','message'=>'Link lấy lại mật khẩu đã được gửi vào mail của bạn']);
+                //return redirect()->route('xac-nhan-tai-khoan');                
             }else{
-                return redirect()->back()->with(['flag'=>'danger','message'=>'Email khôi phục không hợp lệ']);
+                return redirect()->back()->with(['flag'=>'danger','message'=>'Email khôi phục không tồn tại!']);
             }
         }
         return view('quen-mat-khau');
-    }
-
-    public function ktEmail($email){
-        $nhan_viens=NhanVien::where('da_xoa',false)->get();
-        foreach($nhan_viens as $nv){
-            if($nv->email==$email){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    //Xác nhận tài khoản
-    public function confirmAccount(Request $request){
-        if($request->isMethod('post')){
-            $ma_xac_nhan=$request->input("maXacNhan");
-            if($ma_xac_nhan=='123456'){
-                return redirect()->route('khoi-phuc-mat-khau');
-            }else{
-                return redirect()->back()->with(['flag'=>'danger','message'=>'Mã xác nhận không chính xác']);
-            }
-        }
-        return view('xac-nhan-tai-khoan');
     }
 
     //Thay đổi mật khẩu
@@ -139,14 +131,14 @@ class AdminController extends Controller
             if($mat_khau!=$nhap_lai_mat_khau){
                 return redirect()->back()->with(['flag'=>'danger','message'=>'Nhập lại mật khẩu mới phải trùng mật khẩu mới!']);
             }else{
-                //$nv=Session->get('nvKhoiPhuc');
-                $email=$GLOBALS['email_khoi_phuc'];//chưa lây email được
-                $nv=NhanVien::where('email',$email)->first();
-                dd($email);
-                exit;
+                $nv=NhanVien::where([
+                    'code'=>$request->code,
+                    'email'=>$request->email,
+                    'da_xoa'=>false,
+                ])->first();
                 $nv->password=bcrypt($mat_khau);
                 $nv->save();
-                return redirect()->route('trang-chu');
+                return redirect()->route('dang-nha  p');
             }            
         }
         return view('khoi-phuc-mat-khau');

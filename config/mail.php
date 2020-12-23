@@ -83,10 +83,12 @@ return [
     |
     */
 
-    'from' => [
+    /*'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
-    ],
+    ],*/
+
+    'from' => array('address' => 'hunghuynh813@gmail.com', 'name' => 'hunghuynh71'),
 
     /*
     |--------------------------------------------------------------------------
