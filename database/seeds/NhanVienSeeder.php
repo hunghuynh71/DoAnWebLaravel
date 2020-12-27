@@ -18,7 +18,7 @@ class NhanVienSeeder extends Seeder
         $nv->cmnd='32545757';
         $nv->sdt='8957495749067';
         $nv->email='hung@gmail.com';
-        $nv->password='abc123';
+        $nv->password=bcrypt('abc123');
         $nv->ngay_vao_lam='2020-1-1';
         $nv->dia_chi='Bến tre';
         $nv->quyen_id=1;
