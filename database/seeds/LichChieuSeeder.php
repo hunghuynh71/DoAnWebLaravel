@@ -16,6 +16,7 @@ class LichChieuSeeder extends Seeder
         $lc->phim_id=1;
         $lc->khung_tg_chieu_id=1;
         $lc->rap_id=1;
+        $lc->dinh_dang_id=1;
         $lc->ngay_chieu='2020-12-31';
         $lc->nv_lap_id=1;
         $lc->save();

@@ -34,4 +34,8 @@ class LichChieu extends Model
     public function nhan_vien(){
         return $this->belongsTo('App\Models\NhanVien','nv_lap_id');
     }
+
+    public function dinh_dang(){
+        return $this->belongsTo('App\Models\DinhDang','dinh_dang_id');
+    }
 }

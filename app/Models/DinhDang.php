@@ -18,4 +18,8 @@ class DinhDang extends Model
     public function gia_ves(){
         return $this->hasMany('App\Models\GiaVe','dinh_dang_id','id');
     }
+
+    public function lich_chieus(){
+        return $this->hasMany('App\Models\LichChieu','dinh_dang_id','id');
+    }
 }

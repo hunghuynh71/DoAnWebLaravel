@@ -26,13 +26,15 @@ Route::match(['get','post'],'/quen-mat-khau','AdminController@forgotPassword')->
 
 Route::match(['get','post'],'/khoi-phuc-mat-khau','AdminController@changePassword')->name('khoi-phuc-mat-khau');
 
-      Route::group(['prefix'=>'/phim','middleware'=>['CheckLogout']],function(){
+Route::resource('phim','PhimController');
+
+      /*Route::group(['prefix'=>'/phim','middleware'=>['CheckLogout']],function(){
         Route::get('phim', 'AdminController@getPhims')->name('phim.getPhims');
         Route::get('chi-tiet-phim/{id}', 'AdminController@phimDetail')->name('phim.phimDetail');
         Route::match(['get','post'],'them-phim','AdminController@addPhim')->name('phim.addPhim');
         Route::match(['get','post'],'chinh-sua-phim/{id}','AdminController@editPhim')->name('phim.editPhim');
         Route::get('xoa-phim/{id}', 'AdminController@deletePhim')->name('phim.deletePhim');
-      });
+      });*/
 
       Route::group(['prefix'=>'/the-loai','middleware'=>['CheckLogout']],function(){
           Route::get('the-loai', 'AdminController@getTheLoais')->name('the-loai.getTheLoais');
