@@ -18,6 +18,7 @@ class CreatePhimsTable extends Migration
             $table->string('ten_phim');
             $table->integer('dao_dien_id')->unsigned();
             $table->integer('the_loai_id')->unsigned();
+            $table->string('ds_dien_vien');
             $table->string('hinh_anh');
             $table->string('nha_san_xuat');
             $table->string('quoc_gia');

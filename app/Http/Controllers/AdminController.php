@@ -88,11 +88,16 @@ class AdminController extends Controller
     public function forgotPassword(Request $request){
         if($request->isMethod('post')){
             $email_khoi_phuc=$request->input("email");
+
+            $this->validate($request,[
+                'email'=>'required|email'
+            ],[
+                'email.required'=>'Vui lòng nhập email!',
+                'email.email'=>'Email chưa đúng định dạng!'
+            ]);
+
             $nhan_vien=NhanVien::where('email',$email_khoi_phuc,'da_xoa',false)->first();
             if($nhan_vien){
-                /*$nvKhoiPhuc=NhanVien::where('email',$email_khoi_phuc);
-                $request->session()->put('nvKhoiPhuc',$nvKhoiPhuc);*/
-                //$idUser=(NhanVien::where('email',$email_khoi_phuc,'da-xoa',false)->first())->id;
 
                 //phát sinh đoạn mã dùng để kiểm tra khi lấy lại mật khẩu
                 $code=bcrypt(md5(time().$email_khoi_phuc));
@@ -104,17 +109,11 @@ class AdminController extends Controller
                 $details = [
                     'title' => 'Khôi phục mật khẩu',
                 ];
-
-                //$url=route('gui-mail',['code'=>$nhan_vien->code,'email'=>$email_khoi_phuc]);
-
-                /*$data=[
-                    'route'=>$url
-                ];*/
               
                 Mail::to($nhan_vien->email)->send(new \App\Mail\SendMail($details, $nhan_vien->code,$email_khoi_phuc));
                     
                 return redirect()->back()->with(['flag'=>'success','message'=>'Link lấy lại mật khẩu đã được gửi vào mail của bạn']);
-                //return redirect()->route('xac-nhan-tai-khoan');                
+                            
             }else{
                 return redirect()->back()->with(['flag'=>'danger','message'=>'Email khôi phục không tồn tại!']);
             }
@@ -128,18 +127,36 @@ class AdminController extends Controller
             $mat_khau=$request->input("matKhau");
             $nhap_lai_mat_khau=$request->input("nhapLaiMatKhau");
 
+            $this->validate($request,
+            [
+                'matKhau' =>'required',
+                'nhapLaiMatKhau'=>'required'
+            ],
+            [
+                'matKhau.required'=>'Mật khẩu mới không được để trống!',
+                'nhapLaiMatKhau.required'=>'Nhập lại mật khẩu mới không được để trống!',
+            ]
+            );
+
             if($mat_khau!=$nhap_lai_mat_khau){
-                return redirect()->back()->with(['flag'=>'danger','message'=>'Nhập lại mật khẩu mới phải trùng mật khẩu mới!']);
+                return redirect()->back()->with(['flag'=>'danger','message'=>'Nhập lại mật khẩu và mật khẩu phải trùng khớp!']);
             }else{
                 $nv=NhanVien::where([
                     'code'=>$request->code,
                     'email'=>$request->email,
                     'da_xoa'=>false,
                 ])->first();
-                $nv->password=bcrypt($mat_khau);
-                $nv->save();
-                return redirect()->route('dang-nha  p');
-            }            
+                if(!$nv){
+                    return redirect()->route('quen-mat-khau')->with(['flag'=>'danger','message'=>'Đường dẫn xác nhận đã hết hạn vui lòng nhập email để xác nhận lại!']);
+                }else{
+                    $nv->password=bcrypt($mat_khau);
+                    $nv->save();
+                    return redirect()->route('dang-nhap');
+                }
+                /*$nv->password=bcrypt($mat_khau);
+                    $nv->save();
+                    return redirect()->route('dang-nhap');  */
+            }          
         }
         return view('khoi-phuc-mat-khau');
     }
@@ -147,28 +164,26 @@ class AdminController extends Controller
     //Quản lí phim
     public function getPhims(){
         $phims=Phim::where('da_xoa',false)->get();
-        $sl_phim=$phims->count();
         $dao_diens=DaoDien::where('da_xoa',false)->get();
         $the_loais=TheLoai::where('da_xoa',false)->get();
         $nhan_viens=NhanVien::where('da_xoa',false)->get();
-        $ds_dien_viens=DsDienVien::where('da_xoa',false)->get();
-        return view('phims.phims',compact('phims','sl_phim','dao_diens','the_loais','nhan_viens','ds_dien_viens'));
+        return view('phims.phims',compact('phims','sl','dao_diens','the_loais','nhan_viens'));
     }
 
     public function phimDetail(Request $request){
         $phim=Phim::where('id',$request->id)->first();
-        $ds_dien_viens=DsDienVien::where('phim_id',$phim->id)->get();
-        return view('phims.chi-tiet-phim',compact('phim','ds_dien_viens'));
+        return view('phims.chi-tiet-phim',compact('phim'));
     }
 
     public function addPhim(Request $request){
         $dao_diens=DaoDien::where('da_xoa',false)->get();
-        $dien_viens=DienVien::where('da_xoa',false)->get();
         $the_loais=TheLoai::where('da_xoa',false)->get();
+
         if($request->isMethod('post')){
           $ten_phim=$request->input("tenPhim");
           $dao_dien=$request->input("daoDien");
           $the_loai=$request->input("theLoai");
+          $ds_dien_vien=$request->input("dsDienVien");
           $mo_ta=$request->input("moTa");
           $nhan_phim=$request->input("nhanPhim");
           $quoc_gia=$request->input("quocGia");
@@ -179,10 +194,43 @@ class AdminController extends Controller
           $trailer=$request->input("trailer");
           $diem=$request->input("diem");
 
+          $this->validate($request,[
+            'tenPhim'=>'required',
+            'daoDien'=>'required',
+            'theLoai'=>'required',
+            'dsDienVien'=>'required|alpha',
+            'moTa'=>'required',
+            'nhanPhim'=>'required',
+            'quocGia'=>'required',
+            'hinhAnh'=>'required',
+            'nhaSanXuat'=>'required',
+            'ngayXuatBan'=>'required',
+            'thoiLuong'=>'required',
+            'trailer'=>'required',
+            'diem'=>'required|numeric',
+        ],[
+            'tenPhim.required'=>'Tên phim không được để trống!',
+            'daoDien.required'=>'Đạo diễn không được để trống!',
+            'theLoai.required'=>'Thể loại không được để trống!',
+            'dsDienVien.required'=>'Danh sách diễn viên không được để trống!',
+            'dsDienVien.alpha'=>'Danh sách diễn viên phải là chữ!',
+            'moTa.required'=>'Mô tả không được để trống!',
+            'nhanPhim.required'=>'Nhãn phim không được để trống!',
+            'quocGia.required'=>'Quốc gia không được để trống!',
+            'hinhAnh.required'=>'Hình ảnh không được để trống!',
+            'nhaSanXuat.required'=>'Nhà sản xuất không được để trống!',
+            'ngayXuatBan.required'=>'Ngày xuất bản không được để trống!',
+            'thoiLuong.required'=>'Thời lượng không được để trống!',
+            'trailer.required'=>'Trailer không được để trống!',
+            'diem.required'=>'Điểm không được để trống!',
+            'diem.numeric'=>'Điểm nhập vào phải là số!'
+        ]);
+
           $phim=new Phim();
           $phim->ten_phim=$ten_phim;
           $phim->dao_dien_id=$dao_dien;
           $phim->the_loai_id=$the_loai;
+          $phim->ds_dien_vien=$ds_dien_vien;
           $phim->mo_ta=$mo_ta;
           $phim->nhan_phim=$nhan_phim;
           $phim->quoc_gia=$quoc_gia;
@@ -208,18 +256,18 @@ class AdminController extends Controller
         
           return redirect()->route('phim.getPhims');
         }
-        return view('phims.them-phim',compact('dao_diens','dien_viens','the_loais'));
+        return view('phims.them-phim',compact('dao_diens','the_loais'));
     }
 
     public function editPhim(Request $request){
         $dao_diens=DaoDien::where('da_xoa',false)->get();
         $the_loais=TheLoai::where('da_xoa',false)->get();
-        $ds_dien_viens=DsDienVien::where('phim_id',$request->id);
         $phim=Phim::where('id',$request->id)->first();
         if($request->isMethod('post')){
             $ten_phim=$request->input("tenPhim");
             $dao_dien=$request->input("daoDien");
             $the_loai=$request->input("theLoai");
+            $ds_dien_vien=$request->input("dsDienVien");
             $mo_ta=$request->input("moTa");
             $nhan_phim=$request->input("nhanPhim");
             $quoc_gia=$request->input("quocGia");
@@ -229,10 +277,42 @@ class AdminController extends Controller
             $thoi_luong=$request->input("thoiLuong");
             $trailer=$request->input("trailer");
             $diem=$request->input("diem");
+
+            $this->validate($request,[
+                'tenPhim'=>'required',
+                'daoDien'=>'required',
+                'theLoai'=>'required',
+                'dsDienVien'=>'required',
+                'moTa'=>'required',
+                'nhanPhim'=>'required',
+                'quocGia'=>'required',
+                'hinhAnh'=>'required',
+                'nhaSanXuat'=>'required',
+                'ngayXuatBan'=>'required',
+                'thoiLuong'=>'required',
+                'trailer'=>'required',
+                'diem'=>'required|numeric',
+            ],[
+                'tenPhim.required'=>'Tên phim không được để trống!',
+                'daoDien.required'=>'Đạo diễn không được để trống!',
+                'theLoai.required'=>'Thể loại không được để trống!',
+                'dsDienVien.required'=>'Danh sách diễn viên không được để trống!',
+                'moTa.required'=>'Mô tả không được để trống!',
+                'nhanPhim.required'=>'Nhãn phim không được để trống!',
+                'quocGia.required'=>'Quốc gia không được để trống!',
+                'hinhAnh.required'=>'Hình ảnh không được để trống!',
+                'nhaSanXuat.required'=>'Nhà sản xuất không được để trống!',
+                'ngayXuatBan.required'=>'Ngày xuất bản không được để trống!',
+                'thoiLuong.required'=>'Thời lượng không được để trống!',
+                'trailer.required'=>'Trailer không được để trống!',
+                'diem.required'=>'Điểm không được để trống!',
+                'diem.numeric'=>'Điểm nhập vào phải là số!'
+            ]);
             
             $phim->ten_phim=$ten_phim;
             $phim->dao_dien_id=$dao_dien;
             $phim->the_loai_id=$the_loai;
+            $phim->ds_dien_vien=$ds_dien_vien;
             $phim->mo_ta=$mo_ta;
             $phim->nhan_phim=$nhan_phim;
             $phim->quoc_gia=$quoc_gia;
@@ -245,7 +325,7 @@ class AdminController extends Controller
             $phim->save();
             return redirect()->route('phim.getPhims');
           }
-        return view('phims.chinh-sua-phim',compact('phim','dao_diens','ds_dien_viens','the_loais'));
+        return view('phims.chinh-sua-phim',compact('phim','dao_diens','the_loais'));
     }
     
     public function deletePhim(Request $request){
@@ -253,69 +333,6 @@ class AdminController extends Controller
         $phim->da_xoa=true;
         $phim->save();
         return redirect()->route('phim.getPhims');
-    }
-
-    //Danh sách diễn viên 
-
-    public function getDsDienViens(){
-        $dsdv=DsDienVien::where('da_xoa',false)->get();
-        $sl_dsdv=$dsdv->count();
-        return view('ds-dien-viens.ds-dien-viens',compact('dsdv','sl_dsdv'));
-    }
-
-    public function dsDienVienDetail(Request $request){
-        //lay dsdv theo id
-        $dsdv=DsDienVien::where('id',$request->id,'da_xoa',false)->first();
-        return view('ds-dien-viens.chi-tiet-ds-dien-vien',compact('dsdv'));
-
-    }
-
-    public function addDsDienVien(Request $request){
-        $phims=Phim::where('da_xoa',false)->get();
-        $dien_viens=DienVien::where('da_xoa',false)->get();
-        if($request->isMethod('post')){
-            $phim=$request->input('phim');
-            $dien_vien=$request->input("dienVien");
-
-            try{
-                $dsdv=new DsDienVien();
-                $dsdv->phim_id=$phim;
-                $dsdv->dien_vien_id=$dien_vien; 
-                $dsdv->save();
-                return redirect()->route('ds-dien-vien.getDsDienViens');               
-            }catch(Exception $e){
-                return redirect()->back()->with(['flag'=>'danger','message'=>'Có thể danh sách diễn viên đã tồn tại']);
-            }
-            
-        }
-        return view('ds-dien-viens.them-ds-dien-vien',compact('phims','dien_viens'));
-    }
-
-    public function editDsDienVien(Request $request){
-        $phims=Phim::where('da_xoa',false)->get();
-        $dien_viens=DienVien::where('da_xoa',false)->get();
-        $dsdv=DsDienVien::where('id',$request->id)->first();
-        if($request->isMethod('post')){
-            $phim=$request->input('phim');
-            $dien_vien=$request->input("dienVien");
-            
-            try{
-                $dsdv->phim_id=$phim;
-                $dsdv->dien_vien_id=$dien_vien;
-                $dsdv->save();
-                return redirect()->route('ds-dien-vien.getDsDienViens');
-            }catch(Exception $e){
-                return redirect()->back()->with(['flag'=>'danger','message'=>'Có thể danh sách diễn viên đã tồn tại']);
-            }         
-        }
-        return view('ds-dien-viens.chinh-sua-ds-dien-vien',compact('phims','dien_viens','dsdv'));
-    }
-
-    public function deleteDsDienVien(Request $request){
-        $dsdv=DsDienVien::where('id',$request->id)->first();
-        $dsdv->da_xoa=true;
-        $dsdv->save();
-        return redirect()->route('ds-dien-vien.getDsDienViens');
     }
 
     //Quản lí lịch chiếu
@@ -338,6 +355,18 @@ class AdminController extends Controller
           $khung_tg_chieu=$request->input("khungTGChieu");
           $ngay_chieu=$request->input("ngayChieu");
           $rap=$request->input("rap");
+
+          $this->validate($request,[
+            'phim'=>'required',
+            'khungTGChieu'=>'required',
+            'ngayChieu'=>'required',
+            'rap'=>'required',
+          ],[
+            'phim.required'=>'Phim không được để trống!',
+            'khungTGChieu.required'=>'Giờ chiếu không được để trống!',
+            'ngayChieu.required'=>'Ngày chiếu không được để trống!',
+            'rap.required'=>'Rạp không được để trống!',
+          ]);
            
           try{
             $lichChieu=new LichChieu();
@@ -373,6 +402,12 @@ class AdminController extends Controller
         if($request->isMethod('post')){
           $ten_tl=$request->input("tenTheLoai");
 
+          $this->validate($request,[
+            'tenTheLoai'=>'required'
+          ],[
+            'tenTheLoai.required'=>'Thể loại không được để trống!'
+          ]);
+
           $the_loai=new TheLoai();
           $the_loai->ten_tl=$ten_tl;
           $the_loai->save();
@@ -385,6 +420,12 @@ class AdminController extends Controller
         $the_loai=TheLoai::where('id',$request->id,'da_xoa',false)->first();
         if($request->isMethod('post')){
             $ten_tl=$request->input("tenTheLoai");
+
+            $this->validate($request,[
+                'tenTheLoai'=>'required'
+              ],[
+                'tenTheLoai.required'=>'Thể loại không được để trống!'
+              ]);
   
             $the_loai->ten_tl=$ten_tl;
             $the_loai->save();
@@ -448,33 +489,6 @@ class AdminController extends Controller
     public function veDetail(Request $request){
         $ve=Ve::where('id',$request->id,'da_xoa',false)->first();
         return view('ves.chi-tiet-ve',compact('ve'));
-    }
-
-    public function addVe(Request $request){
-        $gia_ves=GiaVe::where('da_xoa',false)->get();
-        $lich_chieus=LichChieu::where('da_xoa',false)->get();
-        $ghes=Ghe::where('da_xoa',false)->get();
-        $ds_ves=DsVe::where('da_xoa',false)->get();
-        if($request->isMethod('post')){
-            $gia=$request->input("giaVe");
-            $lich_chieu=$request->input("lichChieu");
-            $ghe=$request->input("ghe");
-            $ds_ve=$request->input("dsVe");
-
-            try{
-                $ve=new Ve();
-                $ve->gia_id=$gia;
-                $ve->lich_chieu_id=$lich_chieu;
-                $ve->ghe_id=$ghe;
-                $ve->ds_ve_id=$ds_ve;
-                $ve->save();
-                return redirect()->route('ve.getVes');
-            }catch(Exception $e){
-                return redirect()->back()->with(['flag'=>'danger','message'=>'Có thể vé đã tồn tại']);
-            }
-            
-        }
-        return view('ves.them-ve',compact('gia_ves','lich_chieus','ghes','ds_ves'));
     }
 
     public function deleteVe(Request $request){
@@ -572,6 +586,32 @@ class AdminController extends Controller
           $dia_chi=$request->input("diaChi");
           $quyen=$request->input("quyen");
 
+          $this->validate($request,[
+            'tenNhanVien'=>'required|alpha',
+            'cmnd'=>'required|numeric',
+            'sdt'=>'required|numeric',
+            'email'=>'required|email',
+            'matKhau'=>'required',
+            'ngayVaoLam'=>'required',
+            'gioiTinh'=>'required',
+            'diaChi'=>'required',
+            'quyen'=>'required',
+          ],[
+            'tenNhanVien.required'=>'Tên quản lý không được để trống!',
+            'tenNhanVien.alpha'=>'Tên quản lý phải là chữ!',
+            'cmnd.required'=>'Chứng minh nhân dân không được để trống!',
+            'cmnd.numeric'=>'Chứng minh nhân dân phải là ký tự số!',
+            'sdt.required'=>'Số điện thoại không được để trống!',
+            'sdt.numeric'=>'Số điện thoại phải là ký tự số!',
+            'email.required'=>'Email không được để trống!',
+            'email.email'=>'Email phải đúng định dạng!',
+            'matKhau.required'=>'Mật khẩu không được để trống!',
+            'ngayVaoLam.required'=>'Ngày vào làm không được để trống!',
+            'gioiTinh.required'=>'Giới tính không được để trống!',
+            'diaChi.required'=>'Địa chỉ không được để trống!',
+            'quyen.required'=>'Quyền không được để trống!',
+          ]);   
+
           $nv=new NhanVien();
           $nv->ten_nv=$ten_nv;
           $nv->cmnd=$cmnd;
@@ -602,6 +642,32 @@ class AdminController extends Controller
           $dia_chi=$request->input("diaChi");
           $dang_lam=$request->input("dangLam");
           $quyen=$request->input("quyen");
+
+          $this->validate($request,[
+            'tenNhanVien'=>'required|alpha',
+            'cmnd'=>'required|numeric',
+            'sdt'=>'required|numeric',
+            'email'=>'required|email',
+            'matKhau'=>'required',
+            'ngayVaoLam'=>'required',
+            'gioiTinh'=>'required',
+            'diaChi'=>'required',
+            'quyen'=>'required',
+          ],[
+            'tenNhanVien.required'=>'Tên quản lý không được để trống!',
+            'tenNhanVien.alpha'=>'Tên quản lý phải là chữ!',
+            'cmnd.required'=>'Chứng minh nhân dân không được để trống!',
+            'cmnd.numeric'=>'Chứng minh nhân dân phải là ký tự số!',
+            'sdt.required'=>'Số điện thoại không được để trống!',
+            'sdt.numeric'=>'Số điện thoại phải là ký tự số!',
+            'email.required'=>'Email không được để trống!',
+            'email.email'=>'Email phải đúng định dạng!',
+            'matKhau.required'=>'Mật khẩu không được để trống!',
+            'ngayVaoLam.required'=>'Ngày vào làm không được để trống!',
+            'gioiTinh.required'=>'Giới tính không được để trống!',
+            'diaChi.required'=>'Địa chỉ không được để trống!',
+            'quyen.required'=>'Quyền không được để trống!',
+          ]);
           
           $nhan_vien->ten_nv=$ten_nv;
           $nhan_vien->cmnd=$cmnd;

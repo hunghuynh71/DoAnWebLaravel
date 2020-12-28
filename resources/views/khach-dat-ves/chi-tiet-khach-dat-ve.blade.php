@@ -55,7 +55,11 @@
             <p>Email: {{$khach_dat_ve->email}}</p>
             <p>Mật khẩu: {{$khach_dat_ve->mat_khau}}</p>
             <p>Năm sinh: {{$khach_dat_ve->nam_sinh}}</p>
-            <p>Giới tính: {{$khach_dat_ve->gioi_tinh}}</p>
+            @if($khach_dat_ve->gioi_tinh==1)
+            <p>Giới tính: Nam</p>
+            @else
+            <p>Giới tính: Nữ</p>
+            @endif
             <div class="text-center mt-5 mb-3">
               <a href="{{route('khach-dat-ve.getKhachDatVes') }}" class="btn btn-sm btn-warning">Thoát</a>
             </div>

@@ -53,6 +53,7 @@
                 <label for="tenTheLoai">Tên thể loại</label>
                 <input type="text" name="tenTheLoai" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('tenTheLoai')}}</span>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">

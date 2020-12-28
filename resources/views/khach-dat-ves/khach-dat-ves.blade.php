@@ -90,7 +90,11 @@
                 {{$khach_dat_ves[$p]->nam_sinh}}
               </td>
               <td>
-                {{$khach_dat_ves[$p]->gioi_tinh}}
+                @if($khach_dat_ves[$p]->gioi_tinh==1)
+                Nam
+                @else
+                Nữ
+                @endif
               </td>
               <td class="project-actions text-right">
                 <a class="btn btn-primary btn-sm" href="{{route('khach-dat-ve.khachDatVeDetail',$khach_dat_ves[$p]->id)}}">

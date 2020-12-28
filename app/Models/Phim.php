@@ -38,10 +38,6 @@ class Phim extends Model
         return $this->belongsTo('App\Models\TheLoai','the_loai_id');
     }
 
-    public function ds_dien_viens(){
-        return $this->hasMany('App\Models\DsDienVien','phim_id','id');
-    }
-
     public function dao_dien(){
         return $this->belongsTo('App\Models\DaoDien','dao_dien_id');
     }

@@ -52,7 +52,7 @@
             <li class="nav-item">
               <a href="{{url('ve/ve')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Đặt vé</p>
+                <p>Vé</p>
               </a>
             </li>
             <li class="nav-item">
@@ -93,12 +93,6 @@
               <a href="{{url('dao-dien/dao-dien')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Đạo diễn</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{url('dien-vien/dien-vien')}}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Diễn viên</p>
               </a>
             </li>
             <li class="nav-item">

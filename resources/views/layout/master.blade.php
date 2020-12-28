@@ -7,6 +7,12 @@
   <title>@yield('title')</title>
   <base href="{{asset('')}}">
 
+  <style type="text/css">
+    .error-message {
+      color: red;
+    }
+  </style>
+
   @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

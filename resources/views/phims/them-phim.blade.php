@@ -54,6 +54,7 @@
                 <label for="tenPhim">Tên phim</label>
                 <input type="text" name="tenPhim" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('tenPhim')}}</span>
               <div class="form-group">
                 <label for="daoDien">Đạo diễn</label>
                 <select name="daoDien" class="form-control custom-select">
@@ -63,10 +64,7 @@
                   @endforeach
                 </select>
               </div>
-              <div class="form-group">
-                <label for="dienVien">Diễn viên</label>
-                <a href="{{route('ds-dien-vien.getDsDienViens')}}" class="btn btn-secondary">Danh sách diễn viên</a>
-              </div>
+              <span class="error-message">{{$errors->first('daoDien')}}</span>
               <div class="form-group">
                 <label for="theLoai">Thể loại</label>
                 <select name="theLoai" class="form-control custom-select">
@@ -76,42 +74,57 @@
                   @endforeach
                 </select>
               </div>
+              <span class="error-message">{{$errors->first('theLoai')}}</span>
+              <div class="form-group">
+                <label for="dsDienVien">Danh sách diễn diên</label>
+                <input type="text" name="dsDienVien" class="form-control">
+              </div>
+              <span class="error-message">{{$errors->first('dsDienVien')}}</span>
               <div class="form-group">
                 <label for="moTa">Mô tả</label>
                 <textarea type="text" name="moTa" class="form-control"></textarea>
               </div>
+              <span class="error-message">{{$errors->first('moTa')}}</span>
               <div class="form-group">
                 <label for="hinhAnh">Hình ảnh</label>
                 <input type="file" name="hinhAnh" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('hinhAnh')}}</span>
               <div class="form-group">
                 <label for="nhanPhim">Nhãn phim</label>
                 <input type="text" name="nhanPhim" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('nhanPhim')}}</span>
               <div class="form-group">
                 <label for="quocGia">Quốc gia</label>
                 <input type="text" name="quocGia" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('quocGia')}}</span>
               <div class="form-group">
                 <label for="nhaSanXuat">Nhà sản xuất</label>
                 <input type="text" name="nhaSanXuat" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('nhaSanXuat')}}</span>
               <div class="form-group">
                 <label for="ngayXuatBan">Ngày xuất bản</label>
                 <input type="date" name="ngayXuatBan" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('ngayXuatBan')}}</span>
               <div class="form-group">
                 <label for="thoiLuong">Thời lượng (Phút)</label>
-                <input type="text" name="thoiLuong" class="form-control">
+                <input type="number" name="thoiLuong" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('thoiLuong')}}</span>
               <div class="form-group">
                 <label for="trailer">Trailer</label>
                 <input type="text" name="trailer" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('trailer')}}</span>
               <div class="form-group">
                 <label for="diem">Điểm</label>
                 <input type="text" name="diem" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('diem')}}</span>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">

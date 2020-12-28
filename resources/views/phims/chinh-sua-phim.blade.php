@@ -24,7 +24,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('trang-chu')}}">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="{{url('trang-chu')}}">Trang chủ</a></li>
             <li class="breadcrumb-item active">Chỉnh sửa phim</li>
           </ol>
         </div>
@@ -53,6 +53,7 @@
                 <label for="tenPhim">Tên phim</label>
                 <input type="text" name="tenPhim" class="form-control" value="{{$phim->ten_phim}}">
               </div>
+              <span class="error-message">{{$errors->first('tenPhim')}}</span>
               <div class="form-group">
                 <label for="daoDien">Đạo diễn</label>
                 <select name="daoDien" class="form-control custom-select">
@@ -66,10 +67,7 @@
                   @endforeach
                 </select>
               </div>
-              <div class="form-group">
-                <label for="dienVien">Danh sách diễn viên</label>&nbsp;
-                <a href="{{route('ds-dien-vien.getDsDienViens')}}" class="btn btn-secondary">Danh sách diễn viên</a>
-              </div>
+              <span class="error-message">{{$errors->first('daoDien')}}</span>
               <div class="form-group">
                 <label for="theLoai">Thể loại</label>
                 <select name="theLoai" class="form-control custom-select">
@@ -83,42 +81,57 @@
                   @endforeach
                 </select>
               </div>
+              <span class="error-message">{{$errors->first('theLoai')}}</span>
+              <div class="form-group">
+                <label for="dsDienVien">Danh sách diễn diên</label>
+                <input type="text" name="dsDienVien" class="form-control" value="{{$phim->ds_dien_vien}}">
+              </div>
+              <span class="error-message">{{$errors->first('dsDienVien')}}</span>
               <div class="form-group">
                 <label for="moTa">Mô tả</label>
                 <textarea type="text" name="moTa" class="form-control">{{$phim->mo_ta}}</textarea>
               </div>
+              <span class="error-message">{{$errors->first('moTa')}}</span>
               <div class="form-group">
                 <label for="nhanPhim">Nhãn phim</label>
                 <input type="text" name="nhanPhim" class="form-control" value="{{$phim->nhan_phim}}">
               </div>
+              <span class="error-message">{{$errors->first('nhanPhim')}}</span>
               <div class="form-group">
                 <label for="quocGia">Quốc gia</label>
                 <input type="text" name="quocGia" class="form-control" value="{{$phim->quoc_gia}}">
               </div>
+              <span class="error-message">{{$errors->first('quocGia')}}</span>
               <div class="form-group">
                 <label for="hinhAnh">Hình ảnh</label>
                 <input type="file" name="hinhAnh" class="form-control" value="{{$phim->hinh_anh}}">
               </div>
+              <span class="error-message">{{$errors->first('hinhAnh')}}</span>
               <div class="form-group">
                 <label for="nhaSanXuat">Nhà sản xuất</label>
                 <input type="text" name="nhaSanXuat" class="form-control" value="{{$phim->nha_san_xuat}}">
               </div>
+              <span class="error-message">{{$errors->first('nhaSanXuat')}}</span>
               <div class="form-group">
                 <label for="ngayXuatBan">Ngày xuất bản</label>
                 <input type="date" name="ngayXuatBan" class="form-control" value="{{$phim->ngay_xuat_ban}}">
               </div>
+              <span class="error-message">{{$errors->first('ngayXuatBan')}}</span>
               <div class="form-group">
                 <label for="thoiLuong">Thời lượng (Phút)</label>
                 <input type="text" name="thoiLuong" class="form-control" value="{{$phim->thoi_luong}}">
               </div>
+              <span class="error-message">{{$errors->first('thoiLuong')}}</span>
               <div class="form-group">
                 <label for="trailer">Trailer</label>
                 <input type="text" name="trailer" class="form-control" value="{{$phim->trailer}}">
               </div>
+              <span class="error-message">{{$errors->first('trailer')}}</span>
               <div class="form-group">
                 <label for="diem">Điểm</label>
                 <input type="text" name="diem" class="form-control" value="{{$phim->diem}}">
               </div>
+              <span class="error-message">{{$errors->first('diem')}}</span>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
