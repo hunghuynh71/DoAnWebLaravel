@@ -68,12 +68,7 @@
                 <label for="email">Email</label>
                 <input type="email" name="email" class="form-control" value="{{$nhan_vien->email}}">
               </div>
-              <span class="error-message">{{$errors->first('email')}}</span>
-              <div class="form-group">
-                <label for="matKhau">Mật khẩu</label>
-                <input type="password" name="matKhau" class="form-control" value="{{$nhan_vien->password}}">
-              </div>
-              <span class="error-message">{{$errors->first('matKhau')}}</span>
+              <span class="error-message">{{$errors->first('email')}}</span>              
               <div class="form-group">
                 <label for="ngayVaoLam">Ngày vào làm</label>
                 <input type="date" name="ngayVaoLam" class="form-control" value="{{$nhan_vien->ngay_vao_lam}}">

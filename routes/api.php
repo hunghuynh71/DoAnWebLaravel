@@ -22,7 +22,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 include 'khachdatve.php';
 include 'phim.php';
 
-Route::get('demo','KhachDatVeAPI@testdemo');
-
- include 'khachdatve.php';
 

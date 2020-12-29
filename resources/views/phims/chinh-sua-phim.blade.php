@@ -36,7 +36,8 @@
   <section class="content">
     <div class="row">
       <div class="col-md-12">
-        <form method="post" action="">
+        <form method="post" action="" enctype="multipart/form-data">
+        @csrf
           <!--them token-->
           <input type="hidden" name="_token" value="{{csrf_token()}}">
           <div class="card card-primary">

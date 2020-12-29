@@ -61,11 +61,9 @@ class AdminController extends Controller
             exit;*/
             //Định nghĩa lỗi
             //$errors=$validate->errors();
-            //$user=array('email'=>$request->input("email"), 'password'=>$request->input("password"));
             $email=$request->input("email");
             $pass=$request->input("password");
-            //echo($email.' '.$pass);
-            //exit();
+
             if(Auth::attempt(['email'=>$email, 'password'=>$pass])){
                 $user=NhanVien::find(Auth::user()->id);
                 $request->session()->put('user',$user);
@@ -153,9 +151,6 @@ class AdminController extends Controller
                     $nv->save();
                     return redirect()->route('dang-nhap');
                 }
-                /*$nv->password=bcrypt($mat_khau);
-                    $nv->save();
-                    return redirect()->route('dang-nhap');  */
             }          
         }
         return view('khoi-phuc-mat-khau');
@@ -249,7 +244,8 @@ class AdminController extends Controller
             $extension= $fileImage->getClientOriginalExtension();
            
             $phimend= Phim::all()->last();
-            $phimend->hinh_anh=$phimend->id.'.'.$extension;
+            $NameImage = $fileImage->getClientOriginalName();
+            $phimend->hinh_anh=$NameImage.'_'.$phimend->id.'.'.$extension;  
             $phimend->save();
             $fileImage->move('FolderImage', $phimend->hinh_anh);
           }
@@ -271,7 +267,7 @@ class AdminController extends Controller
             $mo_ta=$request->input("moTa");
             $nhan_phim=$request->input("nhanPhim");
             $quoc_gia=$request->input("quocGia");
-            $hinh_anh=$request->input("hinhAnh");
+            $hinh_anh=$request->hinhAnh;
             $nha_san_xuat=$request->input("nhaSanXuat");
             $ngay_xuat_ban=$request->input("ngayXuatBan");
             $thoi_luong=$request->input("thoiLuong");
@@ -323,6 +319,18 @@ class AdminController extends Controller
             $phim->trailer=$trailer;
             $phim->diem=$diem;
             $phim->save();
+
+            if($request->hasfile('hinhAnh'))
+            {     
+                $fileImage = $request->file('hinhAnh');
+                $extension= $fileImage->getClientOriginalExtension();
+                $NameImage = $fileImage->getClientOriginalName();
+                $phimend= Phim::find($request->id);
+                $phimend->hinh_anh=$NameImage.'_'.$phimend->id.'.'.$extension;
+                $phimend->save();
+                $fileImage->move('chinhSuaAnhPhim', $phimend->hinh_anh);
+            }
+
             return redirect()->route('phim.getPhims');
           }
         return view('phims.chinh-sua-phim',compact('phim','dao_diens','the_loais'));
@@ -636,7 +644,6 @@ class AdminController extends Controller
           $cmnd=$request->input("cmnd");
           $sdt=$request->input("sdt");
           $email=$request->input("email");
-          $mat_khau=$request->input("matKhau");
           $ngay_vao_lam=$request->input("ngayVaoLam");
           $gioi_tinh=$request->input("gioiTinh");
           $dia_chi=$request->input("diaChi");
@@ -648,7 +655,6 @@ class AdminController extends Controller
             'cmnd'=>'required|numeric',
             'sdt'=>'required|numeric',
             'email'=>'required|email',
-            'matKhau'=>'required',
             'ngayVaoLam'=>'required',
             'gioiTinh'=>'required',
             'diaChi'=>'required',
@@ -662,7 +668,6 @@ class AdminController extends Controller
             'sdt.numeric'=>'Số điện thoại phải là ký tự số!',
             'email.required'=>'Email không được để trống!',
             'email.email'=>'Email phải đúng định dạng!',
-            'matKhau.required'=>'Mật khẩu không được để trống!',
             'ngayVaoLam.required'=>'Ngày vào làm không được để trống!',
             'gioiTinh.required'=>'Giới tính không được để trống!',
             'diaChi.required'=>'Địa chỉ không được để trống!',
@@ -673,7 +678,6 @@ class AdminController extends Controller
           $nhan_vien->cmnd=$cmnd;
           $nhan_vien->sdt=$sdt;
           $nhan_vien->email=$email;
-          $nhan_vien->password=$mat_khau;
           $nhan_vien->ngay_vao_lam=$ngay_vao_lam;
           $nhan_vien->gioi_tinh=$gioi_tinh;
           $nhan_vien->dia_chi=$dia_chi;
@@ -827,69 +831,6 @@ class AdminController extends Controller
         $dao_dien->da_xoa=true;
         $dao_dien->save();
         return redirect()->route('dao-dien.getDaoDiens');
-    }
-
-    //Quản lí diễn viên
-    public function getDienViens(){
-        $dien_viens=DienVien::where('da_xoa',false)->get();
-        $sl=$dien_viens->count();
-        return view('dien-viens.dien-viens',compact('dien_viens','sl'));
-    }
-
-    public function dienVienDetail(Request $request){
-        $dien_vien=DienVien::where('id',$request->id,'da_xoa',false)->first();
-        return view('dien-viens.chi-tiet-dien-vien',compact('dien_vien'));
-    }
-
-    public function addDienVien(Request $request){
-        if($request->isMethod('post')){
-          $ten_dv=$request->input("tenDienVien");
-          $ngay_sinh=$request->input("ngaySinh");
-          $chieu_cao=$request->input("chieuCao");
-          $quoc_gia=$request->input("quocGia");
-          $tieu_su=$request->input("tieuSu");
-          $hinh_anh=$request->input("hinhAnh");
-
-          $dien_vien=new DienVien();
-          $dien_vien->ten_dv=$ten_dv;
-          $dien_vien->ngay_sinh=$ngay_sinh;
-          $dien_vien->chieu_cao=$chieu_cao;
-          $dien_vien->quoc_gia=$quoc_gia;
-          $dien_vien->tieu_su=$tieu_su;
-          $dien_vien->hinh_anh=$hinh_anh;
-          $dien_vien->save();
-          return redirect()->route('dien-vien.getDienViens');
-        }
-        return view('dien-viens.them-dien-vien');
-    }
-
-    public function editDienVien(Request $request){
-        $dien_vien=DienVien::where('id',$request->id,'da_xoa',false)->first();
-        if($request->isMethod('post')){
-            $ten_dv=$request->input("tenDienVien");
-            $ngay_sinh=$request->input("ngaySinh");
-            $chieu_cao=$request->input("chieuCao");
-            $quoc_gia=$request->input("quocGia");
-            $tieu_su=$request->input("tieuSu");
-            $hinh_anh=$request->input("hinhAnh");
-            
-            $dien_vien->ten_dv=$ten_dv;
-            $dien_vien->ngay_sinh=$ngay_sinh;
-            $dien_vien->chieu_cao=$chieu_cao;
-            $dien_vien->quoc_gia=$quoc_gia;
-            $dien_vien->tieu_su=$tieu_su;
-            $dien_vien->hinh_anh=$hinh_anh;
-            $dien_vien->save();
-            return redirect()->route('dien-vien.getDienViens');
-          }
-          return view('dien-viens.chinh-sua-dien-vien',compact('dien_vien'));
-    }
-    
-    public function deleteDienVien(Request $request){
-        $dien_vien=DienVien::where('id',$request->id,'da_xoa',false)->first();
-        $dien_vien->da_xoa=true;
-        $dien_vien->save();
-        return redirect()->route('dien-vien.getDienViens');
     }
 
     //Quản lí ghế

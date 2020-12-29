@@ -3,4 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('DSPhimDC','PhimAPI@GetDSPhim');
+Route::get('DSPhim','PhimAPI@GetDSPhim');
+
+Route::post('LichChieuTheoPhim','PhimAPI@Get_LichChieuTheoPhim');
+
