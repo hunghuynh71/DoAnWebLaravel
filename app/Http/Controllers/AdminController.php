@@ -358,22 +358,26 @@ class AdminController extends Controller
         $phims=Phim::where('da_xoa',false)->get();
         $khung_tg_chieus=KhungTGChieu::where('da_xoa',false)->get();
         $raps=RapPhim::where('da_xoa',false)->get();
+        $dinh_dangs=DinhDang::where('da_xoa',false)->get();
         if($request->isMethod('post')){
           $phim=$request->input("phim");
           $khung_tg_chieu=$request->input("khungTGChieu");
           $ngay_chieu=$request->input("ngayChieu");
           $rap=$request->input("rap");
+          $dinh_dang=$request->input("dinhDang");
 
           $this->validate($request,[
             'phim'=>'required',
             'khungTGChieu'=>'required',
             'ngayChieu'=>'required',
             'rap'=>'required',
+            'dinhDang'=>'required'
           ],[
             'phim.required'=>'Phim không được để trống!',
             'khungTGChieu.required'=>'Giờ chiếu không được để trống!',
             'ngayChieu.required'=>'Ngày chiếu không được để trống!',
             'rap.required'=>'Rạp không được để trống!',
+            'dinhDang.required'=>'Định dạng không được để trống!'
           ]);
            
           try{
@@ -382,6 +386,7 @@ class AdminController extends Controller
             $lichChieu->khung_tg_chieu_id=$khung_tg_chieu;
             $lichChieu->rap_id=$rap;
             $lichChieu->ngay_chieu=$ngay_chieu;
+            $lichChieu->dinh_dang_id=$dinh_dang;
             $lichChieu->nv_lap_id=Auth::user()->id;
             $lichChieu->save();
             return redirect()->route('lich-chieu.getLichChieus');
@@ -389,7 +394,7 @@ class AdminController extends Controller
             return redirect()->back()->with(['flag'=>'danger','message'=>'Có thể lịch chiếu đã tồn tại']);
           }
         }
-        return view('lich-chieus.them-lich-chieu',compact('phims','khung_tg_chieus','raps'));
+        return view('lich-chieus.them-lich-chieu',compact('phims','khung_tg_chieus','raps','dinh_dangs'));
     }
     
     public function deleteLichChieu(Request $request){

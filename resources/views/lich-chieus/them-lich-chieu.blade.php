@@ -85,6 +85,16 @@
                 </select>
               </div>
               <span class="error-message">{{$errors->first('rap')}}</span>
+              <div class="form-group">
+                <label for="dinhDang">Định dạng</label>
+                <select name="dinhDang" class="form-control custom-select">
+                  <option selected disabled>Chọn định dạng</option>
+                  @foreach($dinh_dangs as $dd)
+                  <option value="{{$dd->id}}">{{$dd->ten_dd}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <span class="error-message">{{$errors->first('dinhDang')}}</span>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
