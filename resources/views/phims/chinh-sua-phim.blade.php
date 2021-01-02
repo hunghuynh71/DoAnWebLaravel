@@ -54,19 +54,10 @@
                 <label for="tenPhim">Tên phim</label>
                 <input type="text" name="tenPhim" class="form-control" value="{{$phim->ten_phim}}">
               </div>
-              <span class="error-message">{{$errors->first('tenPhim')}}</span>
+              <span class="error-message">{{$errors->first('tenPhim')}}</span>              
               <div class="form-group">
                 <label for="daoDien">Đạo diễn</label>
-                <select name="daoDien" class="form-control custom-select">
-                  <option selected disabled>Chọn đạo diễn</option>
-                  @foreach($dao_diens as $dd)
-                  @if($dd->id==$phim->dao_dien_id)
-                  <option value="{{$dd->id}}" selected="selected">{{$dd->ten_dd}}</option>
-                  @else
-                  <option value="{{$dd->id}}">{{$dd->ten_dd}}</option>
-                  @endif
-                  @endforeach
-                </select>
+                <input type="text" name="daoDien" class="form-control" value="{{$phim->dao_dien}}">
               </div>
               <span class="error-message">{{$errors->first('daoDien')}}</span>
               <div class="form-group">

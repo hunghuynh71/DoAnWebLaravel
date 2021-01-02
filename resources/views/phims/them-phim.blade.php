@@ -54,15 +54,10 @@
                 <label for="tenPhim">Tên phim</label>
                 <input type="text" name="tenPhim" class="form-control">
               </div>
-              <span class="error-message">{{$errors->first('tenPhim')}}</span>
+              <span class="error-message">{{$errors->first('tenPhim')}}</span>              
               <div class="form-group">
                 <label for="daoDien">Đạo diễn</label>
-                <select name="daoDien" class="form-control custom-select">
-                  <option selected disabled>Chọn đạo diễn</option>
-                  @foreach($dao_diens as $dd)
-                  <option value="{{$dd->id}}">{{$dd->ten_dd}}</option>
-                  @endforeach
-                </select>
+                <input type="text" name="daoDien" class="form-control">
               </div>
               <span class="error-message">{{$errors->first('daoDien')}}</span>
               <div class="form-group">

@@ -69,6 +69,9 @@
                 Khung thời gian chiếu
               </th>
               <th>
+                Phim
+              </th>
+              <th>
                 Giá
               </th>
             </tr>
@@ -87,6 +90,9 @@
               </td>
               <td>
                 {{$gia_ves[$p]->khung_tg_chieu->tg_chieu}}
+              </td>
+              <td>
+                {{$gia_ves[$p]->phim->ten_phim}}
               </td>
               <td>
                 {{$gia_ves[$p]->gia}}

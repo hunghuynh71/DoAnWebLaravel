@@ -16,10 +16,10 @@ class KhungTGChieu extends Model
     ];
     
     public function lich_chieus(){
-        return $this->hasMany('App\Models\LichChieu','khung_tg_chieu_id','id');
+        return $this->hasMany('App\Models\LichChieu','ktgc_id','id');
     }
 
     public function gia_ves(){
-        return $this->hasMany('App\Models\GiaVe','khung_tg_chieu_id','id');
+        return $this->hasMany('App\Models\GiaVe','ktgc_id','id');
     }
 }

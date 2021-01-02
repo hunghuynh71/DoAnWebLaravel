@@ -14,7 +14,7 @@ class Phim extends Model
      */
     protected $fillable = [
         'ten_phim',
-        'dao_dien_id', 
+        'dao_dien', 
         'the_loai_id',
         'hinh_anh',
         'nha_san_xuat',
@@ -38,11 +38,11 @@ class Phim extends Model
         return $this->belongsTo('App\Models\TheLoai','the_loai_id');
     }
 
-    public function dao_dien(){
-        return $this->belongsTo('App\Models\DaoDien','dao_dien_id');
-    }
-
     public function nhan_vien(){
         return $this->belongsTo('App\Models\NhanVien','nv_duyet_id');
+    }
+
+    public function gia_ves(){
+        return $this->hasMany('App\Models\GiaVe','phim_id','id');
     }
 }

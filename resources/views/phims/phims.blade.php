@@ -104,7 +104,7 @@
                 {{$phims[$p]->ten_phim}}
               </td>
               <td>
-                {{$phims[$p]->dao_dien->ten_dd}}
+                {{$phims[$p]->dao_dien}}
               </td>
               <td>
                 {{$phims[$p]->ds_dien_vien}}

@@ -90,12 +90,6 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{url('dao-dien/dao-dien')}}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Đạo diễn</p>
-              </a>
-            </li>
-            <li class="nav-item">
               <a href="{{url('ghe/ghe')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Ghế</p>

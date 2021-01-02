@@ -51,7 +51,7 @@
         <div class="row">
           <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
             <h1 class="text-primary text-center">{{$phim->ten_phim}}</h1>
-            <p>Đạo diễn: {{$phim->dao_dien->ten_dd}}</p>
+            <p>Đạo diễn: {{$phim->dao_dien}}</p>
             <p>Thể loại: {{$phim->the_loai->ten_tl}}</p>
             <p>Danh sách diễn viên: {{$phim->ds_dien_vien}}</p>
             <p>Mô tả: {{$phim->mo_ta}}</p>  

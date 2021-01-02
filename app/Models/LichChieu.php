@@ -12,7 +12,7 @@ class LichChieu extends Model
      * @var array
      */
     protected $fillable = [
-        'phim_id', 'khung_tg_chieu_id', 'rap_id','nv_lap_id',
+        'phim_id', 'ktgc_id', 'rap_id','nv_lap_id',
     ];
     
     public function phim(){
@@ -20,7 +20,7 @@ class LichChieu extends Model
     }
 
     public function khung_tg_chieu(){
-        return $this->belongsTo('App\Models\KhungTGChieu','khung_tg_chieu_id');
+        return $this->belongsTo('App\Models\KhungTGChieu','ktgc_id');
     }
 
     public function rap_phim(){

@@ -16,7 +16,7 @@ class CreatePhimsTable extends Migration
         Schema::create('phims', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ten_phim');
-            $table->integer('dao_dien_id')->unsigned();
+            $table->string('dao_dien');
             $table->integer('the_loai_id')->unsigned();
             $table->string('ds_dien_vien');
             $table->string('hinh_anh');
@@ -32,7 +32,6 @@ class CreatePhimsTable extends Migration
             $table->boolean('da_xoa')->default(false);
             $table->timestamps();
 
-            $table->foreign('dao_dien_id')->references('id')->on('dao_diens');
             $table->foreign('the_loai_id')->references('id')->on('the_loais');
             $table->foreign('nv_duyet_id')->references('id')->on('nhan_viens');
         });

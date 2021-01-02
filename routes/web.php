@@ -89,14 +89,6 @@ Route::group(['prefix'=>'/chi-nhanh','middleware'=>['CheckLogout']],function(){
   Route::get('xoa-chi-nhanh/{id}', 'AdminController@deleteChiNhanh')->name('chi-nhanh.deleteChiNhanh');
 });
 
-Route::group(['prefix'=>'/dao-dien','middleware'=>['CheckLogout']],function(){
-  Route::get('dao-dien', 'AdminController@getDaoDiens')->name('dao-dien.getDaoDiens');
-  Route::get('chi-tiet-dao-dien/{id}', 'AdminController@daoDienDetail')->name('dao-dien.daoDienDetail');
-  Route::match(['get','post'],'them-dao-dien','AdminController@addDaoDien')->name('dao-dien.addDaoDien');
-  Route::match(['get','post'],'chinh-sua-dao-dien/{id}','AdminController@editDaoDien')->name('dao-dien.editDaoDien');
-  Route::get('xoa-dao-dien/{id}', 'AdminController@deleteDaoDien')->name('dao-dien.deleteDaoDien');
-});
-
 Route::group(['prefix'=>'/ghe','middleware'=>['CheckLogout']],function(){
   Route::get('ghe', 'AdminController@getGhes')->name('ghe.getGhes');
   Route::get('chi-tiet-ghe/{id}', 'AdminController@gheDetail')->name('ghe.gheDetail');

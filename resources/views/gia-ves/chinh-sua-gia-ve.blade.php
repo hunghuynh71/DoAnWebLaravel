@@ -81,10 +81,23 @@
                 <select name="khungTGChieu" class="form-control custom-select">
                   <option selected disabled>Chọn khung thời gian chiếu</option>
                   @foreach($khung_tg_chieus as $ktgc)
-                  @if($ktgc->id==$gia_ve->khung_tg_chieu_id)
+                  @if($ktgc->id==$gia_ve->ktgc_id)
                   <option value="{{$ktgc->id}}" selected="selected">{{$ktgc->tg_chieu}}</option>
                   @else
                   <option value="{{$ktgc->id}}">{{$ktgc->tg_chieu}}</option>
+                  @endif
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="phim">Phim</label>
+                <select name="phim" class="form-control custom-select">
+                  <option selected disabled>Chọn phim</option>
+                  @foreach($phims as $p)
+                  @if($p->id==$gia_ve->phim_id)
+                  <option value="{{$p->id}}" selected="selected">{{$p->ten_phim}}</option>
+                  @else
+                  <option value="{{$p->id}}">{{$p->ten_phim}}</option>
                   @endif
                   @endforeach
                 </select>
