@@ -41,8 +41,4 @@ class Phim extends Model
     public function nhan_vien(){
         return $this->belongsTo('App\Models\NhanVien','nv_duyet_id');
     }
-
-    public function gia_ves(){
-        return $this->hasMany('App\Models\GiaVe','phim_id','id');
-    }
 }

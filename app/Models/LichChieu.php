@@ -38,4 +38,8 @@ class LichChieu extends Model
     public function dinh_dang(){
         return $this->belongsTo('App\Models\DinhDang','dinh_dang_id');
     }
+
+    public function gia_ves(){
+        return $this->hasMany('App\Models\GiaVe','lich_chieu_id','id');
+    }
 }

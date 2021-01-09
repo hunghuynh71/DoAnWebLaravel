@@ -38,7 +38,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{url('phim/phim')}}" class="nav-link active">
+              <a href="{{url('phim/index')}}" class="nav-link active">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Phim</p>
               </a>
@@ -56,7 +56,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{url('the-loai/the-loai')}}" class="nav-link">
+              <a href="{{url('the-loai/index')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Thể loại phim</p>
               </a>
@@ -153,3 +153,4 @@
   </div>
   <!-- /.sidebar -->
 </aside>
+© 2021 GitHub, Inc.

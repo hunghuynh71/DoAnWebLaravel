@@ -14,9 +14,7 @@ class GiaVeSeeder extends Seeder
     {
         $gv=new GiaVe();
         $gv->loai_ghe_id=1;
-        $gv->dinh_dang_id=1;
-        $gv->ktgc_id=1;
-        $gv->phim_id=1;
+        $gv->lich_chieu_id=1;
         $gv->gia=70000;
         $gv->save();
     }

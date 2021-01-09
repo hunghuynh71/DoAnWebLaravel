@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVesTable extends Migration
+class CreateGiaVesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,17 @@ class CreateVesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ves', function (Blueprint $table) {
+        Schema::create('gia_ves', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('gia_id')->unsigned();
+            $table->integer('loai_ghe_id')->unsigned();
             $table->integer('lich_chieu_id')->unsigned();
-            $table->integer('ghe_id')->unsigned();
-            $table->integer('ds_ve_id')->unsigned();
-            $table->unique(['lich_chieu_id','ghe_id','ds_ve_id']);
+            $table->unique(['loai_ghe_id','lich_chieu_id']);
+            $table->double('gia');
             $table->boolean('da_xoa')->default(false);
             $table->timestamps();
-
-            $table->foreign('gia_id')->references('id')->on('gia_ves');
+            
+            $table->foreign('loai_ghe_id')->references('id')->on('loai_ghes');
             $table->foreign('lich_chieu_id')->references('id')->on('lich_chieus');
-            $table->foreign('ds_ve_id')->references('id')->on('ds_ves');
-            $table->foreign('ghe_id')->references('id')->on('ghes');
         });
     }
 
@@ -37,6 +34,6 @@ class CreateVesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ves');
+        Schema::dropIfExists('gia_ves');
     }
 }

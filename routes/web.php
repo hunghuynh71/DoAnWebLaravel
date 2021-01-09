@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\CheckLogin;
+use App\Http\Middleware\Lock;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 
@@ -27,18 +28,21 @@ Route::match(['get','post'],'/quen-mat-khau','AdminController@forgotPassword')->
 Route::match(['get','post'],'/khoi-phuc-mat-khau','AdminController@changePassword')->name('khoi-phuc-mat-khau');
 
 Route::group(['prefix'=>'/phim','middleware'=>['CheckLogout']],function(){
-  Route::get('phim', 'AdminController@getPhims')->name('phim.getPhims');
-  Route::get('chi-tiet-phim/{id}', 'AdminController@phimDetail')->name('phim.phimDetail');
-  Route::match(['get','post'],'them-phim','AdminController@addPhim')->name('phim.addPhim');
-  Route::match(['get','post'],'chinh-sua-phim/{id}','AdminController@editPhim')->name('phim.editPhim');
-  Route::get('xoa-phim/{id}', 'AdminController@deletePhim')->name('phim.deletePhim');
+  Route::get('index', 'AdminController@indexPhim')->name('phim.indexPhim');
+  Route::get('list','AdminController@listPhim')->name('phim.listPhim');
+  Route::get('show/{id}', 'AdminController@showPhim')->name('phim.showPhim');
+  Route::post('insert','AdminController@insertPhim')->name('phim.insertPhim');
+  Route::put('update/{id}','AdminController@updatePhim')->name('phim.updatePhim');
+  Route::put('delete/{id}', 'AdminController@deletePhim')->name('phim.deletePhim');
 });
 
 Route::group(['prefix'=>'/the-loai','middleware'=>['CheckLogout']],function(){
-  Route::get('the-loai', 'AdminController@getTheLoais')->name('the-loai.getTheLoais');
-  Route::match(['get','post'],'them-the-loai','AdminController@addTheLoai')->name('the-loai.addTheLoai');
-  Route::match(['get','post'],'chinh-sua-the-loai/{id}','AdminController@editTheLoai')->name('the-loai.editTheLoai');
-  Route::get('xoa-the-loai/{id}', 'AdminController@deleteTheLoai')->name('the-loai.deleteTheLoai');
+  Route::get('index', 'AdminController@indexTheLoai')->name('the-loai.indexTheLoai');
+  Route::get('list','AdminController@listTheLoai')->name('the-loai.listTheLoai');
+  Route::get('show/{id}','AdminController@showTheLoai')->name('the-loai.showTheLoai');
+  Route::post('insert','AdminController@insertTheLoai')->name('the-loai.insertTheLoai');
+  Route::put('update/{id}','AdminController@updateTheLoai')->name('the-loai.updateTheLoai');
+  Route::put('delete/{id}', 'AdminController@deleteTheLoai')->name('the-loai.deleteTheLoai');
 });
 
 Route::group(['prefix'=>'/lich-chieu','middleware'=>['CheckLogout']],function(){

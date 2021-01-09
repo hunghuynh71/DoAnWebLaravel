@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
         $this->call(DsVeSeeder::class);
         $this->call(PhimSeeder::class);
         $this->call(BinhLuanSeeder::class);
-        $this->call(GiaVeSeeder::class);
         $this->call(LichChieuSeeder::class);
+        $this->call(GiaVeSeeder::class);        
         $this->call(VeSeeder::class);
     }
 }

@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\BinhLuan;
 use App\Models\ChiNhanh;
-use App\Models\DaoDien;
-use App\Models\DsDienVien;
 use App\Models\KhungTGChieu;
 use App\Models\LichChieu;
 use App\Models\NhanVien;
@@ -13,7 +11,6 @@ use App\Models\Phim;
 use App\Models\Quyen;
 use App\Models\RapPhim;
 use App\Models\TheLoai;
-use App\Models\DienVien;
 use App\Models\DinhDang;
 use App\Models\DsVe;
 use App\Models\GiaVe;
@@ -33,6 +30,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 //use App\Http\Controllers\Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 
 
 class AdminController extends Controller
@@ -157,186 +156,145 @@ class AdminController extends Controller
     }
 
     //Quản lí phim
-    public function getPhims(){
-        $phims=Phim::where('da_xoa',false)->get();
+    public function indexPhim(){
         $the_loais=TheLoai::where('da_xoa',false)->get();
         $nhan_viens=NhanVien::where('da_xoa',false)->get();
-        return view('phims.phims',compact('phims','sl','dao_diens','the_loais','nhan_viens'));
+        return view('phims.index',compact('the_loais','nhan_viens'));
     }
 
-    public function phimDetail(Request $request){
-        $phim=Phim::where('id',$request->id)->first();
-        return view('phims.chi-tiet-phim',compact('phim'));
-    }
-
-    public function addPhim(Request $request){
-        $the_loais=TheLoai::where('da_xoa',false)->get();
-
-        if($request->isMethod('post')){
-          $ten_phim=$request->input("tenPhim");
-          $dao_dien=$request->input("daoDien");
-          $the_loai=$request->input("theLoai");
-          $ds_dien_vien=$request->input("dsDienVien");
-          $mo_ta=$request->input("moTa");
-          $nhan_phim=$request->input("nhanPhim");
-          $quoc_gia=$request->input("quocGia");
-          $hinh_anh=$request->hinhAnh;
-          $nha_san_xuat=$request->input("nhaSanXuat");
-          $ngay_xuat_ban=$request->input("ngayXuatBan");
-          $thoi_luong=$request->input("thoiLuong");
-          $trailer=$request->input("trailer");
-          $diem=$request->input("diem");
-
-          $this->validate($request,[
-            'tenPhim'=>'required',
-            'daoDien'=>'required',
-            'theLoai'=>'required',
-            'dsDienVien'=>'required',
-            'moTa'=>'required',
-            'nhanPhim'=>'required',
-            'quocGia'=>'required',
-            'hinhAnh'=>'required',
-            'nhaSanXuat'=>'required',
-            'ngayXuatBan'=>'required',
-            'thoiLuong'=>'required',
-            'trailer'=>'required',
-            'diem'=>'required|numeric',
-        ],[
-            'tenPhim.required'=>'Tên phim không được để trống!',
-            'daoDien.required'=>'Đạo diễn không được để trống!',
-            'theLoai.required'=>'Thể loại không được để trống!',
-            'dsDienVien.required'=>'Danh sách diễn viên không được để trống!',
-            'moTa.required'=>'Mô tả không được để trống!',
-            'nhanPhim.required'=>'Nhãn phim không được để trống!',
-            'quocGia.required'=>'Quốc gia không được để trống!',
-            'hinhAnh.required'=>'Hình ảnh không được để trống!',
-            'nhaSanXuat.required'=>'Nhà sản xuất không được để trống!',
-            'ngayXuatBan.required'=>'Ngày xuất bản không được để trống!',
-            'thoiLuong.required'=>'Thời lượng không được để trống!',
-            'trailer.required'=>'Trailer không được để trống!',
-            'diem.required'=>'Điểm không được để trống!',
-            'diem.numeric'=>'Điểm nhập vào phải là số!'
-        ]);
-
-          $phim=new Phim();
-          $phim->ten_phim=$ten_phim;
-          $phim->dao_dien=$dao_dien;
-          $phim->the_loai_id=$the_loai;
-          $phim->ds_dien_vien=$ds_dien_vien;
-          $phim->mo_ta=$mo_ta;
-          $phim->nhan_phim=$nhan_phim;
-          $phim->quoc_gia=$quoc_gia;
-          $phim->hinh_anh=$hinh_anh;
-          $phim->nha_san_xuat=$nha_san_xuat;
-          $phim->ngay_xuat_ban=$ngay_xuat_ban;
-          $phim->thoi_luong=$thoi_luong;
-          $phim->trailer=$trailer;
-          $phim->diem=$diem;
-          $phim->nv_duyet_id=Auth::user()->id;
-          $phim->save();
-         
-          if($request->hasfile('hinhAnh'))
-          {     
-            $fileImage = $request->file('hinhAnh');
-            $extension= $fileImage->getClientOriginalExtension();
-           
-            $phimend= Phim::all()->last();
-            $NameImage = $fileImage->getClientOriginalName();
-            $phimend->hinh_anh=$NameImage.'_'.$phimend->id.'.'.$extension;  
-            $phimend->save();
-            $fileImage->move('FolderImage', $phimend->hinh_anh);
-          }
-        
-          return redirect()->route('phim.getPhims');
+    public function listPhim(){
+        $phims=Phim::where('da_xoa',false)->get();
+        if($phims->isEmpty()){
+            $output.='<h1>Chưa có dữ liệu</h1>';
+        }else{
+            $output='<table class="table table-striped projects">
+        <thead>
+          <tr>
+            <th>
+              STT
+            </th>
+            <th>
+              Tên phim
+            </th>
+            <th>
+              Đạo diễn
+            </th>
+            <th>
+              Diễn viên
+            </th>
+            <th>
+              Thể loại
+            </th>
+            <th>
+              Mô tả
+            </th>
+            <th>
+              Nhãn phim
+            </th>
+            <th>
+              Quốc gia
+            </th>
+            <th>
+              Ngày xuất bản
+            </th>
+            <th>
+              Thời lượng (Phút)
+            </th>
+            <th>
+              Nhân viên duyệt
+            </th>
+          </tr>
+        </thead>
+        <tbody>';
+        $stt=0;
+        foreach($phims as $p){
+            $stt++;
+            $output.='<tr>
+            <td>
+              '.$stt.'
+            </td>
+            <td>
+              '.$p->ten_phim.'
+            </td>
+            <td>
+              '.$p->dao_dien.'
+            </td>
+            <td>
+            '.$p->ds_dien_vien.'
+            </td>
+            <td>
+            '.$p->the_loai->ten_tl.'
+            </td>
+            <td>
+            '.$p->mo_ta.'
+            </td>
+            <td>
+            '.$p->nhan_phim.'
+            </td>
+            <td>
+            '.$p->quoc_gia.'
+            </td>
+            <td>
+            '.$p->ngay_xuat_ban.'
+            </td>
+            <td>
+            '.$p->thoi_luong.'
+            </td>
+            <td>
+            '.$p->nhan_vien->ten_nv.'
+            </td>
+            <td class="project-actions text-right">
+              <button data-id="'.$p->id.'" type="button" class="btn btn-primary btn-edit" data-toggle="modal" data-target="#modal-edit-phim">
+                    Edit
+                </button>
+                <button data-id="'.$p->id.'" type="button" class="btn btn-primary btn-detail" data-toggle="modal" data-target="#modal-detail-phim">
+                    Detail
+                </button>
+                <button data-id="'.$p->id.'" class="btn btn-danger btn-delete">
+                    Delete
+                </button>
+            </td>
+            </tr>';
         }
-        return view('phims.them-phim',compact('dao_diens','the_loais'));
+        }
+        echo $output;
     }
 
-    public function editPhim(Request $request){
-        $the_loais=TheLoai::where('da_xoa',false)->get();
-        $phim=Phim::where('id',$request->id)->first();
-        if($request->isMethod('post')){
-            $ten_phim=$request->input("tenPhim");
-            $dao_dien=$request->input("daoDien");
-            $the_loai=$request->input("theLoai");
-            $ds_dien_vien=$request->input("dsDienVien");
-            $mo_ta=$request->input("moTa");
-            $nhan_phim=$request->input("nhanPhim");
-            $quoc_gia=$request->input("quocGia");
-            $hinh_anh=$request->hinhAnh;
-            $nha_san_xuat=$request->input("nhaSanXuat");
-            $ngay_xuat_ban=$request->input("ngayXuatBan");
-            $thoi_luong=$request->input("thoiLuong");
-            $trailer=$request->input("trailer");
-            $diem=$request->input("diem");
+    public function showPhim(Request $request){
+        $phim=DB::table('phims')->where(['id'=>$request->id,'da_xoa'=>false])->first();
+        return Response::json($phim);
+    }
 
-            $this->validate($request,[
-                'tenPhim'=>'required',
-                'daoDien'=>'required',
-                'theLoai'=>'required',
-                'dsDienVien'=>'required',
-                'moTa'=>'required',
-                'nhanPhim'=>'required',
-                'quocGia'=>'required',
-                'hinhAnh'=>'required',
-                'nhaSanXuat'=>'required',
-                'ngayXuatBan'=>'required',
-                'thoiLuong'=>'required',
-                'trailer'=>'required',
-                'diem'=>'required|numeric',
-            ],[
-                'tenPhim.required'=>'Tên phim không được để trống!',
-                'daoDien.required'=>'Đạo diễn không được để trống!',
-                'theLoai.required'=>'Thể loại không được để trống!',
-                'dsDienVien.required'=>'Danh sách diễn viên không được để trống!',
-                'moTa.required'=>'Mô tả không được để trống!',
-                'nhanPhim.required'=>'Nhãn phim không được để trống!',
-                'quocGia.required'=>'Quốc gia không được để trống!',
-                'hinhAnh.required'=>'Hình ảnh không được để trống!',
-                'nhaSanXuat.required'=>'Nhà sản xuất không được để trống!',
-                'ngayXuatBan.required'=>'Ngày xuất bản không được để trống!',
-                'thoiLuong.required'=>'Thời lượng không được để trống!',
-                'trailer.required'=>'Trailer không được để trống!',
-                'diem.required'=>'Điểm không được để trống!',
-                'diem.numeric'=>'Điểm nhập vào phải là số!'
-            ]);
-            
-            $phim->ten_phim=$ten_phim;
-            $phim->dao_dien=$dao_dien;
-            $phim->the_loai_id=$the_loai;
-            $phim->ds_dien_vien=$ds_dien_vien;
-            $phim->mo_ta=$mo_ta;
-            $phim->nhan_phim=$nhan_phim;
-            $phim->quoc_gia=$quoc_gia;
-            $phim->hinh_anh=$hinh_anh;
-            $phim->nha_san_xuat=$nha_san_xuat;
-            $phim->ngay_xuat_ban=$ngay_xuat_ban;
-            $phim->thoi_luong=$thoi_luong;
-            $phim->trailer=$trailer;
-            $phim->diem=$diem;
-            $phim->save();
+    public function insertPhim(Request $request){
+        $phim=DB::table('phims')->insert([
+            'ten_phim'=>$request->ten_phim,
+            'dao_dien'=>$request->dao_dien,
+            'the_loai_id'=>$request->the_loai_id,
+            'ds_dien_vien'=>$request->ds_dien_vien,
+            'hinh_anh'=>$request->hinh_anh,
+            'nha_san_xuat'=>$request->nha_san_xuat,
+            'quoc_gia'=>$request->quoc_gia,
+            'ngay_xuat_ban'=>$request->ngay_xuat_ban,
+            'thoi_luong'=>$request->thoi_luong,
+            'trailer'=>$request->trailer,
+            'nhan_phim'=>$request->nhan_phim,
+            'mo_ta'=>$request->mo_ta,
+            'diem'=>$request->diem,
+            'nv_duyet_id'=>Auth::user()->id,
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()           
+        ]);
+        return Response::json($phim);
+    }
 
-            if($request->hasfile('hinhAnh'))
-            {     
-                $fileImage = $request->file('hinhAnh');
-                $extension= $fileImage->getClientOriginalExtension();
-                $NameImage = $fileImage->getClientOriginalName();
-                $phimend= Phim::find($request->id);
-                $phimend->hinh_anh=$NameImage.'_'.$phimend->id.'.'.$extension;
-                $phimend->save();
-                $fileImage->move('chinhSuaAnhPhim', $phimend->hinh_anh);
-            }
-
-            return redirect()->route('phim.getPhims');
-          }
-        return view('phims.chinh-sua-phim',compact('phim','dao_diens','the_loais'));
+    public function updatePhim(Request $request){
+        $phim=DB::table('phims')->where(['id'=>$request->id,'da_xoa'=>false])->update($request->all());
+        return Response::json($phim);
     }
     
     public function deletePhim(Request $request){
-        $phim=Phim::where('id',$request->id)->first();
-        $phim->da_xoa=true;
-        $phim->save();
-        return redirect()->route('phim.getPhims');
+        $phim=DB::table('phims')->where(['id'=>$request->id,'da_xoa'=>false])->update(['da_xoa'=>true]);
+        return Response::json($phim);
     }
 
     //Quản lí lịch chiếu
@@ -401,53 +359,75 @@ class AdminController extends Controller
     }
 
     //Quản lí thể loại
-    public function getTheLoais(){
-        $the_loais=TheLoai::where('da_xoa',false)->get();
-        $sl_the_loai=$the_loais->count();
-        return view('the-loais.the-loais',compact('the_loais','sl_the_loai'));
+    public function indexTheLoai(){ 
+        return view('the-loais.index');
     }
 
-    public function addTheLoai(Request $request){
-        if($request->isMethod('post')){
-          $ten_tl=$request->input("tenTheLoai");
-
-          $this->validate($request,[
-            'tenTheLoai'=>'required'
-          ],[
-            'tenTheLoai.required'=>'Thể loại không được để trống!'
-          ]);
-
-          $the_loai=new TheLoai();
-          $the_loai->ten_tl=$ten_tl;
-          $the_loai->save();
-          return redirect()->route('the-loai.getTheLoais');
+    public function listTheLoai(){
+        $the_loais=DB::table('the_loais')->where(['da_xoa'=>false])->get();
+        $output='';
+        if($the_loais->isEmpty()){
+            $output.='<h1>Chưa có dữ liệu</h1>';
+        }else{
+            $output.='<table class="table table-striped projects">';
+            $output.='<thead>';
+            $output.='<tr>';
+            $output.='<th>STT</th>';
+            $output.='<th>Tên thể loại</th>';
+            $output.='</tr>';
+            $output.='</thead>';
+            $output.='<tbody>';            
+            $stt=0;
+            foreach($the_loais as $tl){
+                $stt++;
+                $output.='<tr>
+                <td>
+                  '.$stt.'
+                </td>
+                <td>
+                  '.$tl->ten_tl.'
+                </td>
+                <td class="project-actions text-right">
+                <button data-id="'.$tl->id.'" type="button" class="btn btn-primary btn-edit" data-toggle="modal" data-target="#modal-edit-the-loai">
+                    Edit
+                </button>
+                <button data-id="'.$tl->id.'" type="button" class="btn btn-primary btn-detail" data-toggle="modal" data-target="#modal-detail-the-loai">
+                    Detail
+                </button>
+                <button data-id="'.$tl->id.'" class="btn btn-danger btn-delete">
+                    Delete
+                </button>                  
+                </td>
+              </tr>';
+            }
+            $output.='</tbody>';
+            $output.='</table>';
         }
-        return view('the-loais/them-the-loai');
+        echo $output;
     }
 
-    public function editTheLoai(Request $request){
-        $the_loai=TheLoai::where('id',$request->id,'da_xoa',false)->first();
-        if($request->isMethod('post')){
-            $ten_tl=$request->input("tenTheLoai");
+    public function insertTheLoai(Request $request){
+        $data=DB::table('the_loais')->insert([
+            'ten_tl'=>$request->ten_tl,
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+        return Response::json($data);
+    }
 
-            $this->validate($request,[
-                'tenTheLoai'=>'required'
-              ],[
-                'tenTheLoai.required'=>'Thể loại không được để trống!'
-              ]);
-  
-            $the_loai->ten_tl=$ten_tl;
-            $the_loai->save();
-            return redirect()->route('the-loai.getTheLoais');
-          }
-        return view('the-loais/chinh-sua-the-loai',compact('the_loai'));
+    public function showTheLoai(Request $request){
+        $the_loai = DB::table('the_loais')->where(['id'=>$request->id,'da_xoa'=>false])->first();
+        return Response::json($the_loai);
+    }
+
+    public function updateTheLoai(Request $request){
+        $the_loai=DB::table('the_loais')->where(['id'=>$request->id,'da_xoa'=>false])->update($request->all());
+        return Response::json($the_loai);
     }
 
     public function deleteTheLoai(Request $request){
-        $the_loai=TheLoai::where('id',$request->id,'da_xoa',false)->first();
-        $the_loai->da_xoa=true;
-        $the_loai->save();
-        return redirect()->route('the-loai.getTheLoais');
+        $the_loai=DB::table('the_loais')->where(['id'=>$request->id, 'da_xoa'=>false])->update(['da_xoa'=>true]);
+        return Response::json($the_loai);
     }
 
     //Quản lí danh sách vé
