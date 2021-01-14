@@ -19,7 +19,7 @@ class CreateVesTable extends Migration
             $table->integer('lich_chieu_id')->unsigned();
             $table->integer('ghe_id')->unsigned();
             $table->integer('ds_ve_id')->unsigned();
-            $table->unique(['gia_id','lich_chieu_id','ghe_id','ds_ve_id']);
+            $table->unique(['lich_chieu_id','ghe_id']);
             $table->boolean('da_xoa')->default(false);
             $table->timestamps();
 

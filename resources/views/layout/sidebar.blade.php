@@ -38,7 +38,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{url('phim/phim')}}" class="nav-link active">
+              <a href="{{url('phim/index')}}" class="nav-link active">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Phim</p>
               </a>
@@ -52,11 +52,11 @@
             <li class="nav-item">
               <a href="{{url('ve/ve')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Đặt vé</p>
+                <p>Vé</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{url('the-loai/the-loai')}}" class="nav-link">
+              <a href="{{url('the-loai/index')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Thể loại phim</p>
               </a>
@@ -87,18 +87,6 @@
               <a href="{{url('chi-nhanh/chi-nhanh')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Chi nhánh</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{url('dao-dien/dao-dien')}}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Đạo diễn</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{url('dien-vien/dien-vien')}}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Diễn viên</p>
               </a>
             </li>
             <li class="nav-item">
@@ -165,3 +153,4 @@
   </div>
   <!-- /.sidebar -->
 </aside>
+© 2021 GitHub, Inc.

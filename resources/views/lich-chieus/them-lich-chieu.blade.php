@@ -59,8 +59,9 @@
                   @endforeach
                 </select>
               </div>
+              <span class="error-message">{{$errors->first('phim')}}</span>
               <div class="form-group">
-                <label for="khungTGChieu">Khung thời gian chiếu</label>
+                <label for="khungTGChieu">Giờ chiếu</label>
                 <select name="khungTGChieu" class="form-control custom-select">
                   <option selected disabled>Chọn khung thời gian chiếu</option>
                   @foreach($khung_tg_chieus as $ktgc)
@@ -68,10 +69,12 @@
                   @endforeach
                 </select>
               </div>
+              <span class="error-message">{{$errors->first('khungTGChieu')}}</span>
               <div class="form-group">
                 <label for="ngayChieu">Ngày chiếu</label>
                 <input type="date" name="ngayChieu" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('ngayChieu')}}</span>
               <div class="form-group">
                 <label for="rap">Rạp</label>
                 <select name="rap" class="form-control custom-select">
@@ -81,6 +84,17 @@
                   @endforeach
                 </select>
               </div>
+              <span class="error-message">{{$errors->first('rap')}}</span>
+              <div class="form-group">
+                <label for="dinhDang">Định dạng</label>
+                <select name="dinhDang" class="form-control custom-select">
+                  <option selected disabled>Chọn định dạng</option>
+                  @foreach($dinh_dangs as $dd)
+                  <option value="{{$dd->id}}">{{$dd->ten_dd}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <span class="error-message">{{$errors->first('dinhDang')}}</span>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">

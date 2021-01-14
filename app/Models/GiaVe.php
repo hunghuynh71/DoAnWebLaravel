@@ -12,7 +12,7 @@ class GiaVe extends Model
      * @var array
      */
     protected $fillable = [
-        'loai_ghe_id', 'nhan_phim_id', 'khung_tg_chieu_id','gia',
+        'loai_ghe_id','lich_chieu_id', 'gia',
     ];
     
     public function ves(){
@@ -23,11 +23,7 @@ class GiaVe extends Model
         return $this->belongsTo('App\Models\LoaiGhe','loai_ghe_id');
     }
 
-    public function khung_tg_chieu(){
-        return $this->belongsTo('App\Models\KhungTGChieu','khung_tg_chieu_id');
-    }
-
-    public function dinh_dang(){
-        return $this->belongsTo('App\Models\DinhDang','dinh_dang_id');
+    public function lich_chieu(){
+        return $this->belongsTo('App\Models\LichChieu','lich_chieu_id');
     }
 }

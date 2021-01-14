@@ -53,26 +53,32 @@
                 <label for="tenNhanVien">Tên nhân viên</label>
                 <input type="text" name="tenNhanVien" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('tenNhanVien')}}</span>
               <div class="form-group">
                 <label for="cmnd">CMND</label>
                 <input type="text" name="cmnd" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('cmnd')}}</span>
               <div class="form-group">
                 <label for="sdt">SĐT</label>
                 <input type="text" name="sdt" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('sdt')}}</span>
               <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" name="email" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('email')}}</span>
               <div class="form-group">
                 <label for="matKhau">Mật khẩu</label>
                 <input type="password" name="matKhau" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('matKhau')}}</span>
               <div class="form-group">
                 <label for="ngayVaoLam">Ngày vào làm</label>
                 <input type="date" name="ngayVaoLam" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('ngayVaoLam')}}</span>
               <div class="form-group">
                 <label for="gioiTinh">Giới tính</label>
                 <div>
@@ -84,10 +90,12 @@
                   <input type="radio" name="gioiTinh" class="form-control" value="0">                  
                 </div>
               </div>
+              <span class="error-message">{{$errors->first('gioiTinh')}}</span>
               <div class="form-group">
                 <label for="diaChi">Địa chỉ</label>
                 <input type="text" name="diaChi" class="form-control">
               </div>
+              <span class="error-message">{{$errors->first('diaChi')}}</span>
               <div class="form-group">
                 <label for="quyen">Quyền</label>
                 <select name="quyen" class="form-control custom-select">
@@ -97,6 +105,7 @@
                   @endforeach
                 </select>
               </div>
+              <span class="error-message">{{$errors->first('quyen')}}</span>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">

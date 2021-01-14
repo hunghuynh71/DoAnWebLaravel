@@ -100,7 +100,11 @@
                 {{$nhan_viens[$p]->ngay_vao_lam}}
               </td>
               <td>
-                {{$nhan_viens[$p]->gioi_tinh}}
+                @if($nhan_viens[$p]->gioi_tinh==1)
+                Nam
+                @else
+                Nữ
+                @endif
               </td>
               <td>
                 {{$nhan_viens[$p]->dia_chi}}
