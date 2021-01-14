@@ -1,0 +1,1 @@
+<p>Click <a href="{{route('khoi-phuc-mat-khau')}}">vào đây</a> để lấy lại mật khẩu!</p>

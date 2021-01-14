@@ -18,6 +18,12 @@
   <link rel="stylesheet" href="sources/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <style type="text/css">
+    .error-message {
+      color: red;
+    }
+  </style>
 </head>
 
 <body class="hold-transition login-page">
@@ -41,6 +47,7 @@
               </div>
             </div>
           </div>
+          <span class="error-message">{{$errors->first('email')}}</span>
           <div class="row">
             <div class="col-12">
               <button type="submit" class="btn btn-primary btn-block">Yêu cầu khôi phục mật khẩu</button>

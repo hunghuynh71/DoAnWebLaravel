@@ -19,7 +19,9 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <style type="text/css">
-      .error-message {color: red;}
+    .error-message {
+      color: red;
+    }
   </style>
 </head>
 
@@ -31,18 +33,7 @@
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
-        <!--@if(count($errors)>0)
-        <div class="error-message">
-          <ul>
-            @foreach($errors->all() as $error)
-            <li>
-              {{$error}}
-            </li>
-            @endforeach
-          </ul>
-        </div>
-        @endif-->
-        <form action="{{route('dang-nhap')}}" method="post">
+        <form action="" method="post">
           <input type="hidden" name="_token" value="{{csrf_token()}}">
           <div class="alert alert-{{Session::get('flag')}}">{{Session::get('message')}}</div>
           <div class="input-group mb-3">

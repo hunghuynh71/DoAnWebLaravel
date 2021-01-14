@@ -21,7 +21,8 @@ class CreateDsVesTable extends Migration
             $table->integer('khach_dat_ve_id')->unsigned();
             $table->integer('chi_nhanh_id')->unsigned();
             $table->integer('sl_ve');
-            $table->boolean('da_xoa')->default(false);
+            $table->double('tong_tien')->default(0);
+            $table->boolean('da_xoa')->default(false);            
             $table->timestamps();
 
             $table->foreign('khach_dat_ve_id')->references('id')->on('khach_dat_ves');

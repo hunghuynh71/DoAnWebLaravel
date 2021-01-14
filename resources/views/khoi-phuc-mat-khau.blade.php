@@ -18,6 +18,12 @@
   <link rel="stylesheet" href="sources/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <style type="text/css">
+    .error-message {
+      color: red;
+    }
+  </style>
 </head>
 
 <body class="hold-transition login-page">
@@ -41,6 +47,7 @@
               </div>
             </div>
           </div>
+          <span class="error-message">{{$errors->first('matKhau')}}</span>
           <div class="input-group mb-3">
             <input name="nhapLaiMatKhau" type="password" class="form-control" placeholder="Nhập lại mật khẩu">
             <div class="input-group-append">
@@ -49,6 +56,7 @@
               </div>
             </div>
           </div>
+          <span class="error-message">{{$errors->first('nhapLaiMatKhau')}}</span>
           <div class="row">
             <div class="col-12">
               <button type="submit" class="btn btn-primary btn-block">Thay đổi mật khẩu</button>

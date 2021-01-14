@@ -78,6 +78,15 @@
                 </select>
               </div>
               <div class="form-group">
+                <label for="phim">Phim</label>
+                <select name="phim" class="form-control custom-select">
+                  <option selected disabled>Chọn phim</option>
+                  @foreach($phims as $p)
+                  <option value="{{$p->id}}">{{$p->ten_phim}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
                 <label for="giaVe">Giá vé</label>
                 <input type="text" name="giaVe" class="form-control">
               </div>

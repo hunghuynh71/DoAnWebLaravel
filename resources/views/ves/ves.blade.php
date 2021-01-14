@@ -40,11 +40,6 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">Danh sách vé</h3>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="btn btn-success btn-sm" href="{{url('ve/them-ve')}}">
-          <i class="fas fa-folder">
-          </i>
-          Thêm vé
-        </a>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
             <i class="fas fa-minus"></i></button>

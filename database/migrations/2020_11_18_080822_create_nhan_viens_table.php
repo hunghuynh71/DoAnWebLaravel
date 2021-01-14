@@ -26,6 +26,8 @@ class CreateNhanViensTable extends Migration
             $table->boolean('dang_lam')->default(true);
             $table->integer('quyen_id')->unsigned();
             $table->boolean('da_xoa')->default(false);
+            $table->string('code')->nullable()->index();
+            $table->timestamp('time_code')->nullable();
             $table->timestamps();
 
             $table->foreign('quyen_id')->references('id')->on('quyens');
