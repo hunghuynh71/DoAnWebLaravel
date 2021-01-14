@@ -17,3 +17,4 @@ Route::post('ChiTietPhimApi','PhimAPI@Get_ChiTietCuaPhim');
 
 
 Route::get('SlideShow','PhimAPI@Get_DsPhim_Slide');
+

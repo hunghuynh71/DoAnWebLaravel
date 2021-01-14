@@ -94,6 +94,14 @@ class PhimAPI extends Controller
                             array_push($LichChieuSC,$lc); 
                     }
                 }                          
+        $idPhim = LichChieu::where('ngay_chieu',$time)->where('da_xoa',false)->get();
+        $dsp=array();
+        
+        if((string)($idPhim)!=='[]')
+        {
+            foreach($idPhim as $p){
+                $getphim = Phim::find($p->phim)->where('da_xoa',false);
+                 array_push($dsp,$getphim);   
             }
             $json =['ChiNhanh'=>$DB_ChiN];
             
