@@ -17,7 +17,7 @@ class PhimAPI extends Controller
     {
         $time =Carbon::now('Asia/Ho_Chi_Minh')->toDateString();          
         $DS_Phim = LichChieu::where('ngay_chieu','>=',$time)->where('da_xoa',false)->get();
-       
+    
         if(empty($DS_Phim))
             return "Failue";
         else {
@@ -96,7 +96,7 @@ class PhimAPI extends Controller
                 }  
             }
         }                        
-        $idPhim = LichChieu::where('ngay_chieu',$time)->where('da_xoa',false)->get();
+        $idPhim = LichChieu::where('ngay_chieu',$time_now)->where('da_xoa',false)->get();
         $dsp=array();
         
         if((string)($idPhim)!=='[]')

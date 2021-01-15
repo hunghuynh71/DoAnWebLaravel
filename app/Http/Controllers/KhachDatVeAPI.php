@@ -385,27 +385,29 @@ class KhachDatVeAPI extends Controller
  
              if($request->isMethod('post'))
              {
-                $Data = KhachDatve::where('email',$request->input("Email"),'da_xoa',false)->orWhere('sdt', $request->input("SDT"),'da_xoa',false);
-     
-                 if($Data->count()==0)
-                 {   
-                     $ten_kdv=$request->input("HoTen");
-                     $sdt=$request->input("SDT");
-                     $email=$request->input("Email");
-                     $mat_khau=$request->input("Matkhau");
-                     $nam_sinh=$request->input("NgaySinh")->year();
-                     $gioi_tinh=$request->input("Gioitinh");
-                     $kdv=new KhachDatVe();
-                     $kdv->ten_kdv=$ten_kdv;
-                     $kdv->sdt=$sdt;
-                     $kdv->email=$email;
-                     $kdv->mat_khau=bcrypt($mat_khau);
-                     $kdv->nam_sinh=$nam_sinh;
-                     $kdv->gioi_tinh=$gioi_tinh;
-                     $kdv->save();
-                     return "ThanhCong";
-                 } 
-                  return "ThemThatBai";
+                if($request->isMethod('post'))
+                {
+                   //$Data = KhachDatve::where('email',$request->input("Email"))->where('da_xoa',false)->orwhere('sdt', $request->input("SDT"))->get();
+                   $Data = KhachDatve::where(['email'=>$request->input("Email"),'sdt'=>$request->input("SDT"),'da_xoa'=>false])->get();
+                    if($Data->count()==0)
+                    {   
+                        $ten_kdv=$request->input("HoTen");
+                        $sdt=$request->input("SDT");
+                        $email=$request->input("Email");
+                        $mat_khau=$request->input("Matkhau");
+                        $nam_sinh=$request->input("NgaySinh");
+                        $gioi_tinh=$request->input("Gioitinh");
+                        $kdv=new KhachDatVe();
+                        $kdv->ten_kdv=$ten_kdv;
+                        $kdv->sdt=$sdt;
+                        $kdv->email=$email;
+                        $kdv->mat_khau=bcrypt($mat_khau);
+                        $kdv->nam_sinh=$nam_sinh;
+                        $kdv->gioi_tinh=$gioi_tinh;
+                        $kdv->save();
+                        return "ThanhCong";
+                    } 
+                     return "ThemThatBai";
                
              }
      
