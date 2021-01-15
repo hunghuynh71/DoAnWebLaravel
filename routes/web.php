@@ -46,10 +46,10 @@ Route::group(['prefix'=>'/the-loai','middleware'=>['CheckLogout']],function(){
 });
 
 Route::group(['prefix'=>'/lich-chieu','middleware'=>['CheckLogout']],function(){
-    Route::get('lich-chieu', 'AdminController@getLichChieus')->name('lich-chieu.getLichChieus');
-    Route::get('chi-tiet-lich-chieu/{id}', 'AdminController@lichChieuDetail')->name('lich-chieu.lichChieuDetail');
-    Route::match(['get','post'],'them-lich-chieu','AdminController@addLichChieu')->name('lich-chieu.addLichChieu');
-    Route::get('xoa-lich-chieu/{id}', 'AdminController@deleteLichChieu')->name('lich-chieu.deleteLichChieu');
+    Route::get('index', 'AdminController@indexLichChieu')->name('lich-chieu.indexLichChieu');
+    Route::get('list', 'AdminController@listLichChieu')->name('lich-chieu.listLichChieu');
+    Route::post('insert','AdminController@insertLichChieu')->name('lich-chieu.insertLichChieu');
+    Route::put('delete/{id}', 'AdminController@deleteLichChieu')->name('lich-chieu.deleteLichChieu');
 });
 
 Route::group(['prefix'=>'/ds-ve','middleware'=>['CheckLogout']],function(){
@@ -60,9 +60,9 @@ Route::group(['prefix'=>'/ds-ve','middleware'=>['CheckLogout']],function(){
 });
 
 Route::group(['prefix'=>'/ve','middleware'=>['CheckLogout']],function(){
-    Route::get('ve','AdminController@getVes')->name('ve.getVes');
-    Route::get('chi-tiet-ve/{id}','AdminController@veDetail')->name('ve.veDetail');
-    Route::get('xoa-ve/{id}','AdminController@deleteVe')->name('ve.deleteVe');
+    Route::get('index','AdminController@indexVe')->name('ve.indexVe');
+    Route::get('list','AdminController@listVe')->name('ve.listVe');
+    Route::get('show/{id}','AdminController@showVe')->name('ve.showVe');
 });
 
 Route::group(['prefix'=>'/khach-dat-ve','middleware'=>['CheckLogout']],function(){
@@ -96,7 +96,6 @@ Route::group(['prefix'=>'/chi-nhanh','middleware'=>['CheckLogout']],function(){
 Route::group(['prefix'=>'/ghe','middleware'=>['CheckLogout']],function(){
   Route::get('ghe', 'AdminController@getGhes')->name('ghe.getGhes');
   Route::get('chi-tiet-ghe/{id}', 'AdminController@gheDetail')->name('ghe.gheDetail');
-  Route::match(['get','post'],'them-ghe','AdminController@addGhe')->name('ghe.addGhe');
   Route::match(['get','post'],'chinh-sua-ghe/{id}','AdminController@editGhe')->name('ghe.editGhe');
   Route::get('xoa-ghe/{id}', 'AdminController@deleteGhe')->name('ghe.deleteGhe');
 });
@@ -131,11 +130,12 @@ Route::group(['prefix'=>'/rap-phim','middleware'=>['CheckLogout']],function(){
 });
 
 Route::group(['prefix'=>'/gia-ve','middleware'=>['CheckLogout']],function(){
-  Route::get('gia-ve', 'AdminController@getGiaVes')->name('gia-ve.getGiaVes');
-  Route::get('chi-tiet-gia-ve/{id}', 'AdminController@giaVeDetail')->name('gia-ve.giaVeDetail');
-  Route::match(['get','post'],'them-gia-ve','AdminController@addGiaVe')->name('gia-ve.addGiaVe');
-  Route::match(['get','post'],'chinh-sua-gia-ve/{id}','AdminController@editGiaVe')->name('gia-ve.editGiaVe');
-  Route::get('xoa-gia-ve/{id}', 'AdminController@deleteGiaVe')->name('gia-ve.deleteGiaVe');
+  Route::get('index', 'AdminController@indexGiaVe')->name('gia-ve.indexGiaVe');
+  Route::get('list','AdminController@listGiaVe')->name('gia-ve.listGiaVe');
+  Route::post('searchLichChieu','AdminController@searchLichChieu')->name('gia-ve.searchLichChieu');
+  Route::get('show/{id}', 'AdminController@showGiaVe')->name('gia-ve.showGiaVe');
+  Route::post('insert','AdminController@insertGiaVe')->name('gia-ve.insertGiaVe');
+  Route::get('delete/{id}', 'AdminController@deleteGiaVe')->name('gia-ve.deleteGiaVe');
 });
 
 Route::group(['prefix'=>'/khung-tg-chieu','middleware'=>['CheckLogout']],function(){

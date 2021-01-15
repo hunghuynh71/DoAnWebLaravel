@@ -13,7 +13,11 @@ class QuyenSeeder extends Seeder
     public function run()
     {
         $quyen=new Quyen();
-        $quyen->ten_quyen='admin';
+        $quyen->ten_quyen='Admin';
         $quyen->save();
+
+        $quyen2=new Quyen();
+        $quyen2->ten_quyen='Quản lý';
+        $quyen2->save();
     }
 }

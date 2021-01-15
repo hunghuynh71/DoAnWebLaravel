@@ -21,6 +21,7 @@ use App\Models\LoaiGhe;
 use App\User;
 use Carbon\Carbon;
 use Exception;
+use Facade\FlareClient\Flare;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Hash;
@@ -32,7 +33,7 @@ use Illuminate\Support\Facades\Redis;
 //use App\Http\Controllers\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
-
+use PhpParser\Node\Stmt\Else_;
 
 class AdminController extends Controller
 {
@@ -261,7 +262,9 @@ class AdminController extends Controller
     }
 
     public function showPhim(Request $request){
-        $phim=DB::table('phims')->where(['id'=>$request->id,'da_xoa'=>false])->first();
+        //$phim=DB::table('phims')->where(['id'=>$request->id,'da_xoa'=>false])->first();
+        $phim=Phim::where(['id'=>$request->id,'da_xoa'=>false])->first();
+        $phim->the_loai->ten_tl;
         return Response::json($phim);
     }
 
@@ -279,7 +282,6 @@ class AdminController extends Controller
             'trailer'=>$request->trailer,
             'nhan_phim'=>$request->nhan_phim,
             'mo_ta'=>$request->mo_ta,
-            'diem'=>$request->diem,
             'nv_duyet_id'=>Auth::user()->id,
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()           
@@ -298,64 +300,125 @@ class AdminController extends Controller
     }
 
     //Quản lí lịch chiếu
-    public function getLichChieus(){
-        $lichChieus=LichChieu::where('da_xoa',false)->get();
-        return view('lich-chieus.lich-chieus',compact('lichChieus'));
+    public function indexLichChieu(){
+        //$lich_chieus=DB::table('lich_chieus')->where(['da_xoa'=>false])->get();
+        $phims=DB::table('phims')->where(['da_xoa'=>false])->get();
+        $khung_tg_chieus=DB::table('khung_t_g_chieus')->where(['da_xoa'=>false])->get();
+        $dinh_dangs=DB::table('dinh_dangs')->where(['da_xoa'=>false])->get();
+        $rap_phims=DB::table('rap_phims')->where(['da_xoa'=>false])->get();
+        return view('lich-chieus.index',compact('lichChieus','phims','khung_tg_chieus','dinh_dangs','rap_phims'));
     }
 
-    public function lichChieuDetail(Request $request){
-        $lichChieu=LichChieu::where('id',$request->id)->first();
-        return view('lich-chieus.chi-tiet-lich-chieu',compact('lichChieu'));
-    }
-
-    public function addLichChieu(Request $request){
-        $phims=Phim::where('da_xoa',false)->get();
-        $khung_tg_chieus=KhungTGChieu::where('da_xoa',false)->get();
-        $raps=RapPhim::where('da_xoa',false)->get();
-        $dinh_dangs=DinhDang::where('da_xoa',false)->get();
-        if($request->isMethod('post')){
-          $phim=$request->input("phim");
-          $khung_tg_chieu=$request->input("khungTGChieu");
-          $ngay_chieu=$request->input("ngayChieu");
-          $rap=$request->input("rap");
-          $dinh_dang=$request->input("dinhDang");
-
-          $this->validate($request,[
-            'phim'=>'required',
-            'khungTGChieu'=>'required',
-            'ngayChieu'=>'required',
-            'rap'=>'required',
-            'dinhDang'=>'required'
-          ],[
-            'phim.required'=>'Phim không được để trống!',
-            'khungTGChieu.required'=>'Giờ chiếu không được để trống!',
-            'ngayChieu.required'=>'Ngày chiếu không được để trống!',
-            'rap.required'=>'Rạp không được để trống!',
-            'dinhDang.required'=>'Định dạng không được để trống!'
-          ]);
-           
-          try{
-            $lichChieu=new LichChieu();
-            $lichChieu->phim_id=$phim;
-            $lichChieu->ktgc_id=$khung_tg_chieu;
-            $lichChieu->rap_id=$rap;
-            $lichChieu->ngay_chieu=$ngay_chieu;
-            $lichChieu->dinh_dang_id=$dinh_dang;
-            $lichChieu->nv_lap_id=Auth::user()->id;
-            $lichChieu->save();
-            return redirect()->route('lich-chieu.getLichChieus');
-          }catch(Exception $e){
-            return redirect()->back()->with(['flag'=>'danger','message'=>'Có thể lịch chiếu đã tồn tại']);
-          }
+    public function listLichChieu(){        
+        $lich_chieus=LichChieu::where('da_xoa',false)->get();
+        $output='';
+        if($lich_chieus->isEmpty()){
+            $output.='<h1>Chưa có dữ liệu</h1>';
+        }else{
+            $output='<table class="table table-striped projects">
+        <thead>
+          <tr>
+            <th>
+              STT
+            </th>
+            <th>
+              Phim
+            </th>
+            <th>
+              Giờ chiếu 
+            </th>
+            <th>
+              Ngày chiếu 
+            </th>
+            <th>
+              Rạp
+            </th>
+            <th>
+              Định dạng
+            </th>
+            <th>
+              Nhân viên lập 
+            </th>
+          </tr>
+        </thead>
+        <tbody>';
+        $stt=0;
+        foreach($lich_chieus as $lc){
+            $stt++;
+            $output.='<tr>
+            <td>
+              '.$stt.'
+            </td>
+            <td>
+              '.$lc->phim->ten_phim.'
+            </td>
+            <td>
+              '.$lc->khung_tg_chieu->tg_chieu.'
+            </td>
+            <td>
+            '.$lc->ngay_chieu.'
+            </td>
+            <td>
+            '.$lc->rap_phim->ten_rap.'
+            </td>
+            <td>
+            '.$lc->dinh_dang->ten_dd.'
+            </td>
+            <td>
+            '.$lc->nhan_vien->ten_nv.'
+            </td>
+            <td class="project-actions text-right">
+                <button data-id="'.$lc->id.'" class="btn btn-danger btn-delete">
+                    Delete
+                </button>
+            </td>
+            </tr>';
         }
-        return view('lich-chieus.them-lich-chieu',compact('phims','khung_tg_chieus','raps','dinh_dangs'));
+        }
+        echo $output;
+    }
+
+    public function kiemTraLichChieu($ngay,$gio,$rap){
+        $lc=DB::table('lich_chieus')->where(['ngay_chieu'=>$ngay,'ktgc_id'=>$gio,'rap_id'=>$rap])->get();
+        if($lc->isEmpty()){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public function insertLichChieu(Request $request){
+        if(!$this->kiemTraLichChieu($request->ngay_chieu,$request->khung_tg_chieu_id,$request->rap_id)){
+            $lich_chieu=DB::table('lich_chieus')->insert([
+                'phim_id'=>$request->phim_id,
+                'ktgc_id'=>$request->khung_tg_chieu_id,
+                'ngay_chieu'=>$request->ngay_chieu,
+                'rap_id'=>$request->rap_id,
+                'dinh_dang_id'=>$request->dinh_dang_id,
+                'nv_lap_id'=>Auth::user()->id,
+                'created_at'=>Carbon::now(),
+                'updated_at'=>Carbon::now()
+            ]);
+            return Response::json($lich_chieu);
+        }        
+    }
+
+    public function kiemTraDatVe($id_lc){
+        $ves=DB::table('ves')->where(['lich_chieu_id'=>$id_lc,'da_xoa'=>false])->get();
+        if($ves->isEmpty()){
+            return false;
+        }else{
+            return true;
+        }
     }
     
     public function deleteLichChieu(Request $request){
-        $lichChieu=LichChieu::where('id',$request->id)->first();
-        $lichChieu->da_xoa=true;
-        $lichChieu->save();
-        return redirect()->route('lich-chieu.getLichChieus');
+        if(!$this->kiemTraDatVe($request->id)){
+            $lich_chieu=DB::table('lich_chieus')->where(['id'=>$request->id,'da_xoa'=>false])->update(['da_xoa'=>true]);
+            return "Xóa thành công!";
+        }else{
+            return "Xóa thất bại. Đã tồn tại vé thuộc lịch chiếu này!";
+        }        
     }
 
     //Quản lí thể loại
@@ -469,22 +532,96 @@ class AdminController extends Controller
     }
 
     //Quản lí vé
-    public function getVes(){
-        $ves=Ve::where('da_xoa',false)->get();
-        $sl=$ves->count();
-        return view('ves.ves',compact('ves','sl'));
+    public function indexVe(){
+        return view('ves.index');
     }
 
-    public function veDetail(Request $request){
-        $ve=Ve::where('id',$request->id,'da_xoa',false)->first();
-        return view('ves.chi-tiet-ve',compact('ve'));
+    public function listVe(){
+        $ves=Ve::where(['da_xoa'=>false])->get();
+        $output='';
+        $output.='<table class="table table-striped projects">
+        <thead>
+          <tr>
+            <th>
+              STT
+            </th>
+            <th>
+              Phim
+            </th>
+            <th>
+              Ngày chiếu 
+            </th>
+            <th>
+              Giờ chiếu
+            </th>
+            <th>
+              Rạp
+            </th>
+            <th>
+              Định dạng
+            </th>
+            <th>
+              Ghế
+            </th>
+            <th>
+              Giá
+            </th>
+          </tr>
+        </thead>
+        <tbody>';
+        $stt=0;
+        foreach($ves as $v){
+            $stt++;
+            $output.='<tr>
+            <td>
+              '.$stt.'
+            </td>
+            <td>
+              '.$v->lich_chieu->phim->ten_phim.'
+            </td>
+            <td>
+              '.$v->lich_chieu->ngay_chieu.'
+            </td>
+            <td>
+              '.$v->lich_chieu->khung_tg_chieu->tg_chieu.'
+            </td>
+            <td>
+              '.$v->lich_chieu->rap_phim->ten_rap.'
+            </td>
+            <td>
+              '.$v->lich_chieu->dinh_dang->ten_dd.'
+            </td>
+            <td>
+              '.$v->ghe->ten_ghe.'
+            </td>
+            <td>
+              '.$v->gia_ve->gia.'
+            </td>
+            <td class="project-actions text-right">
+            <button data-id="'.$v->id.'" type="button" class="btn btn-primary btn-detail" data-toggle="modal" data-target="#modal-detail-ve">
+                Chi tiết
+            </button>
+            </td>
+          </tr>';
+        }
+        $output.='</tbody>
+        </table>';
+        return $output;
     }
 
-    public function deleteVe(Request $request){
-        $ve=Ve::where('id',$request->id)->first();
-        $ve->da_xoa=true;
-        $ve->save();
-        return redirect()->route('ve.getVes');
+    public function showVe(Request $request){
+        $ve=Ve::where(['id'=>$request->id,'da_xoa'=>false])->first();
+        $ve->lich_chieu->phim->ten_phim;
+        $ve->lich_chieu->rap_phim->ten_rap;
+        $ve->lich_chieu->dinh_dang->ten_dd;
+        $ve->lich_chieu->khung_tg_chieu->tg_chieu;
+        $ve->lich_chieu->ngay_chieu;
+        $ve->gia_ve->gia;
+        $ve->ghe->ten_ghe;
+        $ve->ds_ve->tg_dat;
+        $ve->ds_ve->khach_dat_ve->ten_kdv;
+        $ve->ds_ve->chi_nhanh->ten_cn;
+        return Response::json($ve);
     }
 
     //Quản lí khách đặt vé
@@ -763,21 +900,15 @@ class AdminController extends Controller
         return view('ghes.chi-tiet-ghe',compact('ghe'));
     }
 
-    public function addGhe(Request $request){
-        $loai_ghes=LoaiGhe::where('da_xoa',false)->get();
-        $rap_phims=RapPhim::where('da_xoa',false)->get();
-        if($request->isMethod('post')){
-          $loai_ghe=$request->input("loaiGhe");
-          $rap_phim=$request->input("rapPhim");
-
-          $ghe=new Ghe();
-          $ghe->loai_ghe_id=$loai_ghe;
-          $ghe->rap_id=$rap_phim;
-          $ghe->tinh_trang=0;
-          $ghe->save();
-          return redirect()->route('ghe.getGhes');
+    public function addGhe($rap_id, $so_ghe){
+        for($i=1;$i<=$so_ghe;$i++){
+            $ghe=new Ghe();
+            $ghe->ten_ghe='Ghế '.$i;
+            $ghe->loai_ghe_id=1;
+            $ghe->rap_id=$rap_id;
+            $ghe->tinh_trang=0;
+            $ghe->save();
         }
-        return view('ghes.them-ghe',compact('loai_ghes','rap_phims'));
     }
 
     public function editGhe(Request $request){
@@ -943,6 +1074,10 @@ class AdminController extends Controller
           $rap_phim->chi_nhanh_id=$chi_nhanh;
           $rap_phim->so_ghe=$so_ghe;
           $rap_phim->save();
+
+          //Thêm ghế
+          $this->addGhe($rap_phim->id,$rap_phim->so_ghe);
+
           return redirect()->route('rap-phim.getRapPhims');
         }
         return view('rap-phims.them-rap-phim',compact('chi_nhanhs'));
@@ -973,80 +1108,140 @@ class AdminController extends Controller
     }
 
     //Quản lí giá vé
-    public function getGiaVes(){
+    public function indexGiaVe(){
+        $phims=DB::table('phims')->where(['da_xoa'=>false])->get();
+        $khung_tg_chieus=DB::table('khung_t_g_chieus')->where(['da_xoa'=>false])->get();
+        $rap_phims=DB::table('rap_phims')->where(['da_xoa'=>false])->get();
+        $dinh_dangs=DB::table('dinh_dangs')->where(['da_xoa'=>false])->get();
+        $loai_ghes=DB::table('loai_ghes')->where(['da_xoa'=>false])->get();
+        return view('gia-ves.index',compact('phims','khung_tg_chieus','rap_phims','dinh_dangs','loai_ghes'));
+    }
+
+    public function listGiaVe(){
         $gia_ves=GiaVe::where('da_xoa',false)->get();
-        $sl=$gia_ves->count();
-        return view('gia-ves.gia-ves',compact('gia_ves','sl'));
-    }
-
-    public function giaVeDetail(Request $request){
-        $gia_ve=GiaVe::where('id',$request->id,'da_xoa',false)->first();
-        return view('gia-ves.chi-tiet-gia-ve',compact('gia_ve'));
-    }
-
-    public function addGiaVe(Request $request){
-        $loai_ghes=LoaiGhe::where('da_xoa',false)->get();
-        $dinh_dangs=DinhDang::where('da_xoa',false)->get();
-        $khung_tg_chieus=KhungTGChieu::where('da_xoa',false)->get();
-        $phims=Phim::where('da_xoa',false)->get();
-        if($request->isMethod('post')){
-            $loai_ghe=$request->input("loaiGhe");
-            $dinh_dang=$request->input("dinhDang");
-            $khung_tg_chieu=$request->input("khungTGChieu");
-            $phim=$request->input("phim");
-            $gia=(double)$request->input("giaVe"); 
-            
-            try{
-                $gia_ve=new GiaVe();
-                $gia_ve->loai_ghe_id=$loai_ghe;
-                $gia_ve->dinh_dang_id=$dinh_dang;
-                $gia_ve->ktgc_id=$khung_tg_chieu;
-                $gia_ve->phim_id=$phim;
-                $gia_ve->gia=$gia;
-                $gia_ve->save();
-                return redirect()->route('gia-ve.getGiaVes'); 
-            }catch(Exception $e){
-                return redirect()->back()->with(['flag'=>'danger','message'=>'Thêm lỗi!']);
-            }
-            
+        $output='';
+        if($gia_ves->isEmpty()){
+            $output.='<h1>Chưa có dữ liệu</h1>';
+        }else{
+            $output.='<table class="table table-striped projects">
+        <thead>
+          <tr>
+            <th>
+              STT
+            </th>
+            <th>
+              Loại ghế
+            </th>
+            <th>
+              Định dạng
+            </th>
+            <th>
+              Khung thời gian chiếu
+            </th>
+            <th>
+              Phim
+            </th>
+            <th>
+              Giá
+            </th>
+          </tr>
+        </thead>
+        <tbody>';
+        $stt=0;
+        foreach($gia_ves as $gv){
+            $stt++;
+            $output.='<tr>
+            <td>
+              '.$stt.'
+            </td>
+            <td>
+              '.$gv->loai_ghe->ten_lg.'
+            </td>
+            <td>
+            '.$gv->lich_chieu->dinh_dang->ten_dd.'
+            </td>
+            <td>
+            '.$gv->lich_chieu->khung_tg_chieu->tg_chieu.'
+            </td>
+            <td>
+            '.$gv->lich_chieu->phim->ten_phim.'
+            </td>
+            <td>
+            '.$gv->gia.'
+            </td>
+            <td class="project-actions text-right">
+                <button data-id="'.$gv->id.'" class="btn btn-primary btn-detail" data-toggle="modal" data-target="#modal-detail-gia-ve">
+                    Chi tiết
+                </button>
+                <button data-id="'.$gv->id.'" class="btn btn-danger btn-delete">
+                    Xóa
+                </button>
+            </td>
+          </tr>';
         }
-        return view('gia-ves.them-gia-ve',compact('loai_ghes','dinh_dangs','khung_tg_chieus','phims'));
+        $output.='</tbody>
+        </table>';
+        }        
+        echo $output;
     }
 
-    public function editGiaVe(Request $request){
-        $gia_ve=GiaVe::where('id',$request->id,'da_xoa',false)->first();
-        $loai_ghes=LoaiGhe::where('da_xoa',false)->get();
-        $dinh_dangs=DinhDang::where('da_xoa',false)->get();
-        $khung_tg_chieus=KhungTGChieu::where('da_xoa',false)->get();
-        $phims=Phim::where('da_xoa',false)->get();
-        if($request->isMethod('post')){
-            $loai_ghe=$request->input("loaiGhe");
-            $dinh_dang=$request->input("dinhDang");
-            $khung_tg_chieu=$request->input("khungTGChieu");
-            $phim=$request->input("phim");
-            $gia=(double)$request->input("giaVe");
+    public function searchLichChieu(Request $request){
+        $lich_chieu=DB::table('lich_chieus')->where([
+            'phim_id'=>$request->phim_id,
+            'ktgc_id'=>$request->khung_tg_chieu_id,
+            'ngay_chieu'=>$request->ngay_chieu,
+            'rap_id'=>$request->rap_id,
+            'dinh_dang_id'=>$request->dinh_dang_id,
+            'da_xoa'=>false
+        ])->get();//lấy ra DANH SÁCH lịch chiếu ứng với dl nhập vào
+        return Response::json($lich_chieu);   
+    }
 
-            try{
-                $gia_ve->loai_ghe_id=$loai_ghe;
-                $gia_ve->dinh_dang_id=$dinh_dang;
-                $gia_ve->ktgc_id=$khung_tg_chieu;
-                $gia_ve->phim_id=$phim;
-                $gia_ve->gia=$gia;
-                $gia_ve->save();
-                return redirect()->route('gia-ve.getGiaVes');
-            }catch(Exception $e){
-                return redirect()->back()->with(['flag'=>'danger','message'=>'Chỉnh sửa lỗi']);
-            }
-            
+    public function showGiaVe(Request $request){
+        //$gia_ve=DB::table('gia_ves')->where(['id'=>$request->id,'da_xoa'=>false])->first();
+        //sd model de lay cac doi tuong thuoc bang khoa chinh   
+        $gia_ve=GiaVe::where('da_xoa',false)->first();
+
+        //truy van de lay cac doi tuong thuoc bang khoa chinh
+        $gia_ve->lich_chieu->phim->ten_phim;
+        $gia_ve->lich_chieu->khung_tg_chieu->tg_chieu;
+        $gia_ve->lich_chieu->rap_phim->ten_rap;
+        $gia_ve->lich_chieu->dinh_dang->ten_dd;
+        $gia_ve->loai_ghe->ten_lg;
+        $gia_ve->gia;
+        
+        return Response::json($gia_ve);
+    }
+
+    public function insertGiaVe(Request $request){
+        $gia_ve=DB::table('gia_ves')->insert([
+            'lich_chieu_id'=>$request->lich_chieu_id,
+            'loai_ghe_id'=>$request->loai_ghe_id,
+            'gia'=>$request->gia,
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+        return Response::json($gia_ve);
+    }
+
+    public function kiemTraGiaVeDaDatVe($id_gv){
+        $ves=DB::table('ves')->where(['gia_id'=>$id_gv,'da_xoa'=>false])->get();
+        if($ves->isEmpty()){
+            return false;
+        }else{
+            return true;
         }
-        return view('gia-ves.chinh-sua-gia-ve',compact('gia_ve','loai_ghes','dinh_dangs','khung_tg_chieus','phims'));
     }
 
     public function deleteGiaVe(Request $request){
-        $gia_ve=GiaVe::where('id',$request->id,'da_xoa',false)->first();
-        $gia_ve->da_xoa=true;
-        $gia_ve->save();
-        return redirect()->route('gia-ve.getGiaVes');
+        if(!$this->kiemTraGiaVeDaDatVe($request->id)){
+            $gia_ve=DB::table('gia_ves')->where(['id'=>$request->id,'da_xoa'=>false])->update(['da_xoa'=>true]);
+            //return Response::json($gia_ve);
+            return "Xóa thành công!";
+        }else{
+            return "Xóa thất bại. Dã tồn tại vé thuộc giá này!";
+        }
+        
     }
 
     //Quản lí khung thời gian chiếu

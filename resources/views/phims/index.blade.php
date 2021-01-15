@@ -148,12 +148,6 @@
                     <div class="valid-feedback">Hợp lệ.</div>
                     <div class="invalid-feedback">Không hợp lệ.</div>
                   </div>
-                  <div class="form-group">
-                    <label for="diem">Điểm</label>
-                    <input type="text" class="form-control" id="diem" placeholder="Chọn điểm" name="diem" required>
-                    <div class="valid-feedback">Hợp lệ.</div>
-                    <div class="invalid-feedback">Không hợp lệ.</div>
-                  </div>
                   <button type="submit" id="submitAddPhim" name="submitAddPhim" class="btn btn-primary">Thêm</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Thoát</button>
                 </form>
@@ -371,7 +365,6 @@
       var trailer=$('#trailer').val();
       var nhanPhim=$('#nhanPhim').val();
       var moTa=$('#moTa').val();
-      var diem=$('#diem').val();
 
       var url='{{route('phim.insertPhim')}}';
       $.ajax({
@@ -390,7 +383,6 @@
           'trailer':trailer,
           'nhan_phim': nhanPhim,
           'mo_ta': moTa,
-          'diem':diem
         }, 
         dataType: 'json',
         success: function(data){
@@ -431,7 +423,7 @@
         success: function(data){
           $('#ten_phim_detail').text(data.ten_phim);
           $('#dao_dien_detail').text(data.dao_dien);
-          $('#the_loai_detail').text(data.the_loai_id);
+          $('#the_loai_detail').text(data.the_loai.ten_tl);
           $('#ds_dien_vien_detail').text(data.ds_dien_vien);
           $('#hinh_anh_detail').text(data.hinh_anh);
           $('#nha_san_xuat_detail').text(data.nha_san_xuat);
@@ -440,7 +432,7 @@
           $('#thoi_luong_detail').text(data.thoi_luong);
           $('#trailer_detail').text(data.trailer);
           $('#nhan_phim_detail').text(data.nhan_phim);
-          $('#mota_detail').text(data.mo_ta);
+          $('#mo_ta_detail').text(data.mo_ta);
           $('#diem_detail').text(data.diem);
         },
         error: function(e){

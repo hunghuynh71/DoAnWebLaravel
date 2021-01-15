@@ -44,13 +44,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{url('lich-chieu/lich-chieu')}}" class="nav-link">
+              <a href="{{url('lich-chieu/index')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Lịch chiếu</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{url('ve/ve')}}" class="nav-link">
+              <a href="{{url('ve/index')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Vé</p>
               </a>
@@ -124,7 +124,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{url('gia-ve/gia-ve')}}" class="nav-link">
+              <a href="{{url('gia-ve/index')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Giá vé</p>
               </a>

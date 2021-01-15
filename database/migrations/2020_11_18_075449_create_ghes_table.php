@@ -15,6 +15,7 @@ class CreateGhesTable extends Migration
     {
         Schema::create('ghes', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('ten_ghe');
             $table->integer('loai_ghe_id')->unsigned();
             $table->integer('rap_id')->unsigned();
             $table->integer('tinh_trang')->default(0);

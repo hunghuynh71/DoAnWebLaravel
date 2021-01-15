@@ -13,6 +13,7 @@ class GheSeeder extends Seeder
     public function run()
     {
         $ghe=new Ghe();
+        $ghe->ten_ghe='Ghế 1';
         $ghe->loai_ghe_id=1;
         $ghe->rap_id=1;
         $ghe->save();

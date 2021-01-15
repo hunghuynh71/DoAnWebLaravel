@@ -15,7 +15,7 @@ class RapPhimSeeder extends Seeder
         $rp=new RapPhim();
         $rp->ten_rap='Rap 1';
         $rp->chi_nhanh_id=1;
-        $rp->so_ghe=50;
+        $rp->so_ghe=1;
         $rp->save();
     }
 }

@@ -39,12 +39,7 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Danh sách ghế</h3>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="btn btn-success btn-sm" href="{{route('ghe.addGhe')}}">
-          <i class="fas fa-folder">
-          </i>
-          Thêm ghế
-        </a>
+        <h3 class="card-title">Danh sách ghế</h3>&nbsp;&nbsp;&nbsp;&nbsp;        
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
             <i class="fas fa-minus"></i></button>
@@ -69,6 +64,9 @@
                 Rạp phim
               </th>
               <th>
+                Chi nhánh
+              </th>
+              <th>
                 Tình trạng
               </th>
             </tr>
@@ -80,13 +78,16 @@
                 {{$p+1}}
               </td>
               <td>
-                {{$ghes[$p]->id}}
+                {{$ghes[$p]->ten_ghe}}
               </td>
               <td>
                 {{$ghes[$p]->loai_ghe->ten_lg}}
               </td>
               <td>
                 {{$ghes[$p]->rap_phim->ten_rap}}
+              </td>
+              <td>
+                {{$ghes[$p]->rap_phim->chi_nhanh->ten_cn}}
               </td>
               <td>
                 @if($ghes[$p]->tinh_trang==1)

@@ -12,8 +12,11 @@ class DinhDangSeeder extends Seeder
      */
     public function run()
     {
-        $np=new DinhDang();
-        $np->ten_dd='2D';
-        $np->save();
+        $dd=new DinhDang();
+        $dd->ten_dd='2D';
+        $dd->save();
+        $dd2=new DinhDang();
+        $dd2->ten_dd='3D';
+        $dd2->save();
     }
 }
