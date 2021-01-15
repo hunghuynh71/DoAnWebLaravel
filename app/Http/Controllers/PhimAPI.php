@@ -93,7 +93,9 @@ class PhimAPI extends Controller
                         else
                             array_push($LichChieuSC,$lc); 
                     }
-                }                          
+                }  
+            }
+        }                        
         $idPhim = LichChieu::where('ngay_chieu',$time)->where('da_xoa',false)->get();
         $dsp=array();
         

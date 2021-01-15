@@ -23,7 +23,7 @@ Route::post('updateinfor', 'KhachDatVeAPI@updateinfor');
 Route::post('tongtienuser','KhachDatVeAPI@tongtienuser');
 Route::post('tongveuser','KhachDatVeAPI@tongveuser');
 Route::post('danhsachthongtinve','KhachDatVeAPI@danhsachthongtinve');
-
+route::post('danhsachphimdaxem','KhachDatVeAPI@danhsachphimdaxem');
 include 'khachdatve.php';
 include 'phim.php';
 

@@ -9,7 +9,6 @@ use App\Models\LichChieu;
 use App\Models\Phim;
 use App\Models\RapPhim;
 use App\Models\ChiNhanh;
-<<<<<<< HEAD
 use App\Models\Ghe;
 use App\Models\LoaiGhe;
 use App\Models\GiaVe;
@@ -21,8 +20,6 @@ use App\Models\KhungTGChieu;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-=======
->>>>>>> c6d9eb69f4d4644dfc4717ba3f90a205e057d108
 
 class KhachDatVeAPI extends Controller
 {
@@ -46,7 +43,6 @@ class KhachDatVeAPI extends Controller
     {
         if($request->isMethod('post'))
         { 
-<<<<<<< HEAD
             // Lấy giá trị gửi về
              $id_Phim      = $request->input('id_Phim');
              $id_ChiNhanh  = $request->input('id_ChiNhanh');
@@ -450,6 +446,7 @@ class KhachDatVeAPI extends Controller
          {
             //$price = DsVe::where('khach_dat_ve_id','1')->SUM('tong_tien')->get();
             //echo $tongtien;
+            if($request->isMethod('post')){
             $price = DsVe::where('khach_dat_ve_id',$request->input("id"),'da_xoa',false)->sum("tong_tien");
             
             if($price!=null)
@@ -460,10 +457,15 @@ class KhachDatVeAPI extends Controller
              {
                  return "false";
              }
+             return "false";
             }
+          }
+
+            
               //Lấy số lượng vé đã đặt
               public function tongveuser(Request $request)
               {
+                if($request->isMethod('post')){
                  //$price = DsVe::where('khach_dat_ve_id','1')->SUM('tong_tien')->get();
                  //echo $tongtien;
                  $price = DsVe::where('khach_dat_ve_id',$request->input("id"),'da_xoa',false)->sum("sl_ve");
@@ -475,119 +477,58 @@ class KhachDatVeAPI extends Controller
                   {
                       return "false";
                   }
+                }
+                return "false";
                   
               }
               public function danhsachthongtinve(Request $request)
               {
-                 //$price = DsVe::where('khach_dat_ve_id','1')->SUM('tong_tien')->get();
-                 //echo $tongtien;
+                //   $price =  array();
+                //   $chinhanh = array();
+                //   $dsve=array();
+                //  $price = DsVe::where('khach_dat_ve_id','1')->SUM('tong_tien')->get();
+                
                 //  $price = DB::select('SELECT Ten_Phim FROM Phims WHERE id IN(
                 //     SELECT lich_chieu_id FROM ves WHERE id IN(
                 //     SELECT ID FROM VES WHERE ds_ve_id IN(
                 //     SELECT id FROM ds_ves WHERE khach_dat_ve_id=?)))' , [$request->input("id")]);
-                // $chinhanh=DB::select('SELECT ten_cn FROM chi_nhanhs WHERE id IN(
+                //  $chinhanh=DB::select('SELECT ten_cn FROM chi_nhanhs WHERE id IN(
                 //     SELECT id FROM ds_ves WHERE khach_dat_ve_id=?)', [$request->input("id")]);
-                
+                if($request->isMethod('post')){
                     $dsve=DB::select('select tg_dat,sl_ve, tong_tien from ds_ves where da_xoa = false and khach_dat_ve_id=?', [$request->input("id")]);
                    
                  if($dsve!=null)
                   {
-                     return json_encode(array_merge($dsve)) ;
+                     return json_encode($dsve) ;
                   }
                   else
                   {
                       return "false";
                   }
+                }
+                return "false";
+                
                   
               }
-=======
-            
-            $Data = KhachDatve::where('email',$request->input("Email"))->first(); 
-            if(Hash::check($request->input('MatKhau'), $Data->mat_khau)&&(string)$Data !== '[]')
-            {               
-                return $Data; 
-            }
-            else
-            {
-                return "Failure"; 
-            } 
-        }
-    }
-   
-    //Chức năng lấy thông tin đặt vé
-    public function Get_Infor_ChonGhe(Request $request)
-    {
-        if($request->isMethod('post'))
-        { 
-            // Lấy giá trị gửi về
-             $id_Phim      = $request->input('id_Phim');
-             $id_ChiNhanh  = $request->input('id_ChiNhanh');
-             $id_TG        = $request->input('id_ThoiGian');
-             $NgayChieu = $request->input('ngayChieu');
-            
-             // khởi tạo đối tượng trả về
-             $lichChieus = array(); 
-
-             // Lấy thông tin
-            $Rap = RapPhim::where('chi_nhanh_id',$id_ChiNhanh)->get();
-            foreach($Rap as $r)
-            {
-                $DB_LichChieus = LichChieu::where('da_xoa',0)
-                                        ->where('khung_tg_chieu_id',$id_TG)
-                                        ->where('ngay_chieu',$NgayChieu)
-                                       ->where('phim_id',$id_Phim)->where('rap_id',$r->id)->first();
-                if((string)$DB_LichChieus !== '[]' && $DB_LichChieus != null)
-                array_push($lichChieus,$DB_LichChieus);
-            }
-            // thêm thông tin cho đối tượng trả về
-            if(!empty($lichChieus))
-            {
-                foreach($lichChieus as $lc)
-                {
-                    foreach($lc->rap_phim->ghes as $G)
+              public function danhsachphimdaxem(Request $request)
+              {
+                if($request->isMethod('post')){
+                   $price = DB::select('SELECT Ten_Phim,dao_dien,ds_dien_vien,quoc_gia FROM Phims WHERE id IN(
+                    SELECT lich_chieu_id FROM ves WHERE id IN(
+                    SELECT ID FROM VES WHERE ds_ve_id IN(
+                    SELECT id FROM ds_ves WHERE khach_dat_ve_id=?)))' , [$request->input("id")]);
+               
+                   if($price != null )
+                   {
+                        return json_encode($price);
+                   }
+                   else
                     {
-                        $G->loai_ghe;
-                    } 
+                        return "false";
+                    }
                 }
-            }else return "Failue";
-
-            // Trả về kết quả
-            return json_encode($lichChieus);
-        }
-    }
-
-    // Lấy thông tin cho page thanh toán
-    public function Get_Infor_To_ThanhToan(Request $request)
-    {
-        if($request->isMethod('post'))
-        {
-            $id_Phim = $request->input('id_Phim');
-            $id_ThoiGian = $request->input('id_ThoiGian');
-            $id_Rap = $request->input('id_Rap');
-            $ngayChieu =$request->input('ngayChieu'); 
-
-            $lichChieus = LichChieu::where('phim_id',$id_Phim)
-                                    ->where('khung_tg_chieu_id',$id_ThoiGian)
-                                    ->where('rap_id',$id_Rap)
-                                    ->where('ngay_chieu',$ngayChieu)
-                                    ->first();
-            $lichChieus->phim;
-            $lichChieus->khung_tg_chieu;
-            $lichChieus->rap_phim->chi_nhanh;
-
-            return json_encode($lichChieus);
-        }
-    
-    }
-    
-
-
-
-
-    public function demo()
-    {
-        echo "ahaha";
-    }
->>>>>>> c6d9eb69f4d4644dfc4717ba3f90a205e057d108
+                return "false";
+            }
+              
 
 }
